@@ -3,12 +3,13 @@ import React from 'react';
 export class MovieCard extends React.Component {
 
   // constructor() {
+  //   super();
 
   // }
 
   render() {
-    const { movieData } = this.props;
-    return <div className="movie-card"> { movieData.Title } </div>;
+    const { movie, onMovieClick } = this.props;
+    return <div onClick={ () => {onMovieClick(movie)} } className="movie-card"> { movie.Title } </div>;
   }
 
 }
