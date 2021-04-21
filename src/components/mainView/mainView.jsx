@@ -1,21 +1,20 @@
 import React from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 import { MovieCard } from '../movieCard/movieCard';
 import { MovieView } from '../movieView/movieView';
+import { LoginView } from '../loginView/loginView';
+import { RegistrationView } from '../registrationView/registrationView';
 
 
 export class MainView extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      movies: [
-        { _id: 1, Title: 'Inception', Description: 'desc1...', ImagePath: '...'},
-        { _id: 2, Title: 'The Shawshank Redemption', Description: 'desc2...', ImagePath: '...'},
-        { _id: 3, Title: 'Gladiator', Description: 'desc3...', ImagePath: '...'}
-      ],
-      selectedMovie: null
+      movies: [],
+      selectedMovie: null,
+      user: null
     }
   }
 
@@ -24,13 +23,23 @@ export class MainView extends React.Component {
       selectedMovie: newSelectedMovie
     });
   }
+
+  onLoggedin(user) {
+    this.setState({
+      user: user
+    });
+  }
   
 
   render() {
-    const { movies, selectedMovie } = this.state;
+    const { movies, selectedMovie, user } = this.state;
+
+    // If there is no user logged in, render the this view
+    if(!user) return <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />;
+
 
     // The there are no movies in the movies list, return message stated so (add in above logic)
-    if(movies.length === 0) return <div className="main-view">The list is empty</div>;
+    if(movies.length === 0) return <div className="main-view"></div>;
 
     // If there is no selected movie, return the home page
     if (selectedMovie)  return (
@@ -49,9 +58,15 @@ export class MainView extends React.Component {
         }
       </div>
     );
-    
-   
-    
-    
   }
+
+  componentDidMount() {
+    axios.get('https://my-fav-flix.herokuapp.com/api/movies')
+      .then(result => {
+        this.setState({ movies: result.data })
+      }).catch(err => {
+        console.log(err);
+      })
+  }
+
 }

@@ -5,10 +5,11 @@ import { MainView } from './components/mainView/mainView';
 import './index.scss'; 
 
 
+
 class MyFlixApplication extends React.Component {
   render() {
     return (
-        <MainView />
+      <MainView />
     );
   }
 }
