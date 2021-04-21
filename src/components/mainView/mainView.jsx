@@ -37,6 +37,9 @@ export class MainView extends React.Component {
     // If there is no user logged in, render the this view
     if(!user) return <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />;
 
+   
+
+
 
     // The there are no movies in the movies list, return message stated so (add in above logic)
     if(movies.length === 0) return <div className="main-view"></div>;
