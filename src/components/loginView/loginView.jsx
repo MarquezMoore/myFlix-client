@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 export function LoginView(props) {
-  const [ username, setUsername] = userState('');
-  const [ password, setPassword] = userState('');
+  const [ username, setUsername] = useState('');
+  const [ password, setPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault;
