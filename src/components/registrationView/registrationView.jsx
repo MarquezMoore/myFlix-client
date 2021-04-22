@@ -1,5 +1,9 @@
+// Modules
 import React, { useState } from 'react';
 import propType from 'prop-types';
+
+// Styles
+import './registrationView.scss';
 
 
 

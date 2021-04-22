@@ -2,6 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Styles 
+import './movieView.scss';
+
 export class MovieView extends React.Component {
 
   //Custom Component Methods

@@ -2,6 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Stlyes
+import './movieCard.scss';
+
 export class MovieCard extends React.Component {
 
 

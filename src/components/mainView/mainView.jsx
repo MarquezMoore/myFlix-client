@@ -9,6 +9,9 @@ import { MovieView } from '../movieView/movieView';
 import { LoginView } from '../loginView/loginView';
 import { RegistrationView } from '../registrationView/registrationView';
 
+// Stlyes
+import './mainView.scss';
+
 
 export class MainView extends React.Component {
 
