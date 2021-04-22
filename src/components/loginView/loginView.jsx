@@ -1,4 +1,6 @@
+// Modules
 import React, { useState } from 'react';
+import PropType from 'prop-types';
 
 export function LoginView(props) {
   const [ username, setUsername] = useState('');
@@ -25,4 +27,9 @@ export function LoginView(props) {
     </form>
   )
 
+}
+
+LoginView.prototype = {
+  username: PropType.string.isRequired,
+  password: PropType.string.isRequired
 }

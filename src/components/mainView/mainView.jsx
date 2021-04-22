@@ -1,6 +1,9 @@
+// Modules
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
+// External Components
 import { MovieCard } from '../movieCard/movieCard';
 import { MovieView } from '../movieView/movieView';
 import { LoginView } from '../loginView/loginView';
@@ -37,9 +40,6 @@ export class MainView extends React.Component {
     // If there is no user logged in, render the this view
     if(!user) return <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />;
 
-   
-
-
 
     // The there are no movies in the movies list, return message stated so (add in above logic)
     if(movies.length === 0) return <div className="main-view"></div>;
@@ -73,3 +73,6 @@ export class MainView extends React.Component {
   }
 
 }
+
+
+// No props are passed to the MainView from the index.jsx files thus I have not defined the PropTypes 

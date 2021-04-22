@@ -1,12 +1,9 @@
+// Modules
 import React from 'react';
 import PropTypes from 'prop-types';
 
 export class MovieCard extends React.Component {
 
-  // constructor() {
-  //   super();
-
-  // }
 
   render() {
     const { movie, onMovieClick } = this.props;
@@ -21,5 +18,5 @@ MovieCard.propTypes = {
     description: PropTypes.string.isRequired,
     imageURL: PropTypes.string.isRequired
   }).isRequired,
-  onClick: PropTypes.func.isRequired
+  onMovieClick: PropTypes.func.isRequired
 }

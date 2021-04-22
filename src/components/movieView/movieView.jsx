@@ -1,4 +1,6 @@
+// Modules
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class MovieView extends React.Component {
 
@@ -39,4 +41,13 @@ export class MovieView extends React.Component {
     document.removeEventListener('keydown', this.keyPressCallback);
   }
  
+}
+
+MovieView.proptype = {
+  movie: PropType.shape({
+    title: PropType.string.isRequired,
+    description: Proptype.string.isRequired,
+    imageURL: PropType.string.isRequired
+  }).isRequired,
+  onBackClick: PropType.func.isRequired
 }
