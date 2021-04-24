@@ -2,6 +2,11 @@
 import React, { useState } from 'react';
 import PropType from 'prop-types';
 
+
+// React-Bootstrap Components
+import From from 'react-bootstrap/From';
+import Button from 'react-bootstrap/Button';
+
 // Styles 
 import './loginView.scss';
 
@@ -17,7 +22,7 @@ export function LoginView(props) {
   }
 
   return (
-    <form className="login-form" action="">
+    <From className="login-form" action="">
       <label>
         Username:
         <input type="text" name="username" value={ username } onChange={ e => {setUsername(e.target.value)} } />
@@ -26,8 +31,8 @@ export function LoginView(props) {
         Password
         <input type="password" name="password" value={ password } onChange={ e => {setPassword(e.target.value)} } />
       </label>
-      <button type="submit" onClick={ handleSubmit } >Submit</button>
-    </form>
+      <Button type="submit" onClick={ handleSubmit } >Submit</Button>
+    </From>
   )
 
 }
