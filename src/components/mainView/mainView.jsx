@@ -45,17 +45,23 @@ export class MainView extends React.Component {
 
 
     // The there are no movies in the movies list, return message stated so (add in above logic)
-    if(movies.length === 0) return <div className="main-view"></div>;
+    if(movies.length === 0) return <div className="main-view">There are no movies listed</div>;
 
-    // If there is no selected movie, return the home page
-    if (selectedMovie)  return (
+    // If there is no selected movie, return the home page (MovieView)
+    return selectedMovie
+      ? 
+    (
       <div className="main-view">
-        <MovieView movie={selectedMovie} onBackClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)}}/>
+        <Row>
+          <Col md={8} >
+            <MovieView movie={selectedMovie} onBackClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)}}/>
+          </Col>
+        </Row>
+        
       </div>
     )
-    
-    // If a movie is selected and there are movies in the stated the show selected movies content
-    return (
+      :
+    (
       <div className="main-view">
         { 
           movies.map( 

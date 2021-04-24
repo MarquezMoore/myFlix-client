@@ -1,9 +1,14 @@
 // Modules
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+// Customer Components
 import { MainView } from './components/mainView/mainView';
 
-// Styles
+// React-Bootstrap Components
+import Container from 'react-bootstrap/Container';
+
+// Styles 
 import './index.scss'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,7 +16,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <MainView />
+      <Container>
+        <MainView />
+      </Container>
     );
   }
 }

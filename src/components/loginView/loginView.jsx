@@ -4,7 +4,7 @@ import PropType from 'prop-types';
 
 
 // React-Bootstrap Components
-import From from 'react-bootstrap/From';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 // Styles 
@@ -22,17 +22,25 @@ export function LoginView(props) {
   }
 
   return (
-    <From className="login-form" action="">
-      <label>
-        Username:
-        <input type="text" name="username" value={ username } onChange={ e => {setUsername(e.target.value)} } />
-      </label>
-      <label>
-        Password
-        <input type="password" name="password" value={ password } onChange={ e => {setPassword(e.target.value)} } />
-      </label>
+    <Form className="login-form" action="">
+      <Form.Group controlId="username"> 
+        <Form.Label>
+          Username:
+          <Form.Control type="text" name="username" value={ username } onChange={ e => {setUsername(e.target.value)} } placeholder="Enter username"/>
+        </Form.Label>
+        <Form.Text>
+          You email will never be shared to anyone esle.
+        </Form.Text>
+      </Form.Group>
+
+      <Form.Group controlId="password">
+          <Form.Label>
+            Password
+            <Form.Control type="password" name="password" value={ password } onChange={ e => {setPassword(e.target.value)} } placeholder="Enter username"/>
+          </Form.Label>
+      </Form.Group>
       <Button type="submit" onClick={ handleSubmit } >Submit</Button>
-    </From>
+    </Form>
   )
 
 }
