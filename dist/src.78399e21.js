@@ -33091,9 +33091,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
           movie = _this$props.movie,
           onMovieClick = _this$props.onMovieClick;
       return /*#__PURE__*/_react.default.createElement(_Card.default, {
-        style: {
-          width: '13rem'
-        },
+        className: "vw-25",
         onClick: function onClick() {
           onMovieClick(movie);
         }
@@ -34717,7 +34715,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           _this2.setSelectedMovie(newSelectedMovie);
         }
       })) : movies.map(function (movie) {
-        return /*#__PURE__*/_react.default.createElement(_Col.default, null, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
+        return /*#__PURE__*/_react.default.createElement(_Col.default, {
+          className: "flex-wrap p-3"
+        }, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
           movie: movie,
           onMovieClick: function onMovieClick(newSelectedMovie) {
@@ -34889,7 +34889,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63226" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

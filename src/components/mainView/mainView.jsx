@@ -55,10 +55,6 @@ export class MainView extends React.Component {
      
     );
 
-    
-
-
-
     // The there are no movies in the movies list, return message stated so (add in above logic)
     if(movies.length === 0) return <div className="main-view">There are no movies listed</div>;
 
@@ -72,7 +68,7 @@ export class MainView extends React.Component {
             </Col>
           :
             movies.map( movie => (
-              <Col >
+              <Col className="flex-wrap p-3">
                 <MovieCard key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
               </Col>
             ))
