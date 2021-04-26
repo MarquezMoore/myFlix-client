@@ -15,15 +15,15 @@ export class MovieCard extends React.Component {
   render() {
     const { movie, onMovieClick } = this.props;
     return (
-      <Card style={{ width: '18rem'}}>
+      <Card style={{ width: '13rem'}} onClick={ () => {onMovieClick(movie)} }>
         <Card.Img variant="top" src={ movie.imageURL } />
-        <Card.Body>
+        {/* <Card.Body>
           <Card.Title> { movie.title } </Card.Title>
-          <Card.Text> { movie.description } </Card.Text>
-        </Card.Body>
-        <Button onClick={ () => {onMovieClick(movie)} }>
-          See More
-        </Button>
+          <Card.Text style={{height: '10vh'}} className="overflow-auto"> { movie.description } </Card.Text>
+          <Button variant="primary" onClick={ () => {onMovieClick(movie)} }>
+            See More
+          </Button>
+        </Card.Body> */}
       </Card>
   
     );

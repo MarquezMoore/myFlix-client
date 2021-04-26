@@ -10,14 +10,14 @@ import Container from 'react-bootstrap/Container';
 
 // Styles 
 import './index.scss'; 
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <Container>
-        <MainView />
+      <Container fluid className="d-flex flex-column max-vw-100 min-vh-100">
+        <MainView className="flex-grow-1 w-100" />
       </Container>
     );
   }

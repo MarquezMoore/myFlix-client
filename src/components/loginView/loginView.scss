@@ -1,0 +1,27 @@
+
+.login-view{
+  background: linear-gradient( var(--mainFaded), var(--mainFaded) ),url('../../assets/img/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+
+.login-form{
+  // background-color: var(--gray8)
+}
+.form-group{
+  margin: 1rem;
+}
+.form-label{
+  font-weight: lighter;
+}
+
+
+.button{
+  background: var(--main);
+  border: none;
+  transition: all 300ms;
+  :hover{
+    transform: scale(1.2);
+  }
+}
