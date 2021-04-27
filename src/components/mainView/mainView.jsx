@@ -48,7 +48,7 @@ export class MainView extends React.Component {
     // If there is no user logged in, render the this view
     if(!user) return (
       <Row className="login-view flex-grow-1 align-items-center justify-content-center">
-        <Col className="login-card" >
+        <Col className="d-flex w-100 justify-content-center" >
           <LoginView  onLoggedIn={ user => {this.onLoggedin(user)} } />
         </Col>
       </Row>
@@ -60,7 +60,7 @@ export class MainView extends React.Component {
 
     // If there is no selected movie, return the home page (MovieView)
     return (
-      <Row className="main-view ">
+      <Row className=" ">
         {selectedMovie
           ? 
             <Col md={8} >

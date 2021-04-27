@@ -34322,12 +34322,87 @@ FormImpl.Label = _FormLabel.default;
 FormImpl.Text = _FormText.default;
 var _default = FormImpl;
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./FormCheck":"../node_modules/react-bootstrap/esm/FormCheck.js","./FormFile":"../node_modules/react-bootstrap/esm/FormFile.js","./FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./FormGroup":"../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../node_modules/react-bootstrap/esm/FormText.js","./Switch":"../node_modules/react-bootstrap/esm/Switch.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"components/loginView/loginView.scss":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./FormCheck":"../node_modules/react-bootstrap/esm/FormCheck.js","./FormFile":"../node_modules/react-bootstrap/esm/FormFile.js","./FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./FormGroup":"../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../node_modules/react-bootstrap/esm/FormText.js","./Switch":"../node_modules/react-bootstrap/esm/Switch.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js"}],"../node_modules/react-bootstrap/esm/InputGroup.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutPropertiesLoose"));
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _classnames = _interopRequireDefault(require("classnames"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _createWithBsPrefix = _interopRequireDefault(require("./createWithBsPrefix"));
+
+var _ThemeProvider = require("./ThemeProvider");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var InputGroupAppend = (0, _createWithBsPrefix.default)('input-group-append');
+var InputGroupPrepend = (0, _createWithBsPrefix.default)('input-group-prepend');
+var InputGroupText = (0, _createWithBsPrefix.default)('input-group-text', {
+  Component: 'span'
+});
+
+var InputGroupCheckbox = function InputGroupCheckbox(props) {
+  return /*#__PURE__*/_react.default.createElement(InputGroupText, null, /*#__PURE__*/_react.default.createElement("input", (0, _extends2.default)({
+    type: "checkbox"
+  }, props)));
+};
+
+var InputGroupRadio = function InputGroupRadio(props) {
+  return /*#__PURE__*/_react.default.createElement(InputGroupText, null, /*#__PURE__*/_react.default.createElement("input", (0, _extends2.default)({
+    type: "radio"
+  }, props)));
+};
+/**
+ *
+ * @property {InputGroupAppend} Append
+ * @property {InputGroupPrepend} Prepend
+ * @property {InputGroupText} Text
+ * @property {InputGroupRadio} Radio
+ * @property {InputGroupCheckbox} Checkbox
+ */
+
+
+var InputGroup = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) {
+  var bsPrefix = _ref.bsPrefix,
+      size = _ref.size,
+      hasValidation = _ref.hasValidation,
+      className = _ref.className,
+      _ref$as = _ref.as,
+      Component = _ref$as === void 0 ? 'div' : _ref$as,
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "size", "hasValidation", "className", "as"]);
+  bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'input-group');
+  return /*#__PURE__*/_react.default.createElement(Component, (0, _extends2.default)({
+    ref: ref
+  }, props, {
+    className: (0, _classnames.default)(className, bsPrefix, size && bsPrefix + "-" + size, hasValidation && 'has-validation')
+  }));
+});
+
+InputGroup.displayName = 'InputGroup';
+var InputGroupWithExtras = (0, _extends2.default)({}, InputGroup, {
+  Text: InputGroupText,
+  Radio: InputGroupRadio,
+  Checkbox: InputGroupCheckbox,
+  Append: InputGroupAppend,
+  Prepend: InputGroupPrepend
+});
+var _default = InputGroupWithExtras;
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./createWithBsPrefix":"../node_modules/react-bootstrap/esm/createWithBsPrefix.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js"}],"components/loginView/loginView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../../assets/img/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg":[["felix-mooneeram-evlkOfkQ5rE-unsplash.91547d04.jpg","assets/img/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg"],"assets/img/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg"],"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/loginView/loginView.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/loginView/loginView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34343,7 +34418,9 @@ var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
-var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+var _InputGroup = _interopRequireDefault(require("react-bootstrap/InputGroup"));
+
+var _FormControl = _interopRequireDefault(require("react-bootstrap/FormControl"));
 
 require("./loginView.scss");
 
@@ -34382,62 +34459,54 @@ function LoginView(props) {
     props.onLoggedIn(username);
   };
 
-  return /*#__PURE__*/_react.default.createElement(_Card.default, {
-    style: {
-      display: 'flex',
-      flexDirection: 'row',
-      width: '55%',
-      position: 'absolute',
-      left: '50%',
-      top: '50%',
-      transform: 'translate(-50%, -50%)'
-    }
-  }, /*#__PURE__*/_react.default.createElement(_Card.default.Img, {
-    className: "w-50",
-    variant: "left",
-    src: "https://via.placeholder.com/150C/O"
-  }), /*#__PURE__*/_react.default.createElement(_Card.default.Body, {
-    style: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  }, /*#__PURE__*/_react.default.createElement(_Form.default, {
-    className: "login-form d-flex flex-column p-2",
+  return /*#__PURE__*/_react.default.createElement(_Form.default, {
+    className: "login-form d-flex flex-column p-5 bg-light shadow",
     action: ""
   }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "text-center fs-1 pb-2"
-  }, "Sign In"), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
-    controlId: "username"
-  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, " Username: "), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
+    className: "form-heading text-center fs-3 mt-2 mb-4 fw-light"
+  }, "Log in to your account"), /*#__PURE__*/_react.default.createElement(_Form.default.Group, null, /*#__PURE__*/_react.default.createElement(_Form.default.Label, {
+    className: ""
+  }, "Username:"), /*#__PURE__*/_react.default.createElement(_InputGroup.default, {
+    className: "mb-3"
+  }, /*#__PURE__*/_react.default.createElement(_InputGroup.default.Prepend, null, /*#__PURE__*/_react.default.createElement(_InputGroup.default.Text, {
+    id: "username-icon"
+  }, "@")), /*#__PURE__*/_react.default.createElement(_FormControl.default, {
     type: "text",
-    name: "username",
+    placeholder: "Username",
+    "aria-label": "Username",
+    "aria-describedby": "basic-addon1",
     value: username,
     onChange: function onChange(e) {
       setUsername(e.target.value);
     }
-  }), /*#__PURE__*/_react.default.createElement(_Form.default.Text, null, "You email will never be shared to anyone esle.")), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
+  }))), /*#__PURE__*/_react.default.createElement(_Form.default.Group, {
     controlId: "password"
-  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Password: "), /*#__PURE__*/_react.default.createElement(_Form.default.Control, {
+  }, /*#__PURE__*/_react.default.createElement(_Form.default.Label, null, "Password: "), /*#__PURE__*/_react.default.createElement(_InputGroup.default, {
+    className: "mb-3"
+  }, /*#__PURE__*/_react.default.createElement(_InputGroup.default.Prepend, null, /*#__PURE__*/_react.default.createElement(_InputGroup.default.Text, {
+    id: "password-icon"
+  }, "X")), /*#__PURE__*/_react.default.createElement(_FormControl.default, {
     type: "password",
-    name: "password",
     value: password,
     onChange: function onChange(e) {
       setPassword(e.target.value);
-    }
-  })), /*#__PURE__*/_react.default.createElement(_Button.default, {
-    className: "button align-self-center w-50 mt-4",
+    },
+    placeholder: "Password",
+    "aria-label": "Password",
+    "aria-describedby": "basic-addon1"
+  }))), /*#__PURE__*/_react.default.createElement(_Button.default, {
+    className: "button btn-lg fw-light align-self-center w-100 mt-2",
     variant: "primary",
     type: "submit",
     onClick: handleSubmit
-  }, "Submit"))));
+  }, "Log In"));
 }
 
 LoginView.prototype = {
   username: _propTypes.default.string.isRequired,
   password: _propTypes.default.string.isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","./loginView.scss":"components/loginView/loginView.scss"}],"components/registrationView/registrationView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/InputGroup":"../node_modules/react-bootstrap/esm/InputGroup.js","react-bootstrap/FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./loginView.scss":"components/loginView/loginView.scss"}],"components/registrationView/registrationView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -34694,7 +34763,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!user) return /*#__PURE__*/_react.default.createElement(_Row.default, {
         className: "login-view flex-grow-1 align-items-center justify-content-center"
       }, /*#__PURE__*/_react.default.createElement(_Col.default, {
-        className: "login-card"
+        className: "d-flex w-100 justify-content-center"
       }, /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
           _this2.onLoggedin(user);
@@ -34706,7 +34775,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, "There are no movies listed"); // If there is no selected movie, return the home page (MovieView)
 
       return /*#__PURE__*/_react.default.createElement(_Row.default, {
-        className: "main-view "
+        className: " "
       }, selectedMovie ? /*#__PURE__*/_react.default.createElement(_Col.default, {
         md: 8
       }, /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
@@ -34850,7 +34919,7 @@ var MyFlixApplication = /*#__PURE__*/function (_React$Component) {
         fluid: true,
         className: "d-flex flex-column max-vw-100 min-vh-100"
       }, /*#__PURE__*/_react.default.createElement(_mainView.MainView, {
-        className: "flex-grow-1 w-100"
+        className: "main-view flex-grow-1 w-100"
       }));
     }
   }]);
@@ -34889,7 +34958,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63226" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49560" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
