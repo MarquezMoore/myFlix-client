@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 // React-Bootstrap Components
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import Container from 'react-bootstrap/Container';
 
 // Stlyes
 import './movieCard.scss';
@@ -15,7 +16,7 @@ export class MovieCard extends React.Component {
   render() {
     const { movie, onMovieClick } = this.props;
     return (
-      <Card className="vw-25" onClick={ () => {onMovieClick(movie)} }>
+      <Card onClick={ () => {onMovieClick(movie)} }>
         <Card.Img variant="top" src={ movie.imageURL } />
         {/* <Card.Body>
           <Card.Title> { movie.title } </Card.Title>
@@ -25,7 +26,6 @@ export class MovieCard extends React.Component {
           </Button>
         </Card.Body> */}
       </Card>
-  
     );
   }
 }

@@ -24,16 +24,20 @@ export function LoginView(props) {
   }
 
   return (
-    <Form className="login-form d-flex flex-column p-5 bg-light shadow" action="" >
+    <Form className="login-form d-flex flex-column p-4 bg-light shadow" action="" >
       <div className="form-heading text-center fs-3 mt-2 mb-4 fw-light">
         Log in to your account
       </div>
       {/* Input Group */}
       <Form.Group>
-        <Form.Label className="">Username:</Form.Label>
+        <Form.Label className="">Username</Form.Label>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
-            <InputGroup.Text id="username-icon">@</InputGroup.Text>
+            <InputGroup.Text id="username-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#7B0708" className="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+            </InputGroup.Text>
           </InputGroup.Prepend>
           <FormControl
             type="text"
@@ -48,10 +52,14 @@ export function LoginView(props) {
       
 
       <Form.Group controlId="password">
-        <Form.Label>Password: </Form.Label>
+        <Form.Label>Password </Form.Label>
         <InputGroup className="mb-3">
           <InputGroup.Prepend>
-            <InputGroup.Text id="password-icon">X</InputGroup.Text>
+            <InputGroup.Text id="password-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#7B0708" className="bi bi-lock-fill" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+              </svg>
+            </InputGroup.Text>
           </InputGroup.Prepend>
           <FormControl
             type="password" 

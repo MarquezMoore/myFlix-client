@@ -28,6 +28,7 @@ $main: #7B0708;
     transition: all 300ms;
     &:hover{
       background-color: saturate($main, 50%);
+      transform: scale(1.01);
     }
   }
 }

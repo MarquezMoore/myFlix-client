@@ -13,6 +13,7 @@ import { RegistrationView } from '../registrationView/registrationView';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 // Stlyes
 import './mainView.scss';
@@ -45,6 +46,14 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user } = this.state;
 
+    // return (
+    //   <Row className="reg-view min-vh-100">
+    //     <Col className="d-flex justify-content-center align-items-center">
+    //       <RegistrationView />
+    //     </Col>
+    //   </Row>
+    // );
+
     // If there is no user logged in, render the this view
     if(!user) return (
       <Row className="login-view flex-grow-1 align-items-center justify-content-center">
@@ -52,7 +61,6 @@ export class MainView extends React.Component {
           <LoginView  onLoggedIn={ user => {this.onLoggedin(user)} } />
         </Col>
       </Row>
-     
     );
 
     // The there are no movies in the movies list, return message stated so (add in above logic)
@@ -60,7 +68,7 @@ export class MainView extends React.Component {
 
     // If there is no selected movie, return the home page (MovieView)
     return (
-      <Row className=" ">
+      <Row>
         {selectedMovie
           ? 
             <Col md={8} >
@@ -68,10 +76,11 @@ export class MainView extends React.Component {
             </Col>
           :
             movies.map( movie => (
-              <Col className="flex-wrap p-3">
-                <MovieCard key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
+              <Col sm={12} md={3} lg={2} key={`col-${movie._id}`} className="p-3">
+                <MovieCard className="" key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
               </Col>
             ))
+            
         }
       </Row>
     );

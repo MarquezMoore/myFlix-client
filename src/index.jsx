@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container';
 
 // Styles 
 import './index.scss'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
