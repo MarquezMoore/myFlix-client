@@ -1,8 +1,15 @@
 $main: #7B0708;
+%buttonsShared {
+  background-color: saturate($main, 50%) !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none;
+}
 
 .login-view{
   background-color: desaturate($main, 33%);
 }
+
 
 .login-form{
   width: 430px;
@@ -26,9 +33,17 @@ $main: #7B0708;
     background-color: $main;
     border: none;
     transition: all 300ms;
+    &:focus{
+      @extend %buttonsShared;
+    }
     &:hover{
       background-color: saturate($main, 50%);
       transform: scale(1.01);
+      outline: none !important;
+      border: none !important;
+    }
+    &:active{
+      @extend %buttonsShared;
     }
   }
 }

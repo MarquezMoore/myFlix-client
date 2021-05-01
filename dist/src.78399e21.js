@@ -34505,6 +34505,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
@@ -34545,9 +34547,20 @@ function LoginView(props) {
       setPassword = _useState4[1];
 
   var handleSubmit = function handleSubmit(e) {
-    e.preventDefault;
-    console.log(username, password);
-    props.onLoggedIn(username);
+    e.preventDefault();
+    console.log("username: ".concat(username, ", Password: ").concat(password));
+
+    _axios.default.post('https://my-fav-flix.herokuapp.com/login', {
+      username: username,
+      password: password
+    }).then(function (result) {
+      console.log("Result: ".concat(result.authData));
+      var data = results.authData;
+      props.onLoggedIn(authData);
+    }).catch(function (err) {
+      console.log(err);
+      console.log('No such user...');
+    });
   };
 
   return /*#__PURE__*/_react.default.createElement(_Form.default, {
@@ -34615,7 +34628,7 @@ LoginView.prototype = {
   username: _propTypes.default.string.isRequired,
   password: _propTypes.default.string.isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/InputGroup":"../node_modules/react-bootstrap/esm/InputGroup.js","react-bootstrap/FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./loginView.scss":"components/loginView/loginView.scss"}],"components/registrationView/registrationView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/InputGroup":"../node_modules/react-bootstrap/esm/InputGroup.js","react-bootstrap/FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./loginView.scss":"components/loginView/loginView.scss"}],"components/registrationView/registrationView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -34819,8 +34832,6 @@ var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 
 var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
 
-var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
-
 require("./mainView.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34875,15 +34886,36 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "onLoggedin",
-    value: function onLoggedin(user) {
+    value: function onLoggedin(authData) {
+      console.log(authData);
       this.setState({
-        user: user
+        user: authDatat.user.username
+      });
+      localStorage.setItem('user', authData.user.username);
+      localStorage.setItem('token', authData.token);
+      this.getMovies(authData.token);
+    }
+  }, {
+    key: "getMovie",
+    value: function getMovie(token) {
+      var _this2 = this;
+
+      _axios.default.get('https://my-fav-flix.herokuapp.com/api/movies', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (result) {
+        _this2.setState({
+          movies: respsonse.data
+        });
+      }).catch(function (err) {
+        console.log(err);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
@@ -34902,9 +34934,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/_react.default.createElement(_Col.default, {
         className: "d-flex w-100 justify-content-center"
       }, /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-        onLoggedIn: function onLoggedIn(user) {
-          _this2.onLoggedin(user);
-        }
+        onLoggedIn: this.onLoggedin
       }))); // The there are no movies in the movies list, return message stated so (add in above logic)
 
       if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
@@ -34916,7 +34946,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
         movie: selectedMovie,
         onBackClick: function onBackClick(newSelectedMovie) {
-          _this2.setSelectedMovie(newSelectedMovie);
+          _this3.setSelectedMovie(newSelectedMovie);
         }
       })) : movies.map(function (movie) {
         return /*#__PURE__*/_react.default.createElement(_Col.default, {
@@ -34930,7 +34960,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           key: movie._id,
           movie: movie,
           onMovieClick: function onMovieClick(newSelectedMovie) {
-            _this2.setSelectedMovie(newSelectedMovie);
+            _this3.setSelectedMovie(newSelectedMovie);
           }
         }));
       }));
@@ -34938,10 +34968,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this3 = this;
+      var _this4 = this;
 
       _axios.default.get('https://my-fav-flix.herokuapp.com/api/movies').then(function (result) {
-        _this3.setState({
+        _this4.setState({
           movies: result.data
         });
       }).catch(function (err) {
@@ -34955,7 +34985,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../movieCard/movieCard":"components/movieCard/movieCard.jsx","../movieView/movieView":"components/movieView/movieView.jsx","../loginView/loginView":"components/loginView/loginView.jsx","../registrationView/registrationView":"components/registrationView/registrationView.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./mainView.scss":"components/mainView/mainView.scss"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../movieCard/movieCard":"components/movieCard/movieCard.jsx","../movieView/movieView":"components/movieView/movieView.jsx","../loginView/loginView":"components/loginView/loginView.jsx","../registrationView/registrationView":"components/registrationView/registrationView.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","./mainView.scss":"components/mainView/mainView.scss"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -35062,7 +35092,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61588" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56445" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

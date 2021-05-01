@@ -13,7 +13,6 @@ import { RegistrationView } from '../registrationView/registrationView';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
 
 // Stlyes
 import './mainView.scss';
@@ -36,10 +35,31 @@ export class MainView extends React.Component {
     });
   }
 
-  onLoggedin(user) {
+  onLoggedin(authData) {
+    console.log(authData);
     this.setState({
-      user: user
+      user: authDatat.user.username
     });
+
+
+    localStorage.setItem('user', authData.user.username);
+    localStorage.setItem('token', authData.token);
+
+    this.getMovies(authData.token);
+  }
+
+  getMovie(token){
+    axios.get('https://my-fav-flix.herokuapp.com/api/movies', {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    .then( result => {
+      this.setState({
+        movies: respsonse.data
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    })
   }
   
 
@@ -58,7 +78,7 @@ export class MainView extends React.Component {
     if(!user) return (
       <Row className="login-view flex-grow-1 align-items-center justify-content-center">
         <Col className="d-flex w-100 justify-content-center" >
-          <LoginView  onLoggedIn={ user => {this.onLoggedin(user)} } />
+          <LoginView onLoggedIn={ this.onLoggedin } />
         </Col>
       </Row>
     );

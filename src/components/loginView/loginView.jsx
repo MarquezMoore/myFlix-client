@@ -1,6 +1,7 @@
 // Modules
 import React, { useState } from 'react';
 import PropType from 'prop-types';
+import axios from 'axios';
 
 
 // React-Bootstrap Components
@@ -17,10 +18,23 @@ export function LoginView(props) {
   const [ password, setPassword] = useState('');
 
   const handleSubmit = e => {
-    e.preventDefault;
-    console.log(username, password);
+    e.preventDefault();
+    console.log(`username: ${username}, Password: ${password}`);
 
-    props.onLoggedIn(username);
+    axios.post('https://my-fav-flix.herokuapp.com/login', 
+      {
+        username, 
+        password
+      })
+      .then(result => {
+        console.log(`Result: ${result.authData}`)
+        const data = results.authData;
+        props.onLoggedIn(authData);
+      })
+      .catch( err => {
+        console.log(err);
+        console.log('No such user...')
+      })
   }
 
   return (

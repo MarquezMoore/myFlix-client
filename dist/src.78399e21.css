@@ -1,3 +1,10 @@
+.login-form .button:active, .login-form .button:focus {
+  background-color: #820001 !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none;
+}
+
 .login-view {
   background-color: #661c1d;
 }
@@ -29,6 +36,8 @@
 .login-form .button:hover {
   background-color: #820001;
   transform: scale(1.01);
+  outline: none !important;
+  border: none !important;
 }
 .reg-view {
   background-color: #661c1d;
