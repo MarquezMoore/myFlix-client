@@ -8,9 +8,9 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 
 // Stlyes
-import './movieCard.scss';
+import './movieList.scss';
 
-export class MovieCard extends React.Component {
+export class MovieList extends React.Component {
 
 
   render() {
@@ -30,7 +30,7 @@ export class MovieCard extends React.Component {
   }
 }
 
-MovieCard.propTypes = {
+MovieList.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

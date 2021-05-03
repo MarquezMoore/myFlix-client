@@ -4,7 +4,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 // Custom Components
-import { MovieCard } from '../movieCard/movieCard';
+import { MovieList } from '../movieList/movieList';
 import { MovieView } from '../movieView/movieView';
 import { LoginView } from '../loginView/loginView';
 import { RegistrationView } from '../registrationView/registrationView';
@@ -38,7 +38,7 @@ export class MainView extends React.Component {
   onLoggedin(authData) {
     console.log(authData);
     this.setState({
-      user: authDatat.user.username
+      user: authData.user.username
     });
 
 
@@ -48,13 +48,13 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  getMovie(token){
+  getMovies(token){
     axios.get('https://my-fav-flix.herokuapp.com/api/movies', {
       headers: {Authorization: `Bearer ${token}`}
     })
     .then( result => {
       this.setState({
-        movies: respsonse.data
+        movies: result.data
       })
     })
     .catch( err => {
@@ -78,7 +78,7 @@ export class MainView extends React.Component {
     if(!user) return (
       <Row className="login-view flex-grow-1 align-items-center justify-content-center">
         <Col className="d-flex w-100 justify-content-center" >
-          <LoginView onLoggedIn={ this.onLoggedin } />
+          <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />
         </Col>
       </Row>
     );
@@ -97,7 +97,7 @@ export class MainView extends React.Component {
           :
             movies.map( movie => (
               <Col sm={12} md={3} lg={2} key={`col-${movie._id}`} className="p-3">
-                <MovieCard className="" key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
+                <MovieList className="" key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
               </Col>
             ))
             
@@ -108,12 +108,16 @@ export class MainView extends React.Component {
 
 
   componentDidMount() {
-    axios.get('https://my-fav-flix.herokuapp.com/api/movies')
-      .then(result => {
-        this.setState({ movies: result.data })
-      }).catch(err => {
-        console.log(err);
-      })
+    // Retrive the JWT from the applications localStorage
+    let accessToken = localStorage.getItem('token');
+    // The there is a token in the apps localStorage update the user state to the user in stored in the localStorage
+    if(accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      // Display movies
+      this.getMovies(accessToken);
+    }
   }
 }
 

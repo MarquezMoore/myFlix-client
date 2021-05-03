@@ -14,26 +14,27 @@ import FormControl from 'react-bootstrap/FormControl';
 import './loginView.scss';
 
 export function LoginView(props) {
+  // Functional component state creation via the useState hook
   const [ username, setUsername] = useState('');
   const [ password, setPassword] = useState('');
 
+  // Event handeler function on form submit
   const handleSubmit = e => {
     e.preventDefault();
     console.log(`username: ${username}, Password: ${password}`);
 
-    axios.post('https://my-fav-flix.herokuapp.com/login', 
-      {
-        username, 
-        password
+    axios.post('https://my-fav-flix.herokuapp.com/login', {
+        Username: username, 
+        Password: password
       })
       .then(result => {
-        console.log(`Result: ${result.authData}`)
-        const data = results.authData;
-        props.onLoggedIn(authData);
+        console.log(`Result: ${result.data}`)
+        const data = result.data;
+        props.onLoggedIn(data);
       })
       .catch( err => {
         console.log(err);
-        console.log('No such user...')
+        console.log('No such user...');
       })
   }
 

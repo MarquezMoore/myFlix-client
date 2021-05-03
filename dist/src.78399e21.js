@@ -32917,18 +32917,18 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/movieCard/movieCard.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/movieList/movieList.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movieCard/movieCard.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movieList/movieList.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MovieCard = void 0;
+exports.MovieList = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -32940,7 +32940,7 @@ var _Jumbotron = _interopRequireDefault(require("react-bootstrap/Jumbotron"));
 
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
-require("./movieCard.scss");
+require("./movieList.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32966,18 +32966,18 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var MovieCard = /*#__PURE__*/function (_React$Component) {
-  _inherits(MovieCard, _React$Component);
+var MovieList = /*#__PURE__*/function (_React$Component) {
+  _inherits(MovieList, _React$Component);
 
-  var _super = _createSuper(MovieCard);
+  var _super = _createSuper(MovieList);
 
-  function MovieCard() {
-    _classCallCheck(this, MovieCard);
+  function MovieList() {
+    _classCallCheck(this, MovieList);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(MovieCard, [{
+  _createClass(MovieList, [{
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -32994,11 +32994,11 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 
-  return MovieCard;
+  return MovieList;
 }(_react.default.Component);
 
-exports.MovieCard = MovieCard;
-MovieCard.propTypes = {
+exports.MovieList = MovieList;
+MovieList.propTypes = {
   movie: _propTypes.default.shape({
     title: _propTypes.default.string.isRequired,
     description: _propTypes.default.string.isRequired,
@@ -33006,7 +33006,7 @@ MovieCard.propTypes = {
   }).isRequired,
   onMovieClick: _propTypes.default.func.isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Jumbotron":"../node_modules/react-bootstrap/esm/Jumbotron.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./movieCard.scss":"components/movieCard/movieCard.scss"}],"components/movieView/movieView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Jumbotron":"../node_modules/react-bootstrap/esm/Jumbotron.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./movieList.scss":"components/movieList/movieList.scss"}],"components/movieView/movieView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -34536,6 +34536,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function LoginView(props) {
+  // Functional component state creation via the useState hook
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
@@ -34544,19 +34545,20 @@ function LoginView(props) {
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
       password = _useState4[0],
-      setPassword = _useState4[1];
+      setPassword = _useState4[1]; // Event handeler function on form submit
+
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     console.log("username: ".concat(username, ", Password: ").concat(password));
 
     _axios.default.post('https://my-fav-flix.herokuapp.com/login', {
-      username: username,
-      password: password
+      Username: username,
+      Password: password
     }).then(function (result) {
-      console.log("Result: ".concat(result.authData));
-      var data = results.authData;
-      props.onLoggedIn(authData);
+      console.log("Result: ".concat(result.data));
+      var data = result.data;
+      props.onLoggedIn(data);
     }).catch(function (err) {
       console.log(err);
       console.log('No such user...');
@@ -34820,7 +34822,7 @@ var _axios = _interopRequireDefault(require("axios"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _movieCard = require("../movieCard/movieCard");
+var _movieList = require("../movieList/movieList");
 
 var _movieView = require("../movieView/movieView");
 
@@ -34889,15 +34891,15 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function onLoggedin(authData) {
       console.log(authData);
       this.setState({
-        user: authDatat.user.username
+        user: authData.user.username
       });
       localStorage.setItem('user', authData.user.username);
       localStorage.setItem('token', authData.token);
       this.getMovies(authData.token);
     }
   }, {
-    key: "getMovie",
-    value: function getMovie(token) {
+    key: "getMovies",
+    value: function getMovies(token) {
       var _this2 = this;
 
       _axios.default.get('https://my-fav-flix.herokuapp.com/api/movies', {
@@ -34906,7 +34908,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function (result) {
         _this2.setState({
-          movies: respsonse.data
+          movies: result.data
         });
       }).catch(function (err) {
         console.log(err);
@@ -34934,7 +34936,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/_react.default.createElement(_Col.default, {
         className: "d-flex w-100 justify-content-center"
       }, /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
-        onLoggedIn: this.onLoggedin
+        onLoggedIn: function onLoggedIn(user) {
+          _this3.onLoggedin(user);
+        }
       }))); // The there are no movies in the movies list, return message stated so (add in above logic)
 
       if (movies.length === 0) return /*#__PURE__*/_react.default.createElement("div", {
@@ -34955,7 +34959,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           lg: 2,
           key: "col-".concat(movie._id),
           className: "p-3"
-        }, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
+        }, /*#__PURE__*/_react.default.createElement(_movieList.MovieList, {
           className: "",
           key: movie._id,
           movie: movie,
@@ -34968,15 +34972,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this4 = this;
+      // Retrive the JWT from the applications localStorage
+      var accessToken = localStorage.getItem('token'); // The there is a token in the apps localStorage update the user state to the user in stored in the localStorage
 
-      _axios.default.get('https://my-fav-flix.herokuapp.com/api/movies').then(function (result) {
-        _this4.setState({
-          movies: result.data
-        });
-      }).catch(function (err) {
-        console.log(err);
-      });
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
+        }); // Display movies
+
+        this.getMovies(accessToken);
+      }
     }
   }]);
 
@@ -34985,7 +34990,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../movieCard/movieCard":"components/movieCard/movieCard.jsx","../movieView/movieView":"components/movieView/movieView.jsx","../loginView/loginView":"components/loginView/loginView.jsx","../registrationView/registrationView":"components/registrationView/registrationView.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","./mainView.scss":"components/mainView/mainView.scss"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","../movieList/movieList":"components/movieList/movieList.jsx","../movieView/movieView":"components/movieView/movieView.jsx","../loginView/loginView":"components/loginView/loginView.jsx","../registrationView/registrationView":"components/registrationView/registrationView.jsx","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","./mainView.scss":"components/mainView/mainView.scss"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -35092,7 +35097,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56445" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51725" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
