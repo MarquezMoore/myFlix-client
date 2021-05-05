@@ -2,6 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { BroswerRouter as Router, Route } from 'react-router-dom'; 
 
 // Custom Components
 import { MovieList } from '../movieList/movieList';
@@ -58,9 +59,16 @@ export class MainView extends React.Component {
       })
     })
     .catch( err => {
-      console.log(err);
+      console.log(err); 
     })
   }
+
+  onLoggeOut() {
+    localStorage.clear();
+    this.setState({
+      user: null
+    });
+  } 
   
 
   render() {

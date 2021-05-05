@@ -20,6 +20,7 @@ export function LoginView(props) {
 
   // Event handeler function on form submit
   const handleSubmit = e => {
+    // Prevent the submit button from reloading the page on submit
     e.preventDefault();
     console.log(`username: ${username}, Password: ${password}`);
 
@@ -28,13 +29,13 @@ export function LoginView(props) {
         Password: password
       })
       .then(result => {
-        console.log(`Result: ${result.data}`)
+        // console.log(`Result: ${result.data}`)
         const data = result.data;
         props.onLoggedIn(data);
       })
       .catch( err => {
-        console.log(err);
-        console.log('No such user...');
+        console.log(err.stack);
+        console.log('No such user...'); // Review return error message from server
       })
   }
 
