@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { BroswerRouter as Router, Route } from 'react-router-dom'; 
+import { BroswerRouter as Router, Route } from 'react-router-dom';
 
 // Custom Components
 import { MovieList } from '../movieList/movieList';
@@ -104,8 +104,8 @@ export class MainView extends React.Component {
             </Col>
           :
             movies.map( movie => (
-              <Col sm={12} md={3} lg={2} key={`col-${movie._id}`} className="p-3">
-                <MovieList className="" key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
+              <Col key={`col-${movie._id}`} className="p-3" lg={2} xs={6}>
+                <MovieList  className="" key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
               </Col>
             ))
             
