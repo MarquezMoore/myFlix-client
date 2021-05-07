@@ -7,6 +7,9 @@ import Card from 'react-bootstrap/Card';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 
+// React-router-dom components
+import { Link } from 'react-router-dom';
+
 // Stlyes
 import './movieList.scss';
 
@@ -14,9 +17,10 @@ export class MovieList extends React.Component {
 
 
   render() {
-    const { movie, onMovieClick } = this.props;
+    const { movie } = this.props;
     return (
-      <Card onClick={ () => {onMovieClick(movie)} }>
+      <Link to={`movies/${movie._id}`}>
+        <Card >
         <Card.Img variant="top" src={ movie.imageURL } />
         {/* <Card.Body>
           <Card.Title> { movie.title } </Card.Title>
@@ -26,6 +30,7 @@ export class MovieList extends React.Component {
           </Button>
         </Card.Body> */}
       </Card>
+      </Link>
     );
   }
 }
@@ -36,5 +41,4 @@ MovieList.propTypes = {
     description: PropTypes.string.isRequired,
     imageURL: PropTypes.string.isRequired
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
 }

@@ -1,17 +1,18 @@
 // Modules
 import React from 'react';
 import axios from 'axios';
+import { BroswerRouter as Router, Route } from 'react-router-dom';  
 import PropTypes from 'prop-types';
-import { BroswerRouter as Router, Route } from 'react-router-dom';
 
 // Custom Components
 import { MovieList } from '../movieList/movieList';
 import { MovieView } from '../movieView/movieView';
 import { LoginView } from '../loginView/loginView';
 import { RegistrationView } from '../registrationView/registrationView';
+import { DirectorView } from '../directorView/directorView'; 
+import { GenreView } from '../genreView/genreView'
 
 // React-Bootstrap Components
-
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -82,35 +83,66 @@ export class MainView extends React.Component {
     //   </Row>
     // );
 
-    // If there is no user logged in, render the this view
-    if(!user) return (
-      <Row className="login-view flex-grow-1 align-items-center justify-content-center">
-        <Col className="d-flex w-100 justify-content-center" >
-          <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />
-        </Col>
-      </Row>
-    );
-
-    // The there are no movies in the movies list, return message stated so (add in above logic)
-    if(movies.length === 0) return <div className="main-view">There are no movies listed</div>;
-
-    // If there is no selected movie, return the home page (MovieView)
     return (
-      <Row>
-        {selectedMovie
-          ? 
-            <Col md={8} >
-              <MovieView movie={selectedMovie} onBackClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)}}/>
-            </Col>
-          :
-            movies.map( movie => (
-              <Col key={`col-${movie._id}`} className="p-3" lg={2} xs={6}>
-                <MovieList  className="" key={movie._id} movie={movie} onMovieClick={ newSelectedMovie => {this.setSelectedMovie(newSelectedMovie)} }/> 
-              </Col>
-            ))
-            
-        }
-      </Row>
+      <Router>
+        <Row>
+        {/* The path prop in the Route component below defines the path the the particular route will match and the render prop define the component to render when matched*/}
+        {/* MainView */}
+          <Route path="/" render={
+            () => {
+              if(!user) return (
+                <Col className="d-flex w-100 justify-content-center" >
+                  <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />
+                </Col>
+              );
+
+              return movies.map(movie => (
+                <Col xs={6} lg={2} key={movie._id}>
+                  <MovieList movie={movie} />
+                </Col>
+              ))
+            }
+          } />
+        {/* MovieView route */}
+          <Route path="api/movie/:movieID" render={
+            ( { match, history } ) => {
+              if (!movie) return (
+                <div>No moviesfound</div>
+              )
+
+              return (
+                <Col>
+                  <MovieView movie={movie.find( m => m.name = match.params.name )} onBackClick={() => history.goBack()}/>
+                </Col>
+              )
+            }
+          } />
+        {/* DirectorView Route */}
+          <Route path="" render={
+            ( { match } ) => {
+              if ( !movie ) return (
+                <div>No moviesfound</div>
+              )
+
+              return (
+                <Col>
+                  <DirectorView director={movies.find( m => m.director.name = match.params.director).Director}/>
+                </Col>
+              )
+            }
+          } />
+        {/* GenreVoew */}
+          <Route path="" render={
+            () => {
+              return (
+                <Col>
+                  <GenreView />
+                </Col>
+              )
+            }
+          } />
+        </Row>
+      </Router>
     );
   };
 
@@ -129,6 +161,10 @@ export class MainView extends React.Component {
   }
 }
 
+// MainView.propTypes= {
+//   user: PropType.shape({
+//     user: PropType.string.isRequired,
+//     token: PropType.string.isRequired
+//   }),
 
-
-// No props are passed to the MainView from the index.jsx files thus I have not defined the PropTypes 
+// }
