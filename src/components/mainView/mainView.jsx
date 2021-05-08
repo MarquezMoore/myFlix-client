@@ -1,8 +1,10 @@
 // Modules
 import React from 'react';
 import axios from 'axios';
-import { BroswerRouter as Router, Route } from 'react-router-dom';  
 import PropTypes from 'prop-types';
+
+// React components
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';  
 
 // Custom Components
 import { MovieList } from '../movieList/movieList';
@@ -75,19 +77,24 @@ export class MainView extends React.Component {
   render() {
     const { movies, selectedMovie, user } = this.state;
 
-    // return (
-    //   <Row className="reg-view min-vh-100">
-    //     <Col className="d-flex justify-content-center align-items-center">
-    //       <RegistrationView />
-    //     </Col>
-    //   </Row>
-    // );
-
     return (
       <Router>
         <Row>
         {/* The path prop in the Route component below defines the path the the particular route will match and the render prop define the component to render when matched*/}
-        {/* MainView */}
+
+        {/* Registration View Route */}
+        <Route path="/register" render={ () => {
+          if(user) return <Redirect to="/" />
+
+          return(
+            <Col>
+              <RegistrationVeiw />
+            </Col>
+          )
+        }}/>
+
+        
+        {/* Main View Route */}
           <Route path="/" render={
             () => {
               if(!user) return (
@@ -96,19 +103,21 @@ export class MainView extends React.Component {
                 </Col>
               );
 
-              return movies.map(movie => (
-                <Col xs={6} lg={2} key={movie._id}>
-                  <MovieList movie={movie} />
+              if ( movies.length === 0 ){
+                return <div>No movies found</div>
+              }
+
+              return movies.map(m => (
+                <Col xs={6} lg={2} key={m._id}>
+                  <MovieList movie={m} />
                 </Col>
               ))
             }
           } />
-        {/* MovieView route */}
-          <Route path="api/movie/:movieID" render={
+        {/* Movie View route */}
+          <Route path="/movie/:movieID" render={
             ( { match, history } ) => {
-              if (!movie) return (
-                <div>No moviesfound</div>
-              )
+              
 
               return (
                 <Col>
@@ -118,11 +127,12 @@ export class MainView extends React.Component {
             }
           } />
         {/* DirectorView Route */}
-          <Route path="" render={
+          <Route path="/director/:director-id" render={
             ( { match } ) => {
-              if ( !movie ) return (
-                <div>No moviesfound</div>
-              )
+              if ( movies.length === 0 ){
+                return <div>No movies found</div>
+              }
+              
 
               return (
                 <Col>
@@ -131,8 +141,8 @@ export class MainView extends React.Component {
               )
             }
           } />
-        {/* GenreVoew */}
-          <Route path="" render={
+        {/* Genre View Route*/}
+          <Route path="/genre/:genre-id" render={
             () => {
               return (
                 <Col>
@@ -161,10 +171,4 @@ export class MainView extends React.Component {
   }
 }
 
-// MainView.propTypes= {
-//   user: PropType.shape({
-//     user: PropType.string.isRequired,
-//     token: PropType.string.isRequired
-//   }),
 
-// }
