@@ -15,8 +15,7 @@ import { DirectorView } from '../directorView/directorView';
 import { GenreView } from '../genreView/genreView'
 
 // React-Bootstrap Components
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Row, Col } from 'react-bootstrap';
 
 // Stlyes
 import './mainView.scss';
@@ -81,25 +80,13 @@ export class MainView extends React.Component {
       <Router>
         <Row>
         {/* The path prop in the Route component below defines the path the the particular route will match and the render prop define the component to render when matched*/}
-
-        {/* Registration View Route */}
-        <Route path="/register" render={ () => {
-          if(user) return <Redirect to="/" />
-
-          return(
-            <Col>
-              <RegistrationVeiw />
-            </Col>
-          )
-        }}/>
-
         
         {/* Main View Route */}
-          <Route path="/" render={
+          <Route exact path="/" render={
             () => {
               if(!user) return (
-                <Col className="d-flex w-100 justify-content-center" >
-                  <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />
+                <Col className="login-view d-flex min-vh-100 justify-content-center align-items-center" >
+                  <LoginView  onLoggedIn={ user => {this.onLoggedin(user)} } />
                 </Col>
               );
 
@@ -114,6 +101,20 @@ export class MainView extends React.Component {
               ))
             }
           } />
+
+        {/* Registration View Route */}
+          <Route path="/register" render={ () => {
+            // If user is logged in already redirect to login view 
+            if(user) return <Redirect to="/" />
+
+
+            return(
+              <Col className="reg-view min-vh-100 d-flex justify-content-center align-items-center">
+                <RegistrationView />
+              </Col>
+            )
+          }}/>
+
         {/* Movie View route */}
           <Route path="/movie/:movieID" render={
             ( { match, history } ) => {

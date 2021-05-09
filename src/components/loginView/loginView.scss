@@ -12,10 +12,10 @@ $main: #7B0708;
 
 
 .login-form{
-  width: 430px;
   border-radius: 8px;
   .form-heading{
     color: $main;
+    font-size: 1.7rem;
   }
   label{
     font-size: 12px;
@@ -25,7 +25,7 @@ $main: #7B0708;
     font-size: 12px;
     &:focus{
       outline: none;
-      box-shadow: none;
+      box-shadow: inset 0 1px 2px rgb(203 203 210 / 20%), 0 0 4px rgb(121 88 159 / 30%);
       border: 1px solid $main; 
     }
   }
@@ -33,6 +33,7 @@ $main: #7B0708;
     background-color: $main;
     border: none;
     transition: all 300ms;
+    font-size: 1rem;
     &:focus{
       @extend %buttonsShared;
     }
@@ -45,6 +46,13 @@ $main: #7B0708;
     &:active{
       @extend %buttonsShared;
     }
+  }
+  .sign-up{
+    font-size: 1rem;
+    font-weight: light;
+  }
+  .link{
+    color: $main;
   }
 }
 

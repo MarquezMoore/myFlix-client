@@ -5,10 +5,8 @@ import axios from 'axios';
 
 
 // React-Bootstrap Components
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
+import { Form, Button, InputGroup, FormControl} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 // Styles 
 import './loginView.scss';
@@ -40,14 +38,14 @@ export function LoginView(props) {
   }
 
   return (
-    <Form className="login-form d-flex flex-column p-4 bg-light shadow" action="" >
-      <div className="form-heading text-center fs-3 mt-2 mb-4 fw-light">
+    <Form className="col-6 col-lg-4 login-form d-flex flex-column p-4 bg-light shadow" action="" >
+      <div className="form-heading text-center mt-2 mb-4 fw-light">
         Log in to your account
       </div>
       {/* Input Group */}
       <Form.Group>
-        <Form.Label className="">Username</Form.Label>
-        <InputGroup className="mb-3">
+        <Form.Label className="">Username:</Form.Label>
+        <InputGroup>
           <InputGroup.Prepend>
             <InputGroup.Text id="username-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#7B0708" className="bi bi-person-fill" viewBox="0 0 16 16">
@@ -68,8 +66,8 @@ export function LoginView(props) {
       
 
       <Form.Group controlId="password">
-        <Form.Label>Password </Form.Label>
-        <InputGroup className="mb-3">
+        <Form.Label>Password:</Form.Label>
+        <InputGroup>
           <InputGroup.Prepend>
             <InputGroup.Text id="password-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#7B0708" className="bi bi-lock-fill" viewBox="0 0 16 16">
@@ -91,6 +89,7 @@ export function LoginView(props) {
       <Button className="button btn-lg fw-light align-self-center w-100 mt-2" variant="primary" type="submit" onClick={ handleSubmit }> 
       Log In
       </Button>
+      <Form.Text className="sign-up text-center pt-3">New to MyFlix? <Link className="link" to="/register">Sign Up</Link></Form.Text>
     </Form> 
   )
 
