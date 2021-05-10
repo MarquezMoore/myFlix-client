@@ -19,17 +19,10 @@ export class MovieList extends React.Component {
   render() {
     const { movie } = this.props;
     return (
-      <Link to={`movies/${movie._id}`}>
+      <Link to={`movie/${movie._id}`}>
         <Card >
-        <Card.Img variant="top" src={ movie.imageURL } />
-        {/* <Card.Body>
-          <Card.Title> { movie.title } </Card.Title>
-          <Card.Text style={{height: '10vh'}} className="overflow-auto"> { movie.description } </Card.Text>
-          <Button variant="primary" onClick={ () => {onMovieClick(movie)} }>
-            See More
-          </Button>
-        </Card.Body> */}
-      </Card>
+          <Card.Img src={ movie.imageURL } />
+        </Card>
       </Link>
     );
   }

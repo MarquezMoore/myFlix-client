@@ -2,6 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// React-router-dom Components 
+import { Link } from 'react-router-dom';
+
 // Styles 
 import './movieView.scss';
 
@@ -16,7 +19,6 @@ export class MovieView extends React.Component {
   render() {
     const { movie, onBackClick } = this.props;
 
-
     return ( 
       <div className="movie-view">
         <div className="movie-image"> 
@@ -26,11 +28,28 @@ export class MovieView extends React.Component {
           <span className="label" >Title: </span>
           <span className="value">{ movie.title }</span> 
         </div>
+        <div className="movie-genre"> 
+          <span className="label">Genre: </span>
+          <Link to={`../genre/${movie.genre.name}`}>
+            <span className="value">
+              { movie.genre.name }
+            </span>
+          </Link>
+        </div>
         <div className="movie-description"> 
           <span className="label">Description: </span>
           <span className="value">{ movie.description }</span>
         </div>
-        <button onClick={onBackClick()}>Back</button>
+        <div className="movie-description"> 
+          <span className="label">Director: </span>
+          <Link to={`../director/${movie.director.name}`}>
+            <span className="value">
+              { movie.director.name }
+            </span>
+          </Link>
+          
+        </div>
+        <button onClick={onBackClick}>Back</button>
       </div>
     );
   }

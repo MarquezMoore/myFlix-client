@@ -13,14 +13,26 @@ import './loginView.scss';
 
 export function LoginView(props) {
   // Functional component state creation via the useState hook
-  const [ username, setUsername] = useState('');
-  const [ password, setPassword] = useState('');
+  const [ username, setUsername ] = useState(''),
+    [ password, setPassword ] = useState(''),
+    [ validated, setValidated  ] = useState(false)
+  
+
+  
+  
+  
 
   // Event handeler function on form submit
   const handleSubmit = e => {
     // Prevent the submit button from reloading the page on submit
     e.preventDefault();
-    console.log(`username: ${username}, Password: ${password}`);
+    
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+    }
+
+    setValidated(true)
 
     axios.post('https://my-fav-flix.herokuapp.com/login', {
         Username: username, 
@@ -38,7 +50,7 @@ export function LoginView(props) {
   }
 
   return (
-    <Form className="col-6 col-lg-4 login-form d-flex flex-column p-4 bg-light shadow" action="" >
+    <Form className="col-6 col-lg-4 login-form d-flex flex-column p-5 bg-light shadow" action="" noValidate validated={validated}>
       <div className="form-heading text-center mt-2 mb-4 fw-light">
         Log in to your account
       </div>
@@ -54,6 +66,7 @@ export function LoginView(props) {
             </InputGroup.Text>
           </InputGroup.Prepend>
           <FormControl
+            required
             type="text"
             placeholder="Username"
             aria-label="Username"
@@ -61,6 +74,8 @@ export function LoginView(props) {
             value={ username }
             onChange={ e => {setUsername(e.target.value)} }
           />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Please provide your username</Form.Control.Feedback>
         </InputGroup>
       </Form.Group>
       
@@ -76,6 +91,7 @@ export function LoginView(props) {
             </InputGroup.Text>
           </InputGroup.Prepend>
           <FormControl
+            required
             type="password" 
             value={ password } 
             onChange={ e => {setPassword(e.target.value)} }
@@ -83,6 +99,8 @@ export function LoginView(props) {
             aria-label="Password"
             aria-describedby="basic-addon1"
           />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Please provide your password</Form.Control.Feedback>
         </InputGroup>
       </Form.Group>
 

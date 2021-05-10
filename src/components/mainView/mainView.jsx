@@ -3,8 +3,11 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-// React components
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';  
+// React-router-DOM components
+import { BrowserRouter as Router, Route, Redirect , Link } from 'react-router-dom';  
+
+// React-Bootstrap Components
+import { Row, Col } from 'react-bootstrap';
 
 // Custom Components
 import { MovieList } from '../movieList/movieList';
@@ -13,9 +16,7 @@ import { LoginView } from '../loginView/loginView';
 import { RegistrationView } from '../registrationView/registrationView';
 import { DirectorView } from '../directorView/directorView'; 
 import { GenreView } from '../genreView/genreView'
-
-// React-Bootstrap Components
-import { Row, Col } from 'react-bootstrap';
+import { NavBar } from '../navBar/navBar'
 
 // Stlyes
 import './mainView.scss';
@@ -94,9 +95,9 @@ export class MainView extends React.Component {
                 return <div>No movies found</div>
               }
 
-              return movies.map(m => (
-                <Col xs={6} lg={2} key={m._id}>
-                  <MovieList movie={m} />
+              return movies.map( (m, i) => (
+                <Col xs={6} lg={2} key={i} className="p-2">
+                  <MovieList key={m._id} movie={m} />
                 </Col>
               ))
             }
@@ -107,7 +108,6 @@ export class MainView extends React.Component {
             // If user is logged in already redirect to login view 
             if(user) return <Redirect to="/" />
 
-
             return(
               <Col className="reg-view min-vh-100 d-flex justify-content-center align-items-center">
                 <RegistrationView />
@@ -116,38 +116,41 @@ export class MainView extends React.Component {
           }}/>
 
         {/* Movie View route */}
-          <Route path="/movie/:movieID" render={
-            ( { match, history } ) => {
-              
+          <Route path="/movie/:movieId" render={
+            ({ match, history }) => {
+              if(!user) return <Redirect to="/" />
 
               return (
                 <Col>
-                  <MovieView movie={movie.find( m => m.name = match.params.name )} onBackClick={() => history.goBack()}/>
+                  <NavBar user={user}/>
+                  <MovieView movie={movies.find( m => m._id = match.params.movieId )} onBackClick={() => history.goBack()}/>
                 </Col>
               )
             }
           } />
+          
         {/* DirectorView Route */}
-          <Route path="/director/:director-id" render={
-            ( { match } ) => {
-              if ( movies.length === 0 ){
-                return <div>No movies found</div>
-              }
-              
-
+          <Route path="/director/:directorId" render={
+            ({ match, history }) => {
+              if(!user) return <Redirect to="/" />
+          
               return (
                 <Col>
-                  <DirectorView director={movies.find( m => m.director.name = match.params.director).Director}/>
+                  <NavBar user={user} />
+                  <DirectorView director={movies.find( m => m.director.name = match.params.directorId).director}/>
                 </Col>
               )
             }
           } />
         {/* Genre View Route*/}
-          <Route path="/genre/:genre-id" render={
-            () => {
+          <Route path="/genre/:genreId" render={
+            ({ match, history }) => {
+              if(!user) return <Redirect to="/" />
+
               return (
                 <Col>
-                  <GenreView />
+                  <NavBar user={user}/>
+                  <GenreView movies={movies.filter( m => m.genre.name = match.params.genreId)}/>
                 </Col>
               )
             }
