@@ -1,12 +1,12 @@
 // Modules
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // React-router-dom Components 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 // Styles 
-import './movieView.scss';
+import './movieView.scss'
 
 export class MovieView extends React.Component {
 
@@ -17,7 +17,8 @@ export class MovieView extends React.Component {
 
   // Required Render Method (Element)
   render() {
-    const { movie, onBackClick } = this.props;
+    const { user, movie, onBackClick, addToFavorites } = this.props;
+    console.log(movie)
 
     return ( 
       <div className="movie-view">
@@ -50,6 +51,7 @@ export class MovieView extends React.Component {
           
         </div>
         <button onClick={onBackClick}>Back</button>
+        <button onClick={addToFavorites}>Add to favorites</button>
       </div>
     );
   }
@@ -71,5 +73,7 @@ MovieView.propTypes = {
     description: PropTypes.string.isRequired,
     imageURL: PropTypes.string.isRequired
   }).isRequired,
+  user: PropTypes.string.isRequired,
+  addToFavorties: PropTypes.func,
   onBackClick: PropTypes.func.isRequired
 }

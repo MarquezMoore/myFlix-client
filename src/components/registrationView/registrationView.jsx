@@ -46,8 +46,8 @@ export function RegistrationView(props) {
         "birdthday": birthday
       }
     )
-    .then( results => {
-      // console.log(results.data)
+    .then( user => {
+      (user.data)
       window.open('/', '_self');
     })
     .catch( err => {
@@ -63,7 +63,7 @@ export function RegistrationView(props) {
         Set up your account
       </div>
       <Alert 
-        className="err-msg" variant="danger" role="alert" show={show} >
+        className="err-msg border border-danger" variant="danger" role="alert" show={show} >
           {errors.map( (e, i) => (
             <ul className="m-0 px-1" key={i}><li>{e.msg}</li></ul>
           ))}

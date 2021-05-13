@@ -1,11 +1,11 @@
 // Modules
 import React, { useState } from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 
 // React-Bootstrap Components
-import { Form, Button, InputGroup, FormControl} from 'react-bootstrap';
+import { Form, Button, InputGroup, FormControl, Alert} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 // Styles 
@@ -15,12 +15,8 @@ export function LoginView(props) {
   // Functional component state creation via the useState hook
   const [ username, setUsername ] = useState(''),
     [ password, setPassword ] = useState(''),
-    [ validated, setValidated  ] = useState(false)
-  
-
-  
-  
-  
+    [ validated, setValidated  ] = useState(false),
+    [ errors, setErrors ] = useState('');
 
   // Event handeler function on form submit
   const handleSubmit = e => {
@@ -44,8 +40,8 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch( err => {
-        console.log(err.stack);
-        console.log('No such user...'); // Review return error message from server
+        console.log(err.response.data)
+        setErrors(typeof err.response.data.message === 'string' ? err.response.data.message : err.response.data.message.message);
       })
   }
 
@@ -54,6 +50,9 @@ export function LoginView(props) {
       <div className="form-heading text-center mt-2 mb-4 fw-light">
         Log in to your account
       </div>
+      <Alert className="err-msg border border-danger" variant="danger" role="alert" show={errors} >
+        <p className="m-0">{errors}</p>
+      </Alert>
       {/* Input Group */}
       <Form.Group>
         <Form.Label className="">Username:</Form.Label>
@@ -113,8 +112,7 @@ export function LoginView(props) {
 
 }
 
-LoginView.prototype = {
-  username: PropType.string.isRequired,
-  password: PropType.string.isRequired
+LoginView.propTypes = {
+  onLoggedIn: PropTypes.func.isRequired
 }
 

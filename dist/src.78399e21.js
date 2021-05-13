@@ -31366,7 +31366,40 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js","./helpers/isAxiosError":"../node_modules/axios/lib/helpers/isAxiosError.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _setPrototypeOf;
+
+function _setPrototypeOf(o, p) {
+  exports.default = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+},{}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _inheritsLoose;
+
+var _setPrototypeOf = _interopRequireDefault(require("./setPrototypeOf.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  (0, _setPrototypeOf.default)(subClass, superClass);
+}
+},{"./setPrototypeOf.js":"../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js"}],"../node_modules/react-is/cjs/react-is.development.js":[function(require,module,exports) {
 /** @license React v16.13.1
  * react-is.development.js
  *
@@ -32337,40 +32370,7 @@ if ("development" !== 'production') {
   // http://fb.me/prop-types-in-prod
   module.exports = require('./factoryWithThrowingShims')();
 }
-},{"react-is":"../node_modules/react-is/index.js","./factoryWithTypeCheckers":"../node_modules/prop-types/factoryWithTypeCheckers.js"}],"../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _setPrototypeOf;
-
-function _setPrototypeOf(o, p) {
-  exports.default = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-},{}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = _inheritsLoose;
-
-var _setPrototypeOf = _interopRequireDefault(require("./setPrototypeOf.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  (0, _setPrototypeOf.default)(subClass, superClass);
-}
-},{"./setPrototypeOf.js":"../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js"}],"../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
+},{"react-is":"../node_modules/react-is/index.js","./factoryWithTypeCheckers":"../node_modules/prop-types/factoryWithTypeCheckers.js"}],"../node_modules/@babel/runtime/helpers/esm/extends.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50966,8 +50966,11 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _this$props = this.props,
+          user = _this$props.user,
           movie = _this$props.movie,
-          onBackClick = _this$props.onBackClick;
+          onBackClick = _this$props.onBackClick,
+          addToFavorites = _this$props.addToFavorites;
+      console.log(movie);
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "movie-view"
       }, /*#__PURE__*/_react.default.createElement("div", {
@@ -51005,7 +51008,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "value"
       }, movie.director.name))), /*#__PURE__*/_react.default.createElement("button", {
         onClick: onBackClick
-      }, "Back"));
+      }, "Back"), /*#__PURE__*/_react.default.createElement("button", {
+        onClick: addToFavorites
+      }, "Add to favorites"));
     } // Lifecycle FMethods
 
   }, {
@@ -51030,6 +51035,8 @@ MovieView.propTypes = {
     description: _propTypes.default.string.isRequired,
     imageURL: _propTypes.default.string.isRequired
   }).isRequired,
+  user: _propTypes.default.string.isRequired,
+  addToFavorties: _propTypes.default.func,
   onBackClick: _propTypes.default.func.isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movieView.scss":"components/movieView/movieView.scss"}],"components/loginView/loginView.scss":[function(require,module,exports) {
@@ -51088,7 +51095,11 @@ function LoginView(props) {
       _useState5 = (0, _react.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
       validated = _useState6[0],
-      setValidated = _useState6[1]; // Event handeler function on form submit
+      setValidated = _useState6[1],
+      _useState7 = (0, _react.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      errors = _useState8[0],
+      setErrors = _useState8[1]; // Event handeler function on form submit
 
 
   var handleSubmit = function handleSubmit(e) {
@@ -51110,8 +51121,8 @@ function LoginView(props) {
       var data = result.data;
       props.onLoggedIn(data);
     }).catch(function (err) {
-      console.log(err.stack);
-      console.log('No such user...'); // Review return error message from server
+      console.log(err.response.data);
+      setErrors(typeof err.response.data.message === 'string' ? err.response.data.message : err.response.data.message.message);
     });
   };
 
@@ -51122,7 +51133,14 @@ function LoginView(props) {
     validated: validated
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-heading text-center mt-2 mb-4 fw-light"
-  }, "Log in to your account"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, {
+  }, "Log in to your account"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
+    className: "err-msg border border-danger",
+    variant: "danger",
+    role: "alert",
+    show: errors
+  }, /*#__PURE__*/_react.default.createElement("p", {
+    className: "m-0"
+  }, errors)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, {
     className: ""
   }, "Username:"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup.Prepend, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup.Text, {
     id: "username-icon"
@@ -51185,9 +51203,8 @@ function LoginView(props) {
   }, "Sign Up")));
 }
 
-LoginView.prototype = {
-  username: _propTypes.default.string.isRequired,
-  password: _propTypes.default.string.isRequired
+LoginView.propTypes = {
+  onLoggedIn: _propTypes.default.func.isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./loginView.scss":"components/loginView/loginView.scss"}],"components/registrationView/registrationView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -51288,8 +51305,8 @@ function RegistrationView(props) {
       "firstName": firstName,
       "lastName": lastName,
       "birdthday": birthday
-    }).then(function (results) {
-      // console.log(results.data)
+    }).then(function (user) {
+      user.data;
       window.open('/', '_self');
     }).catch(function (err) {
       setErrors(err.response.data);
@@ -51305,7 +51322,7 @@ function RegistrationView(props) {
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "form-heading text-center mt-2 mb-4 fw-lighter"
   }, "Set up your account"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Alert, {
-    className: "err-msg",
+    className: "err-msg border border-danger",
     variant: "danger",
     role: "alert",
     show: show
@@ -51409,9 +51426,9 @@ function RegistrationView(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DirectorView = DirectorView;
+exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -51419,22 +51436,28 @@ var _reactBootstrap = require("react-bootstrap");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 // React-bootstrap components 
-function DirectorView(props) {
-  var director = props.director;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, director.name), /*#__PURE__*/_react.default.createElement("div", null, director.bio), /*#__PURE__*/_react.default.createElement("div", null, director.birthday), /*#__PURE__*/_react.default.createElement("div", null, director.deathday));
+function DirectorView(_ref) {
+  var director = _ref.director,
+      onBackClick = _ref.onBackClick;
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, director.name), /*#__PURE__*/_react.default.createElement("div", null, director.bio), /*#__PURE__*/_react.default.createElement("div", null, director.birthday), /*#__PURE__*/_react.default.createElement("div", null, director.deathday), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onBackClick
+  }, "Back"));
 }
+
+DirectorView.prototypes = {
+  director: _propTypes.default.object,
+  onBackClick: _propTypes.default.func
+};
+var _default = DirectorView;
+exports.default = _default;
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"components/genreView/genreView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GenreView = GenreView;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -51448,14 +51471,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // React-bootstrap component
 //Custome Component 
-function GenreView(props) {
-  console.log(props.movies);
-  return /*#__PURE__*/_react.default.createElement("div", null, "Building...", /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
-    animation: "border",
-    role: "status"
-  }, /*#__PURE__*/_react.default.createElement("span", {
-    className: "sr-only"
-  }, "Building...")), /*#__PURE__*/_react.default.createElement("div", null, props.movies.map(function (m, i) {
+function GenreView(_ref) {
+  var movies = _ref.movies,
+      onBackClick = _ref.onBackClick;
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("pre", null, movies[0].genre.name), /*#__PURE__*/_react.default.createElement("pre", null, movies[0].genre.description)), /*#__PURE__*/_react.default.createElement("div", null, movies.map(function (m, i) {
     return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
       xs: 6,
       lg: 2,
@@ -51465,38 +51484,153 @@ function GenreView(props) {
       key: m._id,
       movie: m
     }));
-  })));
+  })), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onBackClick
+  }, "Back"));
 }
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../movieList/movieList":"components/movieList/movieList.jsx"}],"components/navBar/navBar.jsx":[function(require,module,exports) {
+
+var _default = GenreView;
+exports.default = _default;
+GenreView.propType = {
+  movies: _propTypes.default.object,
+  onBackClick: _propTypes.default.func
+};
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../movieList/movieList":"components/movieList/movieList.jsx"}],"components/navBar/navBar.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/navBar/navBar.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.NavBar = NavBar;
+exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _reactBootstrap = require("react-bootstrap");
+
+require("./navBar.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+// Modules
 // React-bootstrap Components
-function NavBar(props) {
-  var user = props.user;
+// Styles
+function NavBar(_ref) {
+  var user = _ref.user,
+      onLogOut = _ref.onLogOut;
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
-    className: "bg-light px-4 py-3 mb-4"
+    className: "navbar text-light px-4 py-2 mb-4"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
+    className: "text-light",
     href: "/"
   }, "MyFlix"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Toggle, null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Collapse, {
     className: "justify-content-end"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Text, null, "Signed in as:", /*#__PURE__*/_react.default.createElement("a", {
-    href: "/"
-  }, " ".concat(user)))));
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Text, {
+    className: "text-light"
+  }, "Signed in as:", /*#__PURE__*/_react.default.createElement("a", {
+    className: "text-light",
+    href: "/profile"
+  }, user)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    onClick: onLogOut
+  }, "Sign Out")));
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"components/mainView/mainView.scss":[function(require,module,exports) {
+
+NavBar.propTypes = {
+  user: _propTypes.default.string,
+  onLogOut: _propTypes.default.func
+};
+var _default = NavBar;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./navBar.scss":"components/navBar/navBar.scss"}],"components/profileView/profileView.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ProfileView(_ref) {
+  var user = _ref.user,
+      token = _ref.token,
+      onBackClick = _ref.onBackClick;
+
+  var _useState = (0, _react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      userDetails = _useState2[0],
+      setUserDetails = _useState2[1];
+
+  var fetchDetails = function fetchDetails() {
+    _axios.default.get("https://my-fav-flix.herokuapp.com/api/users/".concat(user), {
+      headers: {
+        Authorization: "Bearer ".concat(token)
+      }
+    }).then(function (u) {
+      console.log(u.data);
+      setUserDetails(u.data);
+    }).catch(function (err) {
+      console.log(err);
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    fetchDetails();
+  }, []);
+
+  var handleLogOut = function handleLogOut() {
+    props.onLogOut();
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, "Username: ".concat(userDetails.username)), /*#__PURE__*/_react.default.createElement("div", null, "First Name: ".concat(userDetails.firstName)), /*#__PURE__*/_react.default.createElement("div", null, "Last Name: ".concat(userDetails.lastName)), /*#__PURE__*/_react.default.createElement("div", null, "Email: ".concat(userDetails.email)), /*#__PURE__*/_react.default.createElement("div", null, "Birthday: ".concat(userDetails.birthday ? userDetails.birthday : 'n/a')), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    onClick: handleLogOut
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: onBackClick
+  }, "Back"));
+}
+
+ProfileView.prototypes = {
+  user: _propTypes.default.object,
+  token: _propTypes.default.string,
+  onBackClick: _propTypes.default.func
+};
+var _default = ProfileView;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"components/mainView/mainView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -51513,8 +51647,6 @@ var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _reactRouterDom = require("react-router-dom");
 
 var _reactBootstrap = require("react-bootstrap");
@@ -51527,11 +51659,13 @@ var _loginView = require("../loginView/loginView");
 
 var _registrationView = require("../registrationView/registrationView");
 
-var _directorView = require("../directorView/directorView");
+var _directorView = _interopRequireDefault(require("../directorView/directorView"));
 
-var _genreView = require("../genreView/genreView");
+var _genreView = _interopRequireDefault(require("../genreView/genreView"));
 
-var _navBar = require("../navBar/navBar");
+var _navBar = _interopRequireDefault(require("../navBar/navBar"));
+
+var _profileView = _interopRequireDefault(require("../profileView/profileView"));
 
 require("./mainView.scss");
 
@@ -51573,22 +51707,22 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       movies: [],
       selectedMovie: null,
-      user: null
+      user: null,
+      loading: false
     };
+    _this.onLoggedin = _this.onLoggedin.bind(_assertThisInitialized(_this));
+    _this.onLogOut = _this.onLogOut.bind(_assertThisInitialized(_this));
     return _this;
-  }
+  } // setSelectedMovie(newSelectedMovie) {
+  //   this.setState({
+  //     selectedMovie: newSelectedMovie
+  //   });
+  // }
+
 
   _createClass(MainView, [{
-    key: "setSelectedMovie",
-    value: function setSelectedMovie(newSelectedMovie) {
-      this.setState({
-        selectedMovie: newSelectedMovie
-      });
-    }
-  }, {
     key: "onLoggedin",
     value: function onLoggedin(authData) {
-      console.log(authData);
       this.setState({
         user: authData.user.username
       });
@@ -51614,13 +51748,31 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "onLoggeOut",
-    value: function onLoggeOut() {
+    key: "onLogOut",
+    value: function onLogOut() {
       localStorage.clear();
       this.setState({
         user: null
       });
     }
+  }, {
+    key: "addToFavorites",
+    value: function addToFavorites(user, movieId) {
+      var accessToken = localStorage.getItem('token');
+
+      _axios.default.put("https://my-fav-flix.herokuapp.com/api/users/".concat(user, "/").concat(movieId), {
+        headers: {
+          Authorization: "Bearer ".concat(accessToken)
+        }
+      }).then(function (user) {
+        console.log(user.movies);
+      }).catch(function (err) {
+        console.log(err.response);
+      });
+    }
+  }, {
+    key: "getFavorite",
+    value: function getFavorite(user) {}
   }, {
     key: "render",
     value: function render() {
@@ -51677,15 +51829,18 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           if (!user) return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
             to: "/"
           });
-          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.NavBar, {
-            user: user
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.default, {
+            user: user,
+            onLogOut: _this3.onLogOut
           }), /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
             movie: movies.find(function (m) {
-              return m._id = match.params.movieId;
+              return m._id === match.params.movieId;
             }),
             onBackClick: function onBackClick() {
               return history.goBack();
-            }
+            },
+            addToFavorites: _this3.addToFavorites,
+            user: localStorage.getItem('user')
           }));
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
@@ -51696,12 +51851,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           if (!user) return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
             to: "/"
           });
-          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.NavBar, {
-            user: user
-          }), /*#__PURE__*/_react.default.createElement(_directorView.DirectorView, {
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.default, {
+            user: user,
+            onLogOut: _this3.onLogOut
+          }), /*#__PURE__*/_react.default.createElement(_directorView.default, {
             director: movies.find(function (m) {
-              return m.director.name = match.params.directorId;
-            }).director
+              return m.director.name === match.params.directorId;
+            }).director,
+            onBackClick: function onBackClick() {
+              return history.goBack();
+            }
           }));
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
@@ -51712,12 +51871,33 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           if (!user) return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
             to: "/"
           });
-          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.NavBar, {
-            user: user
-          }), /*#__PURE__*/_react.default.createElement(_genreView.GenreView, {
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.default, {
+            user: user,
+            onLogOut: _this3.onLogOut
+          }), /*#__PURE__*/_react.default.createElement(_genreView.default, {
             movies: movies.filter(function (m) {
-              return m.genre.name = match.params.genreId;
-            })
+              return m.genre.name === match.params.genreId;
+            }),
+            onBackClick: function onBackClick() {
+              return history.goBack();
+            }
+          }));
+        }
+      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+        path: "/profile",
+        render: function render(_ref4) {
+          var match = _ref4.match,
+              history = _ref4.history;
+          // if(!user) return <Redirect to="/" />
+          return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.default, {
+            user: user,
+            onLogOut: _this3.onLogOut
+          }), /*#__PURE__*/_react.default.createElement(_profileView.default, {
+            user: localStorage.getItem('user'),
+            token: localStorage.getItem('token'),
+            onBackClick: function onBackClick() {
+              return history.goBack();
+            }
           }));
         }
       })));
@@ -51742,7 +51922,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../movieList/movieList":"components/movieList/movieList.jsx","../movieView/movieView":"components/movieView/movieView.jsx","../loginView/loginView":"components/loginView/loginView.jsx","../registrationView/registrationView":"components/registrationView/registrationView.jsx","../directorView/directorView":"components/directorView/directorView.jsx","../genreView/genreView":"components/genreView/genreView.jsx","../navBar/navBar":"components/navBar/navBar.jsx","./mainView.scss":"components/mainView/mainView.scss"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../movieList/movieList":"components/movieList/movieList.jsx","../movieView/movieView":"components/movieView/movieView.jsx","../loginView/loginView":"components/loginView/loginView.jsx","../registrationView/registrationView":"components/registrationView/registrationView.jsx","../directorView/directorView":"components/directorView/directorView.jsx","../genreView/genreView":"components/genreView/genreView.jsx","../navBar/navBar":"components/navBar/navBar.jsx","../profileView/profileView":"components/profileView/profileView.jsx","./mainView.scss":"components/mainView/mainView.scss"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -51849,7 +52029,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49370" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59341" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

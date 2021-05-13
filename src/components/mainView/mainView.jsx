@@ -1,25 +1,25 @@
 // Modules
-import React from 'react';
-import axios from 'axios';
-import PropTypes from 'prop-types';
+import React from 'react'
+import axios from 'axios'
 
 // React-router-DOM components
-import { BrowserRouter as Router, Route, Redirect , Link } from 'react-router-dom';  
+import { BrowserRouter as Router, Route, Redirect , Link } from 'react-router-dom'; 
 
 // React-Bootstrap Components
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap'
 
 // Custom Components
-import { MovieList } from '../movieList/movieList';
-import { MovieView } from '../movieView/movieView';
-import { LoginView } from '../loginView/loginView';
-import { RegistrationView } from '../registrationView/registrationView';
-import { DirectorView } from '../directorView/directorView'; 
-import { GenreView } from '../genreView/genreView'
-import { NavBar } from '../navBar/navBar'
+import { MovieList } from '../movieList/movieList'
+import { MovieView } from '../movieView/movieView'
+import { LoginView } from '../loginView/loginView'
+import { RegistrationView } from '../registrationView/registrationView'
+import DirectorView from '../directorView/directorView'
+import GenreView from '../genreView/genreView'
+import NavBar from '../navBar/navBar'
+import ProfileView  from '../profileView/profileView'
 
 // Stlyes
-import './mainView.scss';
+import './mainView.scss'
 
 
 export class MainView extends React.Component {
@@ -29,22 +29,24 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       selectedMovie: null,
-      user: null
+      user: null,
+      loading: false
     }
+
+    this.onLoggedin = this.onLoggedin.bind(this);
+    this.onLogOut = this.onLogOut.bind(this);
   }
 
-  setSelectedMovie(newSelectedMovie) {
-    this.setState({
-      selectedMovie: newSelectedMovie
-    });
-  }
+  // setSelectedMovie(newSelectedMovie) {
+  //   this.setState({
+  //     selectedMovie: newSelectedMovie
+  //   });
+  // }
 
   onLoggedin(authData) {
-    console.log(authData);
     this.setState({
       user: authData.user.username
     });
-
 
     localStorage.setItem('user', authData.user.username);
     localStorage.setItem('token', authData.token);
@@ -66,12 +68,31 @@ export class MainView extends React.Component {
     })
   }
 
-  onLoggeOut() {
+  onLogOut() {
     localStorage.clear();
     this.setState({
       user: null
     });
   } 
+
+  addToFavorites(user, movieId){
+    let accessToken = localStorage.getItem('token');
+
+    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user}/${movieId}`, {
+      headers: {Authorization: `Bearer ${accessToken}`}
+    })
+      .then( user => {
+        console.log(user.movies);
+      })
+      .catch( err => {
+        console.log(err.response);
+      })
+  }
+
+  getFavorite(user){
+
+  }
+
   
 
   render() {
@@ -87,7 +108,9 @@ export class MainView extends React.Component {
             () => {
               if(!user) return (
                 <Col className="login-view d-flex min-vh-100 justify-content-center align-items-center" >
-                  <LoginView  onLoggedIn={ user => {this.onLoggedin(user)} } />
+                  <LoginView  
+                    onLoggedIn={ user => {this.onLoggedin(user)} } 
+                  />
                 </Col>
               );
 
@@ -122,8 +145,16 @@ export class MainView extends React.Component {
 
               return (
                 <Col>
-                  <NavBar user={user}/>
-                  <MovieView movie={movies.find( m => m._id = match.params.movieId )} onBackClick={() => history.goBack()}/>
+                  <NavBar 
+                    user={user} 
+                    onLogOut={this.onLogOut}
+                  />
+                  <MovieView 
+                    movie={movies.find( m => m._id === match.params.movieId )} 
+                    onBackClick={() => history.goBack()}
+                    addToFavorites={this.addToFavorites}
+                    user={localStorage.getItem('user')}
+                  />
                 </Col>
               )
             }
@@ -136,8 +167,14 @@ export class MainView extends React.Component {
           
               return (
                 <Col>
-                  <NavBar user={user} />
-                  <DirectorView director={movies.find( m => m.director.name = match.params.directorId).director}/>
+                  <NavBar 
+                    user={user} 
+                    onLogOut={this.onLogOut}
+                  />
+                  <DirectorView 
+                    director={movies.find( m => m.director.name === match.params.directorId).director} 
+                    onBackClick={() => history.goBack()} 
+                  />
                 </Col>
               )
             }
@@ -149,12 +186,38 @@ export class MainView extends React.Component {
 
               return (
                 <Col>
-                  <NavBar user={user}/>
-                  <GenreView movies={movies.filter( m => m.genre.name = match.params.genreId)}/>
+                  <NavBar 
+                    user={user} 
+                    onLogOut={this.onLogOut}
+                  />
+                  <GenreView 
+                    movies={movies.filter( m => m.genre.name === match.params.genreId)} 
+                    onBackClick={() => history.goBack()} 
+                  />
                 </Col>
               )
             }
           } />
+        {/* Profile View */}
+        <Route path="/profile" render={
+          ({ match, history }) => {
+            // if(!user) return <Redirect to="/" />
+
+            return (
+              <Col>
+                <NavBar 
+                  user={user} 
+                  onLogOut={this.onLogOut}
+                />
+                <ProfileView 
+                  user={localStorage.getItem('user')} 
+                  token={localStorage.getItem('token')} 
+                  onBackClick={() => history.goBack()} 
+                />
+              </Col>
+            )
+          }
+        } />
         </Row>
       </Router>
     );

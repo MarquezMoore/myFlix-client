@@ -1,30 +1,35 @@
-import React from 'react';
-import PropType from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // React-bootstrap component
-import { Spinner, Col} from 'react-bootstrap';
+import { Spinner, Col} from 'react-bootstrap'
 
 //Custome Component 
-import { MovieList } from '../movieList/movieList';
+import { MovieList } from '../movieList/movieList'
 
-export function GenreView(props) {
-console.log(props.movies)
-
+function GenreView({ movies, onBackClick }) {
   return (
-    <div >
-      Building...
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Building...</span>
-      </Spinner>
+    <>
+      <div>
+        <pre>{movies[0].genre.name}</pre>
+        <pre>{movies[0].genre.description}</pre>
+      </div>
       <div>
         {
-          props.movies.map( (m, i) => (
+          movies.map( (m, i) => (
                 <Col xs={6} lg={2} key={i} className="p-2">
                   <MovieList key={m._id} movie={m} />
                 </Col>
               ))
         }
       </div>
-    </div>
+      <button onClick={onBackClick}>Back</button>
+    </>
   )
+}
+
+export default GenreView;
+GenreView.propType = {
+  movies: PropTypes.object,
+  onBackClick: PropTypes.func
 }

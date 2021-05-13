@@ -50,6 +50,9 @@
 .login-form .link {
   color: #7B0708;
 }
+.login-form .err-msg {
+  font-size: 12px;
+}
 .reg-form .button:active, .reg-form .button:focus {
   background-color: #820001 !important;
   outline: none !important;
@@ -109,6 +112,9 @@
 }
 .reg-form .link {
   color: #7B0708;
+}
+.navbar {
+  background-color: #7B0708;
 }
 .login-view__wrapper {
   background-color: var(--mainFaded);
