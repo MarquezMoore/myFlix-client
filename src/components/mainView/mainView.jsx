@@ -75,10 +75,11 @@ export class MainView extends React.Component {
     });
   } 
 
-  addToFavorites(user, movieId){
+  addToFavorites(movie){
     let accessToken = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
 
-    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user}/${movieId}`, {
+    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user}/${movie._id}`, {
       headers: {Authorization: `Bearer ${accessToken}`}
     })
       .then( user => {

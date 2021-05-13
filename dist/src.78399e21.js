@@ -51009,7 +51009,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, movie.director.name))), /*#__PURE__*/_react.default.createElement("button", {
         onClick: onBackClick
       }, "Back"), /*#__PURE__*/_react.default.createElement("button", {
-        onClick: addToFavorites
+        onClick: function onClick() {
+          return addToFavorites(movie);
+        }
       }, "Add to favorites"));
     } // Lifecycle FMethods
 
@@ -51757,10 +51759,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "addToFavorites",
-    value: function addToFavorites(user, movieId) {
+    value: function addToFavorites(movie) {
       var accessToken = localStorage.getItem('token');
+      var user = localStorage.getItem('user');
 
-      _axios.default.put("https://my-fav-flix.herokuapp.com/api/users/".concat(user, "/").concat(movieId), {
+      _axios.default.put("https://my-fav-flix.herokuapp.com/api/users/".concat(user, "/").concat(movie._id), {
         headers: {
           Authorization: "Bearer ".concat(accessToken)
         }
@@ -52029,7 +52032,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59341" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51727" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

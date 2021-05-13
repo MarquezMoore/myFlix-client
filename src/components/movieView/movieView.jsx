@@ -51,7 +51,7 @@ export class MovieView extends React.Component {
           
         </div>
         <button onClick={onBackClick}>Back</button>
-        <button onClick={addToFavorites}>Add to favorites</button>
+        <button onClick={ () => addToFavorites(movie)}>Add to favorites</button>
       </div>
     );
   }
