@@ -116,18 +116,25 @@
 .navbar {
   background-color: #7B0708;
 }
+.side-bar {
+  border-right: #7B0708;
+}
 .login-view__wrapper {
   background-color: var(--mainFaded);
 }
 
 .movie-search {
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   border: none;
   outline: none;
   line-height: 2rem;
+  background-color: lightgray;
 }
 .movie-search::placeholder {
   transform: translate(3rem);
+}
+.movie-search:focus {
+  border: red solid 1px;
 }
 :root {
   --main: #7B0708;

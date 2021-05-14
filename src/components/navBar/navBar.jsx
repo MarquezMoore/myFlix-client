@@ -14,7 +14,7 @@ import './navBar.scss'
 function NavBar({ user, onLogOut }){
   return (
    
-      <Navbar className="navbar text-light px-4 py-2" >
+      <Navbar className="navbar text-light px-4 py-3" >
         <Navbar.Brand className="text-light" href="/">MyFlix</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">

@@ -64,6 +64,21 @@ export class MainView extends React.Component {
       console.log(err); 
     })
   }
+// Get User Details
+  getUserDetails() {
+    let token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
+
+    axios.get(`https://my-fav-flix.herokuapp.com/api/users/${user}`, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+      .then( u => {
+        return u.data;
+      })
+      .catch( err => {
+        console.log(err)
+      })
+  }
 // Log out
   onLogOut() {
     localStorage.clear();
@@ -114,7 +129,7 @@ export class MainView extends React.Component {
 
     return (
       <Router>
-        <div className="min-vh-100 bg-dark">
+        <div className="min-vh-100">
         {/* The path prop in the Route component below defines the path the the particular route will match and the render prop define the component to render when matched*/}
         
         {/* Main View Route */}
@@ -139,14 +154,14 @@ export class MainView extends React.Component {
                   
                   <Row className="d-flex">
                     <Col className="col-3 p-0">
-                      <SideBar className=""/>
+                      <SideBar className="" user={localStorage.getItem('user')}/>
                     </Col>
                     <Col className="d-flex flex-column p-4">
                       <input className="movie-search w-75 align-self-center" placeholder="Search"/>
                       <div className="d-flex flex-wrap wrapper py-4">
                         {
                           movies.map( (m, i) => (
-                            <Col xs={3} lg={2} key={i} className="p-1">
+                            <Col xs={6} lg={3} key={i} className="p-2">
                               <MovieList key={m._id} movie={m} />
                             </Col>
                           ))
@@ -178,22 +193,28 @@ export class MainView extends React.Component {
               if(!user) return <Redirect to="/" />
 
               return (
-                <Container className="p-0 h-100">
-                  <NavBar 
-                    user={user} 
-                    onLogOut={this.onLogOut}
-                  />
-                  <div className="d-flex h-100">
-                    <SideBar className="flex-1 h-100" />
-                    <MovieView 
-                      className="h-100"
-                      movie={movies.find( m => m._id === match.params.movieId )} 
-                      onBackClick={() => history.goBack()}
-                      addToFavorites={this.addToFavorites}
-                      removeFromFavorites={this.removeFromFavorites}
-                      user={localStorage.getItem('user')}
-                    />
-                  </div>
+                <Container fluid className="p-0 h-100">
+                  <Row>
+                    <Col >
+                      <NavBar user={user} onLogOut={this.onLogOut}/>
+                    </Col>
+                  </Row>
+                  
+                  <Row>
+                    <Col className="col-3 p-0">
+                      <SideBar className="" />
+                    </Col>
+                    <Col>
+                      <MovieView 
+                        className="h-100"
+                        movie={movies.find( m => m._id === match.params.movieId )} 
+                        onBackClick={() => history.goBack()}
+                        addToFavorites={this.addToFavorites}
+                        removeFromFavorites={this.removeFromFavorites}
+                        user={localStorage.getItem('user')}
+                      />
+                    </Col>
+                  </Row>
                 </Container>
               )
             }
@@ -240,7 +261,7 @@ export class MainView extends React.Component {
         {/* Profile View */}
         <Route path="/profile" render={
           ({ match, history }) => {
-            // if(!user) return <Redirect to="/" />
+            if(!user) return <Redirect to="/" />
 
             return (
               <Col className="p-0">

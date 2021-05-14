@@ -50969,9 +50969,9 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
           addToFavorites = _this$props.addToFavorites,
           removeFromFavorites = _this$props.removeFromFavorites;
       return /*#__PURE__*/_react.default.createElement("div", {
-        className: "wrapper w-100"
+        className: "wrapper w-100 p-4"
       }, /*#__PURE__*/_react.default.createElement("div", {
-        className: "d-flex w-100 justify-content-center"
+        className: "d-flex w-100 justify-content-center pb-4 space-between"
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         className: "me-auto bg-transparent border-0",
         onClick: onBackClick
@@ -51565,7 +51565,7 @@ function NavBar(_ref) {
   var user = _ref.user,
       onLogOut = _ref.onLogOut;
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
-    className: "navbar text-light px-4 py-2"
+    className: "navbar text-light px-4 py-3"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
     className: "text-light",
     href: "/"
@@ -51727,7 +51727,12 @@ ProfileView.prototypes = {
 };
 var _default = ProfileView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profileView":"components/profileView/profileView.jsx"}],"components/sideBar/sideBar.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","axios":"../node_modules/axios/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profileView":"components/profileView/profileView.jsx"}],"components/sideBar/sideBar.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/sideBar/sideBar.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51737,23 +51742,30 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-require("react-bootstrap");
+var _reactBootstrap = require("react-bootstrap");
+
+require("./sideBar.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SideBar = function SideBar() {
+var SideBar = function SideBar(_ref) {
+  var user = _ref.user;
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: " d-flex flex-column h-100 bg-light overflow-hidden p-4"
-  }, /*#__PURE__*/_react.default.createElement("img", {
-    className: "align-self-center",
+    className: "side-bar flex-1 d-flex flex-column h-100 overflow-hidden p-4"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Image, {
+    rounded: true,
+    fluid: true,
+    className: "profile-image align-self-center pb-3",
     src: "https://via.placeholder.com/200",
     alt: "Profile Image"
-  }));
+  }), /*#__PURE__*/_react.default.createElement("h3", {
+    className: "align-self-center"
+  }, user));
 };
 
 var _default = SideBar;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"components/mainView/mainView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./sideBar.scss":"components/sideBar/sideBar.scss"}],"components/mainView/mainView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -51870,6 +51882,23 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).catch(function (err) {
         console.log(err);
       });
+    } // Get User Details
+
+  }, {
+    key: "getUserDetails",
+    value: function getUserDetails() {
+      var token = localStorage.getItem('token');
+      var user = localStorage.getItem('user');
+
+      _axios.default.get("https://my-fav-flix.herokuapp.com/api/users/".concat(user), {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (u) {
+        return u.data;
+      }).catch(function (err) {
+        console.log(err);
+      });
     } // Log out
 
   }, {
@@ -51926,7 +51955,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           movies = _this$state.movies,
           user = _this$state.user;
       return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement("div", {
-        className: "min-vh-100 bg-dark"
+        className: "min-vh-100"
       }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
@@ -51951,7 +51980,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
             className: "col-3 p-0"
           }, /*#__PURE__*/_react.default.createElement(_sideBar.default, {
-            className: ""
+            className: "",
+            user: localStorage.getItem('user')
           })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
             className: "d-flex flex-column p-4"
           }, /*#__PURE__*/_react.default.createElement("input", {
@@ -51961,10 +51991,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             className: "d-flex flex-wrap wrapper py-4"
           }, movies.map(function (m, i) {
             return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-              xs: 3,
-              lg: 2,
+              xs: 6,
+              lg: 3,
               key: i,
-              className: "p-1"
+              className: "p-2"
             }, /*#__PURE__*/_react.default.createElement(_movieList.MovieList, {
               key: m._id,
               movie: m
@@ -51991,15 +52021,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             to: "/"
           });
           return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+            fluid: true,
             className: "p-0 h-100"
-          }, /*#__PURE__*/_react.default.createElement(_navBar.default, {
+          }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_navBar.default, {
             user: user,
             onLogOut: _this3.onLogOut
-          }), /*#__PURE__*/_react.default.createElement("div", {
-            className: "d-flex h-100"
+          }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+            className: "col-3 p-0"
           }, /*#__PURE__*/_react.default.createElement(_sideBar.default, {
-            className: "flex-1 h-100"
-          }), /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
+            className: ""
+          })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
             className: "h-100",
             movie: movies.find(function (m) {
               return m._id === match.params.movieId;
@@ -52010,7 +52041,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             addToFavorites: _this3.addToFavorites,
             removeFromFavorites: _this3.removeFromFavorites,
             user: localStorage.getItem('user')
-          })));
+          }))));
         }
       }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
         path: "/director/:directorId",
@@ -52061,7 +52092,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render(_ref4) {
           var match = _ref4.match,
               history = _ref4.history;
-          // if(!user) return <Redirect to="/" />
+          if (!user) return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
+            to: "/"
+          });
           return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
             className: "p-0"
           }, /*#__PURE__*/_react.default.createElement(_navBar.default, {
@@ -52205,7 +52238,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58507" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56863" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
