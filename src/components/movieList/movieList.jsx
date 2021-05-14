@@ -3,9 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // React-Bootstrap Components
-import Card from 'react-bootstrap/Card';
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Container from 'react-bootstrap/Container';
+import { Card } from 'react-bootstrap';
+
 
 // React-router-dom components
 import { Link } from 'react-router-dom';
@@ -19,11 +18,13 @@ export class MovieList extends React.Component {
   render() {
     const { movie } = this.props;
     return (
-      <Link to={`movie/${movie._id}`}>
-        <Card >
-          <Card.Img src={ movie.imageURL } />
-        </Card>
-      </Link>
+      <div>
+        <Link to={`movie/${movie._id}`}>
+          <Card >
+            <Card.Img src={ movie.imageURL } />
+          </Card>
+        </Link>
+      </div>
     );
   }
 }

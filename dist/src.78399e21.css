@@ -119,6 +119,16 @@
 .login-view__wrapper {
   background-color: var(--mainFaded);
 }
+
+.movie-search {
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  line-height: 2rem;
+}
+.movie-search::placeholder {
+  transform: translate(3rem);
+}
 :root {
   --main: #7B0708;
   --mainFaded:#7b0709c4;

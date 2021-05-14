@@ -17,8 +17,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <Container fluid className="d-flex flex-column max-vw-100 min-vh-100">
-        <MainView className="main-view flex-grow-1 w-100" />
+      <Container fluid className="d-flex flex-column min-vh-100 p-0">
+        <MainView className="main-view flex-grow-1 max-vh-100" />
       </Container>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // React-bootstrap components 
-import { NavBar } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 function DirectorView({ director, onBackClick }) {
   return (
@@ -11,7 +11,7 @@ function DirectorView({ director, onBackClick }) {
       <div>{director.bio}</div>
       <div>{director.birthday}</div>
       <div>{director.deathday}</div>
-      <button onClick={onBackClick}>Back</button>
+      <Button onClick={onBackClick}>Back</Button>
     </>
   )
 }

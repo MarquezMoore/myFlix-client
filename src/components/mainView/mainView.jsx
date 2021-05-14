@@ -6,7 +6,7 @@ import axios from 'axios'
 import { BrowserRouter as Router, Route, Redirect , Link } from 'react-router-dom'; 
 
 // React-Bootstrap Components
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Container, Form } from 'react-bootstrap'
 
 // Custom Components
 import { MovieList } from '../movieList/movieList'
@@ -17,6 +17,7 @@ import DirectorView from '../directorView/directorView'
 import GenreView from '../genreView/genreView'
 import NavBar from '../navBar/navBar'
 import ProfileView  from '../profileView/profileView'
+import SideBar from '../sideBar/sideBar'
 
 // Stlyes
 import './mainView.scss'
@@ -34,8 +35,11 @@ export class MainView extends React.Component {
 
     this.onLoggedin = this.onLoggedin.bind(this);
     this.onLogOut = this.onLogOut.bind(this);
+    this.getMovies = this.getMovies.bind(this);
+    this.addToFavorites = this.addToFavorites.bind(this);
+    this.removeFromFavorites = this.removeFromFavorites.bind(this);
   }
-
+// Login 
   onLoggedin(authData) {
     this.setState({
       user: authData.user.username
@@ -46,7 +50,7 @@ export class MainView extends React.Component {
 
     this.getMovies(authData.token);
   }
-
+// Get all movies
   getMovies(token){
     axios.get('https://my-fav-flix.herokuapp.com/api/movies', {
       headers: {Authorization: `Bearer ${token}`}
@@ -60,14 +64,15 @@ export class MainView extends React.Component {
       console.log(err); 
     })
   }
-
+// Log out
   onLogOut() {
     localStorage.clear();
     this.setState({
       user: null
     });
+    window.open('/', '_self');
   } 
-
+// Add movie to user favorites
   addToFavorites(movie){
     let accessToken = localStorage.getItem('token');
     let user = localStorage.getItem('user');
@@ -82,10 +87,25 @@ export class MainView extends React.Component {
         console.log(err.response);
       })
   }
+// Remove movies from user favorites
+  removeFromFavorites(movie){
+    let accessToken = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
 
-  getFavorite(user){
-
+    axios.delete(`https://my-fav-flix.herokuapp.com/api/users/${user}/${movie._id}`, {
+      headers: {Authorization: `Bearer ${accessToken}`}
+    })
+      .then( user => {
+        console.log(user);
+      })
+      .catch( err => {
+        console.log(err.response);
+      })
   }
+
+  // getFavorite(user){
+
+  // }
 
   
 
@@ -94,29 +114,49 @@ export class MainView extends React.Component {
 
     return (
       <Router>
-        <Row>
+        <div className="min-vh-100 bg-dark">
         {/* The path prop in the Route component below defines the path the the particular route will match and the render prop define the component to render when matched*/}
         
         {/* Main View Route */}
           <Route exact path="/" render={
             () => {
               if(!user) return (
-                <Col className="login-view d-flex min-vh-100 justify-content-center align-items-center" >
-                  <LoginView  
-                    onLoggedIn={ user => {this.onLoggedin(user)} } 
-                  />
-                </Col>
+                <Container fluid className="p-0">
+                  <Col className="login-view d-flex min-vh-100 justify-content-center align-items-center m-0" >
+                    <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />
+                  </Col>
+                </Container>
               );
 
-              if ( movies.length === 0 ){
-                return <div>No movies found</div>
-              }
 
-              return movies.map( (m, i) => (
-                <Col xs={6} lg={2} key={i} className="p-2">
-                  <MovieList key={m._id} movie={m} />
-                </Col>
-              ))
+              return (
+                <Container fluid className="h-100">
+                  <Row>
+                    <Col className="p-0">
+                      <NavBar/>
+                    </Col>
+                  </Row>
+                  
+                  <Row className="d-flex">
+                    <Col className="col-3 p-0">
+                      <SideBar className=""/>
+                    </Col>
+                    <Col className="d-flex flex-column p-4">
+                      <input className="movie-search w-75 align-self-center" placeholder="Search"/>
+                      <div className="d-flex flex-wrap wrapper py-4">
+                        {
+                          movies.map( (m, i) => (
+                            <Col xs={3} lg={2} key={i} className="p-1">
+                              <MovieList key={m._id} movie={m} />
+                            </Col>
+                          ))
+                        }
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
+              );
+              
             }
           } />
 
@@ -126,30 +166,35 @@ export class MainView extends React.Component {
             if(user) return <Redirect to="/" />
 
             return(
-              <Col className="reg-view min-vh-100 d-flex justify-content-center align-items-center">
+              <Col className="reg-view min-vh-100 d-flex justify-content-center align-items-center m-0">
                 <RegistrationView />
               </Col>
             )
           }}/>
 
-        {/* Movie View route */}
+    {/* Movie View route */}
           <Route path="/movie/:movieId" render={
             ({ match, history }) => {
               if(!user) return <Redirect to="/" />
 
               return (
-                <Col>
+                <Container className="p-0 h-100">
                   <NavBar 
                     user={user} 
                     onLogOut={this.onLogOut}
                   />
-                  <MovieView 
-                    movie={movies.find( m => m._id === match.params.movieId )} 
-                    onBackClick={() => history.goBack()}
-                    addToFavorites={this.addToFavorites}
-                    user={localStorage.getItem('user')}
-                  />
-                </Col>
+                  <div className="d-flex h-100">
+                    <SideBar className="flex-1 h-100" />
+                    <MovieView 
+                      className="h-100"
+                      movie={movies.find( m => m._id === match.params.movieId )} 
+                      onBackClick={() => history.goBack()}
+                      addToFavorites={this.addToFavorites}
+                      removeFromFavorites={this.removeFromFavorites}
+                      user={localStorage.getItem('user')}
+                    />
+                  </div>
+                </Container>
               )
             }
           } />
@@ -160,7 +205,7 @@ export class MainView extends React.Component {
               if(!user) return <Redirect to="/" />
           
               return (
-                <Col>
+                <Col className="p-o">
                   <NavBar 
                     user={user} 
                     onLogOut={this.onLogOut}
@@ -179,7 +224,7 @@ export class MainView extends React.Component {
               if(!user) return <Redirect to="/" />
 
               return (
-                <Col>
+                <Col className="p-0">
                   <NavBar 
                     user={user} 
                     onLogOut={this.onLogOut}
@@ -198,7 +243,7 @@ export class MainView extends React.Component {
             // if(!user) return <Redirect to="/" />
 
             return (
-              <Col>
+              <Col className="p-0">
                 <NavBar 
                   user={user} 
                   onLogOut={this.onLogOut}
@@ -207,12 +252,13 @@ export class MainView extends React.Component {
                   user={localStorage.getItem('user')} 
                   token={localStorage.getItem('token')} 
                   onBackClick={() => history.goBack()} 
+                  onLogOut={this.onLogOut}
                 />
               </Col>
             )
           }
         } />
-        </Row>
+        </div>
       </Router>
     );
   };

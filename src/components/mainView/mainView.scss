@@ -2,3 +2,14 @@
   background-color: var(--mainFaded);
 }
 
+// MovieList
+.movie-search{
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  line-height: 2rem;
+  &::placeholder{
+    transform: translate(3rem);
+  }
+}
+

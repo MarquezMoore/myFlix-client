@@ -6,18 +6,26 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 
 // React-bootdtrap components 
-import { Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button} from 'react-bootstrap'
 
-function  ProfileView({ user, token, onBackClick }) {
-  const [ userDetails, setUserDetails] = useState([]);
- 
+import './profileView'
+
+function  ProfileView({ user, token, onBackClick, onLogOut}) {
+  const [ userDetails, setUserDetails] = useState([]),
+    [ newUsername, setNewUsername] = useState(''),
+    [ newFirstName, setNewFirstName] = useState(''),
+    [ newLastName, setNewLastName] = useState(''),
+    [ newEmail, setNewEmail] = useState(''),
+    [ newBirthday, setNewBirthday] = useState(''),
+    [ profileForm, setProfileForm ] = useState('hidden');
+
+
+  
   const fetchDetails = () => {
-
     axios.get(`https://my-fav-flix.herokuapp.com/api/users/${user}`, {
       headers: {Authorization: `Bearer ${token}`}
     })
       .then( u => {
-        console.log(u.data);
         setUserDetails(u.data);
       })
       .catch( err => {
@@ -27,39 +35,71 @@ function  ProfileView({ user, token, onBackClick }) {
   
   useEffect( () => {
     fetchDetails();
-  },[])
+  },[ ])
 
-  const handleLogOut = () => {
-    props.onLogOut();
+  const handleSave = () => {
+    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user}`,
+    {
+      data: {
+        username: newUsername,
+        email: newEmail,
+        firstName: newFirstName,
+        lastName: newLastName,
+        birthday: newBirthday
+      }
+    },
+    {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    .then( result => {
+      // Close the form 
+      console.log(result);
+    })
+    .catch( err => {
+      console.log(err);
+    })
   }
 
+  const deleteUser = () => {
+    axios.delete(`https://my-fav-flix.herokuapp.com/api/users/${user}`, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    .then( result => {
+      onLogOut();
+      console.log(result.data);
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
+
   return(
-    <>
-    <div >
-      {`Username: ${userDetails.username}`}
+    <div className="wrapper d-flex flex-grow-1">
+{/* User Profile Overview */}
+      <div className="profileOverview bg-dark">
+        <p>hello world</p>
+      </div>
+
+
+{/* User Favorite Movie List */}
+      <Container className="userMovies">
+        <div>Movies</div>
+        {`${userDetails.movies ? userDetails.movies: 'You have no movies in your favorites'}`}
+        <Button className="btn-light border-dark mr-2 " onClick={onBackClick}>Back</Button>
+        <Button className="btn-danger ml-2"onClick={deleteUser}>Remove Account</Button>
+      </Container>
     </div>
-    <div >
-      {`First Name: ${userDetails.firstName}`}
-    </div>
-    <div >
-      {`Last Name: ${userDetails.lastName}`}
-    </div>
-    <div >
-      {`Email: ${userDetails.email}`}
-    </div>
-    <div >
-      {`Birthday: ${userDetails.birthday ? userDetails.birthday : 'n/a'}`}
-    </div>
-    <Button onClick={handleLogOut}></Button>
-    <button onClick={onBackClick}>Back</button>
-    </>
+      
+
   )
 }
 
 ProfileView.prototypes = {
   user: PropTypes.object,
   token: PropTypes.string,
-  onBackClick: PropTypes.func
+  onBackClick: PropTypes.func,
+  onLogOut: PropTypes.func,
 }
 
 export default ProfileView;

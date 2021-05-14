@@ -35,7 +35,6 @@ export function LoginView(props) {
         Password: password
       })
       .then(result => {
-        // console.log(`Result: ${result.data}`)
         const data = result.data;
         props.onLoggedIn(data);
       })

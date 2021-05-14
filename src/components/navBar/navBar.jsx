@@ -14,17 +14,11 @@ import './navBar.scss'
 function NavBar({ user, onLogOut }){
   return (
    
-      <Navbar className="navbar text-light px-4 py-2 mb-4" >
+      <Navbar className="navbar text-light px-4 py-2" >
         <Navbar.Brand className="text-light" href="/">MyFlix</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="text-light">
-        Signed in as: 
-        <a className="text-light" href="/profile">
-          { user }
-        </a>
-        </Navbar.Text>
-        <Button onClick={onLogOut}>Sign Out</Button>
+        <Button className="bg-transparent border-0" onClick={onLogOut}>Sign Out</Button>
         </Navbar.Collapse>
       </Navbar>
  
