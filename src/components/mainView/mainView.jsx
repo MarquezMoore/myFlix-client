@@ -28,7 +28,6 @@ export class MainView extends React.Component {
     super(props);
     this.state = {
       movies: [],
-      selectedMovie: null,
       user: null,
       loading: false
     }
@@ -36,12 +35,6 @@ export class MainView extends React.Component {
     this.onLoggedin = this.onLoggedin.bind(this);
     this.onLogOut = this.onLogOut.bind(this);
   }
-
-  // setSelectedMovie(newSelectedMovie) {
-  //   this.setState({
-  //     selectedMovie: newSelectedMovie
-  //   });
-  // }
 
   onLoggedin(authData) {
     this.setState({
@@ -79,11 +72,11 @@ export class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     let user = localStorage.getItem('user');
 
-    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user}/${movie._id}`, {
+    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user}/${movie._id}`, {}, {
       headers: {Authorization: `Bearer ${accessToken}`}
     })
       .then( user => {
-        console.log(user.movies);
+        console.log(user);
       })
       .catch( err => {
         console.log(err.response);
@@ -97,7 +90,7 @@ export class MainView extends React.Component {
   
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, user } = this.state;
 
     return (
       <Router>

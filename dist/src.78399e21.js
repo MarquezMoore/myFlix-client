@@ -51708,19 +51708,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       movies: [],
-      selectedMovie: null,
       user: null,
       loading: false
     };
     _this.onLoggedin = _this.onLoggedin.bind(_assertThisInitialized(_this));
     _this.onLogOut = _this.onLogOut.bind(_assertThisInitialized(_this));
     return _this;
-  } // setSelectedMovie(newSelectedMovie) {
-  //   this.setState({
-  //     selectedMovie: newSelectedMovie
-  //   });
-  // }
-
+  }
 
   _createClass(MainView, [{
     key: "onLoggedin",
@@ -51763,12 +51757,12 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var accessToken = localStorage.getItem('token');
       var user = localStorage.getItem('user');
 
-      _axios.default.put("https://my-fav-flix.herokuapp.com/api/users/".concat(user, "/").concat(movie._id), {
+      _axios.default.put("https://my-fav-flix.herokuapp.com/api/users/".concat(user, "/").concat(movie._id), {}, {
         headers: {
           Authorization: "Bearer ".concat(accessToken)
         }
       }).then(function (user) {
-        console.log(user.movies);
+        console.log(user);
       }).catch(function (err) {
         console.log(err.response);
       });
@@ -51783,7 +51777,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie,
           user = _this$state.user;
       return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -52032,7 +52025,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51727" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59415" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
