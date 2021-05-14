@@ -129,9 +129,7 @@
   outline: none;
   line-height: 2rem;
   background-color: lightgray;
-}
-.movie-search::placeholder {
-  transform: translate(3rem);
+  padding-left: 3rem;
 }
 .movie-search:focus {
   border: red solid 1px;
