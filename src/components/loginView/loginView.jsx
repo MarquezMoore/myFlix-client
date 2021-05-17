@@ -16,7 +16,7 @@ export function LoginView(props) {
   const [ username, setUsername ] = useState(''),
     [ password, setPassword ] = useState(''),
     [ validated, setValidated  ] = useState(false),
-    [ errors, setErrors ] = useState('');
+    [ errors, setErrors ] = useState(null);
 
   // Event handeler function on form submit
   const handleSubmit = e => {
@@ -35,11 +35,11 @@ export function LoginView(props) {
         Password: password
       })
       .then(result => {
-        const data = result.data;
-        props.onLoggedIn(data);
+        // console.log(result.data)
+        props.onLoggedIn(result.data);
       })
       .catch( err => {
-        console.log(err.response.data)
+        console.log(err)
         setErrors(typeof err.response.data.message === 'string' ? err.response.data.message : err.response.data.message.message);
       })
   }

@@ -19,8 +19,8 @@ export class MovieList extends React.Component {
     const { movie } = this.props;
     return (
       <div>
-        <Link to={`movie/${movie._id}`}>
-          <Card >
+        <Link to={`/movie/${movie._id}`}>
+          <Card className="border-0 rounded-3" >
             <Card.Img src={ movie.imageURL } />
           </Card>
         </Link>

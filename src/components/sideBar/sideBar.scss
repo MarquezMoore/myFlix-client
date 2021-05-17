@@ -1,5 +1,76 @@
-$main: #7B0708;
+@import '../../assets/styles.scss';
 
 .side-bar{
   border-right: $main;
+  .profile-image{
+    border-radius: 5%;
+  }
+  .user-name{
+    color: $gray1;
+  }
+  .user-username{
+    color: $gray2;
+  }
+  .edit-profile{
+    background-color: $gray8;
+    color: $gray1;
+    font-weight: bold;
+    border: 1px solid $gray3;
+    &:visited{
+      background-color: $gray6;
+      color: $gray1;
+      font-weight: bold;
+      border: 1px solid $gray3;
+    }
+    &:focus{
+      background-color: $gray6;
+      color: $gray1;
+      font-weight: bold;
+      border: 1px solid $gray3;
+      box-shadow: none;
+    }
+    &:hover{
+      background-color: $gray6;
+      color: $gray1;
+      font-weight: bold;
+      border: 1px solid $gray3;
+    }
+    &:active{
+      background-color: $gray6 !important;
+      border: 1px solid $gray3 !important;
+      color: $gray1 !important;
+      box-shadow: none !important;
+    }
+  }
+  .save-edit{
+    background-color: $main;
+    border: none;
+    color: $gray8;
+    font-size: .75rem;
+    &:hover{
+      background-color: saturate($main, 50%) !important;
+      color: $gray8;
+      border: none;
+    }
+    &:focus{
+      background-color: saturate($main, 50%) !important;
+      color: $gray8;
+      border: none;
+    }
+    &:active{
+      background-color: saturate($main, 50%) !important;
+      color: $gray8 !important;
+      border: none !important;
+    }
+  }
+  .cancel-edit{
+    background: transparent;
+    font-size: .75rem;
+  }
+
+  .update-form{
+    input{
+      font-size: .75rem;
+    }
+  }
 }

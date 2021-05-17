@@ -116,35 +116,105 @@
 .navbar {
   background-color: #7B0708;
 }
+.navbar .dropdown {
+  position: relative;
+}
+.navbar .dropdown .dropdown-menu {
+  position: absolute;
+  right: 1000px;
+}
 .side-bar {
   border-right: #7B0708;
 }
-.login-view__wrapper {
-  background-color: var(--mainFaded);
+.side-bar .profile-image {
+  border-radius: 5%;
 }
-
-.movie-search {
-  border-radius: 0.5rem;
+.side-bar .user-name {
+  color: #272423ff;
+}
+.side-bar .user-username {
+  color: #909090ff;
+}
+.side-bar .edit-profile {
+  background-color: #fafafaff;
+  color: #272423ff;
+  font-weight: bold;
+  border: 1px solid #acacacff;
+}
+.side-bar .edit-profile:visited {
+  background-color: #efefefff;
+  color: #272423ff;
+  font-weight: bold;
+  border: 1px solid #acacacff;
+}
+.side-bar .edit-profile:focus {
+  background-color: #efefefff;
+  color: #272423ff;
+  font-weight: bold;
+  border: 1px solid #acacacff;
+  box-shadow: none;
+}
+.side-bar .edit-profile:hover {
+  background-color: #efefefff;
+  color: #272423ff;
+  font-weight: bold;
+  border: 1px solid #acacacff;
+}
+.side-bar .edit-profile:active {
+  background-color: #efefefff !important;
+  border: 1px solid #acacacff !important;
+  color: #272423ff !important;
+  box-shadow: none !important;
+}
+.side-bar .save-edit {
+  background-color: #7B0708;
   border: none;
+  color: #fafafaff;
+  font-size: 0.75rem;
+}
+.side-bar .save-edit:hover {
+  background-color: #820001 !important;
+  color: #fafafaff;
+  border: none;
+}
+.side-bar .save-edit:focus {
+  background-color: #820001 !important;
+  color: #fafafaff;
+  border: none;
+}
+.side-bar .save-edit:active {
+  background-color: #820001 !important;
+  color: #fafafaff !important;
+  border: none !important;
+}
+.side-bar .cancel-edit {
+  background: transparent;
+  font-size: 0.75rem;
+}
+.side-bar .update-form input {
+  font-size: 0.75rem;
+}
+.search-bar {
+  position: relative;
+}
+.search-bar .search-icon {
+  position: relative;
+  top: 1.7rem;
+  left: 0.75rem;
+}
+.search-bar input {
+  border-radius: 0.5rem;
+  border: 1px solid #909090ff;
   outline: none;
   line-height: 2rem;
-  background-color: lightgray;
-  padding-left: 3rem;
+  background-color: #fafafaff;
+  padding-left: 2.5rem;
 }
-.movie-search:focus {
-  border: red solid 1px;
+.search-bar input:focus {
+  border: #7B0708 solid 1px;
 }
-:root {
-  --main: #7B0708;
-  --mainFaded:#7b0709c4;
-  --gray1: #272423ff;
-  --gray2: #909090ff;
-  --gray3: #acacacff;
-  --gray4: #e2e2e2ff;
-  --gray5: #e9e9e9ff;
-  --gray6: #efefefff;
-  --gray7: #f2f2f2ff;
-  --gray8: #fafafaff;
+.login-view__wrapper {
+  background-color: var(--mainFaded);
 }
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)

@@ -2,6 +2,13 @@ $main: #7B0708;
 
 .navbar{
   background-color: $main;
+  .dropdown{
+    position: relative;
+    .dropdown-menu{
+      position: absolute;
+      right: 1000px;
+    }
+  }
 }
 
 

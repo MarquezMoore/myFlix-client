@@ -1,0 +1,29 @@
+// MovieList
+$main: #7B0708;
+$gray1: #272423ff;
+$gray2: #909090ff;
+$gray3: #acacacff;
+$gray6: #efefefff;
+$gray7: #f2f2f2ff;
+$gray8: #fafafaff;
+
+
+.search-bar{
+  position: relative;
+    .search-icon{
+      position: relative;
+      top: 1.7rem;
+      left: .75rem;
+    }
+    input{
+      border-radius: .5rem;
+      border: 1px solid $gray2;
+      outline: none;
+      line-height: 2rem;
+      background-color: $gray8;
+      padding-left: 2.5rem;
+      &:focus{
+        border: $main solid 1px;
+      }
+    }
+}

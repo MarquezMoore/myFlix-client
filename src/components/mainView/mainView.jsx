@@ -18,6 +18,7 @@ import GenreView from '../genreView/genreView'
 import NavBar from '../navBar/navBar'
 import ProfileView  from '../profileView/profileView'
 import SideBar from '../sideBar/sideBar'
+import SearchBar from '../searchBar/searchBar'
 
 // Stlyes
 import './mainView.scss'
@@ -30,7 +31,7 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
-      loading: false
+      token: null
     }
 
     this.onLoggedin = this.onLoggedin.bind(this);
@@ -38,19 +39,43 @@ export class MainView extends React.Component {
     this.getMovies = this.getMovies.bind(this);
     this.addToFavorites = this.addToFavorites.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
-// Login 
+
+/*
+
+  Login
+
+*/
   onLoggedin(authData) {
     this.setState({
-      user: authData.user.username
+      user: authData.user,
+      token: authData.user.token
     });
 
-    localStorage.setItem('user', authData.user.username);
+    localStorage.setItem('user', JSON.stringify( authData.user));
     localStorage.setItem('token', authData.token);
 
     this.getMovies(authData.token);
   }
-// Get all movies
+/*
+
+  Logout
+
+*/
+  onLogOut() {
+    localStorage.clear();
+    this.setState({
+      user: null,
+      token: null
+    });
+    window.open('/', '_self');
+  } 
+/*
+
+  Get all movies in db
+
+*/
   getMovies(token){
     axios.get('https://my-fav-flix.herokuapp.com/api/movies', {
       headers: {Authorization: `Bearer ${token}`}
@@ -64,12 +89,17 @@ export class MainView extends React.Component {
       console.log(err); 
     })
   }
-// Get User Details
+/*
+
+  Get user details
+  - This function al be remove. All user specifc request to the api will return the user in obj formate
+
+*/
   getUserDetails() {
     let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
+    let user = JSON.parse(localStorage.getItem('user'));
 
-    axios.get(`https://my-fav-flix.herokuapp.com/api/users/${user}`, {
+    axios.get(`https://my-fav-flix.herokuapp.com/api/users/${this.state.user.username}`, {
       headers: {Authorization: `Bearer ${token}`}
     })
       .then( u => {
@@ -79,15 +109,11 @@ export class MainView extends React.Component {
         console.log(err)
       })
   }
-// Log out
-  onLogOut() {
-    localStorage.clear();
-    this.setState({
-      user: null
-    });
-    window.open('/', '_self');
-  } 
-// Add movie to user favorites
+/*
+
+  Add a movie to the user's favorites
+
+*/
   addToFavorites(movie){
     let accessToken = localStorage.getItem('token');
     let user = localStorage.getItem('user');
@@ -102,7 +128,11 @@ export class MainView extends React.Component {
         console.log(err.response);
       })
   }
-// Remove movies from user favorites
+/*
+
+  Remove movie from user's favorites
+
+*/
   removeFromFavorites(movie){
     let accessToken = localStorage.getItem('token');
     let user = localStorage.getItem('user');
@@ -117,6 +147,36 @@ export class MainView extends React.Component {
         console.log(err.response);
       })
   }
+/*
+
+  update user record
+
+*/
+  updateUser( user ) {
+    let currentUser = localStorage.getItem('user');
+    let token = localStorage.getItem('token');
+    console.log(user);
+    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${currentUser}`,{
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      birthday: user.birthday
+    }, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    .then( result => {
+      this.setState({
+        user: result.data
+      })
+      console.log(result);
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  
+  }
+
 
   // getFavorite(user){
 
@@ -129,7 +189,7 @@ export class MainView extends React.Component {
 
     return (
       <Router>
-        <div className="min-vh-100">
+        <div className="d-flex flex-grow-1">
         {/* The path prop in the Route component below defines the path the the particular route will match and the render prop define the component to render when matched*/}
         
         {/* Main View Route */}
@@ -145,23 +205,25 @@ export class MainView extends React.Component {
 
 
               return (
-                <Container fluid className="h-100">
+                <Container fluid className="d-flex flex-column">
                   <Row>
                     <Col className="p-0">
                       <NavBar/>
                     </Col>
                   </Row>
                   
-                  <Row className="d-flex">
+                  <Row className="d-flex flex-md-grow-1">
                     <Col className="col-3 p-0">
-                      <SideBar className="" user={localStorage.getItem('user')}/>
+                      <SideBar
+                      user={JSON.parse(user)} 
+                      updateUser={this.updateUser}/>
                     </Col>
-                    <Col className="d-flex flex-column p-4">
-                      <input className="movie-search w-75 align-self-center" placeholder="Search"/>
+                    <Col className="col-9 d-flex flex-column px-4">
+                      <SearchBar className="w-75"  />
                       <div className="d-flex flex-wrap wrapper py-4">
                         {
                           movies.map( (m, i) => (
-                            <Col xs={6} lg={3} key={i} className="p-2">
+                            <Col xs={4} lg={3} key={i} className="p-2">
                               <MovieList key={m._id} movie={m} />
                             </Col>
                           ))
@@ -193,25 +255,24 @@ export class MainView extends React.Component {
               if(!user) return <Redirect to="/" />
 
               return (
-                <Container fluid className="p-0 h-100">
+                <Container fluid className="d-flex flex-column">
                   <Row>
-                    <Col >
-                      <NavBar user={user} onLogOut={this.onLogOut}/>
+                    <Col className="p-0" >
+                      <NavBar user={JSON.parse(user)} onLogOut={this.onLogOut}/>
                     </Col>
                   </Row>
                   
-                  <Row>
+                  <Row className="d-flex flex-md-grow-1">
                     <Col className="col-3 p-0">
                       <SideBar className="" />
                     </Col>
-                    <Col>
+                    <Col className="col-9">
                       <MovieView 
                         className="h-100"
                         movie={movies.find( m => m._id === match.params.movieId )} 
                         onBackClick={() => history.goBack()}
                         addToFavorites={this.addToFavorites}
                         removeFromFavorites={this.removeFromFavorites}
-                        user={localStorage.getItem('user')}
                       />
                     </Col>
                   </Row>
@@ -226,16 +287,25 @@ export class MainView extends React.Component {
               if(!user) return <Redirect to="/" />
           
               return (
-                <Col className="p-o">
-                  <NavBar 
-                    user={user} 
-                    onLogOut={this.onLogOut}
-                  />
-                  <DirectorView 
-                    director={movies.find( m => m.director.name === match.params.directorId).director} 
-                    onBackClick={() => history.goBack()} 
-                  />
-                </Col>
+                <Container fluid className="d-flex flex-column">
+                  <Row>
+                    <Col className="p-0">
+                      <NavBar user={user} onLogOut={this.onLogOut}/>
+                    </Col>
+                  </Row>
+
+                  <Row className="d-flex flex-md-grow-1">
+                    <Col className="col-3 p-0">
+                      <SideBar className="" />
+                    </Col>
+                    <Col className="col-9">
+                      <DirectorView 
+                        director={movies.find( m => m.director.name === match.params.directorId).director} 
+                        onBackClick={() => history.goBack()} 
+                      />
+                    </Col>
+                  </Row>
+                </Container>
               )
             }
           } />
@@ -245,16 +315,25 @@ export class MainView extends React.Component {
               if(!user) return <Redirect to="/" />
 
               return (
-                <Col className="p-0">
-                  <NavBar 
-                    user={user} 
-                    onLogOut={this.onLogOut}
-                  />
-                  <GenreView 
-                    movies={movies.filter( m => m.genre.name === match.params.genreId)} 
-                    onBackClick={() => history.goBack()} 
-                  />
-                </Col>
+                <Container fluid className="d-flex flex-column">
+                  <Row>
+                    <Col className="p-0">
+                      <NavBar user={user} onLogOut={this.onLogOut} />
+                    </Col>
+                  </Row>
+
+                  <Row className="d-flex flex-md-grow-1">
+                    <Col className="col-3 p-0">
+                      <SideBar className="" />
+                    </Col>
+                    <Col className="col-9">
+                      <GenreView 
+                        movies={movies.filter( m => m.genre.name === match.params.genreId)} 
+                        // onBackClick={() => history.goBack()} 
+                      />
+                    </Col>
+                  </Row>
+                </Container>
               )
             }
           } />
@@ -270,7 +349,7 @@ export class MainView extends React.Component {
                   onLogOut={this.onLogOut}
                 />
                 <ProfileView 
-                  user={localStorage.getItem('user')} 
+                  user={JSON.parse(user)} 
                   token={localStorage.getItem('token')} 
                   onBackClick={() => history.goBack()} 
                   onLogOut={this.onLogOut}

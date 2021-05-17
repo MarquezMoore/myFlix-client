@@ -2,16 +2,4 @@
   background-color: var(--mainFaded);
 }
 
-// MovieList
-.movie-search{
-  border-radius: .5rem;
-  border: none;
-  outline: none;
-  line-height: 2rem;
-  background-color: lightgray;
-  padding-left: 3rem;
-  &:focus{
-    border: red solid 1px;
-  }
-}
 
