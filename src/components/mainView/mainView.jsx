@@ -1,6 +1,10 @@
 // Modules
 import React from 'react'
 import axios from 'axios'
+import { connector } from 'react-redux'
+
+// Actions
+import { setMovies } from '../../actions/actions'
 
 // React-router-DOM components
 import { BrowserRouter as Router, Route, Redirect , Link } from 'react-router-dom'; 
@@ -24,12 +28,12 @@ import SearchBar from '../searchBar/searchBar'
 import './mainView.scss'
 
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      movies: [],
+      // movies: [],
       user: null,
       token: null
     }
@@ -81,9 +85,10 @@ export class MainView extends React.Component {
       headers: {Authorization: `Bearer ${token}`}
     })
     .then( result => {
-      this.setState({
-        movies: result.data
-      })
+      // this.setState({
+      //   movies: result.data
+      // })
+      this.props.setMovies(result.data);
     })
     .catch( err => {
       console.log(err); 
@@ -185,7 +190,8 @@ export class MainView extends React.Component {
   
 
   render() {
-    const { movies, user } = this.state;
+    const { user } = this.state,
+      { movies } = this.props
 
     return (
       <Router>
