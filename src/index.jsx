@@ -9,7 +9,7 @@ import { devToolsEnhancer } from 'redux-devtools-extension'
 import appReducers from './reducers/reducers'
 
 // Customer Components
-import { MainView } from './components/mainView/mainView'
+import MainView from './components/mainView/mainView'
 
 // React-Bootstrap Components
 import Container from 'react-bootstrap/Container'

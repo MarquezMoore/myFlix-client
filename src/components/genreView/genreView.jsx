@@ -5,11 +5,12 @@ import PropTypes from 'prop-types'
 import { Container, Row, Col, Spinner} from 'react-bootstrap'
 
 //Custome Component 
-import { MovieList } from '../movieList/movieList'
+import { MovieCard } from '../movieCard/movieCard'
 import ControlsBar from '../controlsBar/controlsBar'
-function GenreView({ movies, onBackClick }) {
+
+const  GenreView = ({ movies, onBackClick }) => {
   return (
-    <div>
+    <>
       <ControlsBar onBackClick={onBackClick}/>
       <div>
         <pre>{movies[0].genre.name}</pre>
@@ -17,22 +18,22 @@ function GenreView({ movies, onBackClick }) {
       </div>
       <Container>
         <Row>
-            {
-              movies.map( (m, i) => (
-                    <Col xs={4} lg={3} key={i} className="p-2">
-                      <MovieList key={m._id} movie={m} />
-                    </Col>
-                  ))
-            }
+          {
+            movies.map( (m, i) => (
+              <Col xs={4} lg={3} key={i} className="p-2">
+                <MovieCard key={m._id} movie={m} />
+              </Col>
+            ))
+          }
         </Row>
       </Container>
-    </div>
+    </>
   )
 }
 
 GenreView.propType = {
-  movies: PropTypes.object,
-  onBackClick: PropTypes.func
+  movies: PropTypes.object.isRequired,
+  onBackClick: PropTypes.func.isRequired
 }
 
 export default GenreView;

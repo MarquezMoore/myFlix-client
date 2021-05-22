@@ -13,10 +13,11 @@ export const DELTE_PROFILE = 'DELTE_PROFIle';
 /*
   Action Creators
 */
-export const setUser = user => {
+export const setUser = (user, meta) => {
   return {
     type: SET_USER,
-    payload: user
+    payload: user,
+    meta: meta
   }
 }
 export const clearUser = () => {
@@ -31,22 +32,22 @@ export const editProfile = user => {
     payload: user
   }
 }
-export const addToFavorites = ( user, movieID ) => {
+export const addToFavorites = user => {
   return {
     type: ADD_TO_FAVORITES,
-    payload: {user, movieID}
+    payload: user
   } 
 }
-export const removeFromFavorites = ( user, movieID ) => {
+export const removeFromFavorites = user => {
   return {
     type: REMOVE_FROM_FAVORITES,
-    payload: {user, movieID}
+    payload: user
   } 
 }
-export const movieFilter = (movieFilter, movies) => {
+export const movieFilter = value => {
   return {
-    type: MOVIE_FITLER,
-    payload: {filterString, movies}
+    type: MOVIE_FILTER,
+    payload: value
   }
 }
 export const deleteProfile = user => {

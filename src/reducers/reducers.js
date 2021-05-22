@@ -9,10 +9,17 @@ import {
 
 
 
-const user = ( state = null, action ) => {
+const user = ( state = '', action ) => {
   switch(action.type) {
     case SET_USER:
-      return action.payload;
+      if (action.meta === 'login') return action.payload;
+
+
+      return {
+        ...state.user,
+        data: action.payload
+      }
+      
     case CLEAR_USER:
       return action.payload;
     default: 

@@ -2,37 +2,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// React-Bootstrap Components
-import { Card } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
 
-// React-router-dom components
-import { Link } from 'react-router-dom';
+import { Col } from 'react-bootstrap';
 
+import { MovieCard } from '../movieCard/movieCard'
+
+import SearchBar from '../searchBar/searchBar'
 // Stlyes
 import './movieList.scss';
 
-export class MovieList extends React.Component {
+const mapStateToProps = state => {
+  const { movieFilter } = state;
+  return { movieFilter };
+}
 
+const MovieList = props =>{
+  const { movies, movieFilter } = props;
+  let filteredMovies = movies;
 
-  render() {
-    const { movie } = this.props;
-    return (
-      <div>
-        <Link to={`/movie/${movie._id}`}>
-          <Card className="border-0 rounded-3" >
-            <Card.Img src={ movie.imageURL } />
-          </Card>
-        </Link>
-      </div>
-    );
+  if( movieFilter !== '') {
+    filteredMovies = movies.filter( m => 
+      m.title.toLowerCase().includes( movieFilter.toLowerCase())
+  );
+
+  if(!movies) return <div>No movies found</div>
   }
+
+  return (
+    <>
+      <SearchBar />
+      <div className="d-flex flex-wrap py-4">
+        {filteredMovies.map( m => (
+          <Col xs={4} lg={3} className="p-2" key={m._id}>
+            <MovieCard movie={m} />
+          </Col>
+        ))}
+      </div>
+    </>
+  )
 }
 
 MovieList.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    imageURL: PropTypes.string.isRequired
-  }).isRequired,
+  movies: PropTypes.array.isRequired,
+  movieFilter: PropTypes.string.isRequired
 }
+
+export default connect(mapStateToProps)(MovieList);
