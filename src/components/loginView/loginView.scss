@@ -1,10 +1,4 @@
-$main: #7B0708;
-%buttonsShared {
-  background-color: saturate($main, 50%) !important;
-  outline: none !important;
-  border: none !important;
-  box-shadow: none;
-}
+@import '../../assets/styles.scss';
 
 .login-view{
   background-color: desaturate($main, 33%);

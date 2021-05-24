@@ -19,6 +19,60 @@
 }
 .hero {
   height: 33vh;
+  background-image: url("/denise-jans-Lq6rcifGjOU-unsplash.328541bd.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.movie-container {
+  position: relative;
+  background-color: red;
+}
+.movie-container .movie-image {
+  position: absolute;
+  top: -150px;
+}
+.movie-container .movie-image .add {
+  background-color: #7B0708 !important;
+  color: #fafafaff;
+  border: none;
+  transition: all 300ms !important;
+}
+.movie-container .movie-image .add:focus {
+  border: none !important;
+}
+.movie-container .movie-image .add:hover {
+  transform: scale(1.02);
+}
+.movie-container .movie-image .add:active {
+  border: none;
+}
+.movie-container .movie-image .remove {
+  background-color: #7B0708 !important;
+  color: #fafafaff;
+  border: none;
+  transition: all 300ms !important;
+}
+.movie-container .movie-image .remove:focus {
+  border: none !important;
+}
+.movie-container .movie-image .remove:hover {
+  transform: scale(1.02);
+}
+.movie-container .movie-image .remove:active {
+  border: none;
+}
+.movie-container .movie-details {
+  position: absolute;
+  left: 32%;
+}
+
+.movie-detail-btn {
+  background-color: #f2f2f2ff;
+  color: #272423ff;
+  border-radius: 1rem;
+  padding: 0.3rem 1.5rem 0.3rem 1.5rem;
+  margin: 0 1rem 0 0;
 }
 .login-form .button:active, .login-form .button:focus {
   background-color: #820001 !important;
@@ -75,6 +129,13 @@
 .login-form .err-msg {
   font-size: 12px;
 }
+.reg-form .button:active, .reg-form .button:focus {
+  background-color: #820001 !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none;
+}
+
 .reg-form .button:active, .reg-form .button:focus {
   background-color: #820001 !important;
   outline: none !important;

@@ -25,47 +25,50 @@ const SideBar = ({ setUser, user }) => {
     hidden === '' ? setHidden('hidden') : setHidden('');
   }
 
-  const handleSave = () => {
-    let user = {
-      username: username,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      birthday: birthday
-    }
-    // Update profile with axios 
-    updateSave(user);
-
-    hidden === '' ? setHidden('hidden') : setHidden('');
-  }
-
-
 /*
   update user record
 */
-const updateUser =  user => {
-  let currentUser = localStorage.getItem('user');
-  let token = localStorage.getItem('token');
-  console.log(user);
-  axios.put(`https://my-fav-flix.herokuapp.com/api/users/${currentUser}`,{
-    username: user.username,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-    birthday: user.birthday
-  }, {
-    headers: {Authorization: `Bearer ${token}`}
-  })
-  .then( user => {
-    setUser(user);
-  })
-  .catch( err => {
-    console.log(err);
-  })
-}
+  const updateUser = () => {
+    console.log(user);
+    axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user.data.username}`,{
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      birthday: user.birthday
+    }, {
+      headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+    })
+    .then( user => {
+      console.log(user)
+      setUser(user);
+      hidden === '' ? setHidden('hidden') : setHidden('');
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
+  const deleteUser = () => {
+    axios.delete(`https://my-fav-flix.herokuapp.com/api/users/${user.data.username}`, {
+      headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+    })
+    .then( result => {
+      localStorage.clear();
+      setUser({
+        user: null,
+        token: null
+      });
+      window.open('/', '_self');
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
 
   return (
-    <div className="shadow border-end side-bar flex-1 d-flex flex-column h-100 overflow-hidden p-4">
+    <div className="shadow border-end side-bar flex-1 d-flex flex-column h-100 overflow-hidden p-5">
       <div className="d-flex flex-column">
         <Image fluid className="profile-image align-self-center" src="https://via.placeholder.com/1000" alt="Profile Image"/>
         <div className="py-4 d-flex flex-column">
@@ -111,18 +114,20 @@ const updateUser =  user => {
             </Form.Group>
             <div className="d-flex">
               <Button hidden={!hidden} onClick={handleClick} className="cancel-edit me-2 align-self-center w-100 edit-profile">Cancel</Button>
-              <Button hidden={!hidden} onClick={handleSave} className="save-edit ms-2 align-self-center w-100 edit-profile">Save</Button>
+              <Button hidden={!hidden} onClick={updateUser} className="save-edit ms-2 align-self-center w-100 edit-profile">Save</Button>
             </div>
         </Form>
 
         <Button hidden={hidden} onClick={handleClick} className="align-self-center w-100 edit-profile">Edit Profile</Button>
+        <Button onClick={deleteUser} className="align-self-center w-100 edit-profile my-4">Delete Profile</Button>
       </div>
     </div>
   );
 }
 
 SideBar.prototype = {
-  user: PropTypes.object.isRequire,
+  user: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, { setUser })(SideBar);

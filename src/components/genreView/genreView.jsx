@@ -2,16 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // React-bootstrap component
-import { Container, Row, Col, Spinner} from 'react-bootstrap'
+import { Container, Row, Col, Button, Spinner} from 'react-bootstrap'
 
 //Custome Component 
 import { MovieCard } from '../movieCard/movieCard'
-import ControlsBar from '../controlsBar/controlsBar'
 
 const  GenreView = ({ movies, onBackClick }) => {
   return (
     <>
-      <ControlsBar onBackClick={onBackClick}/>
+      <Button onClick={onBackClick}> Back </Button>
       <div>
         <pre>{movies[0].genre.name}</pre>
         <pre>{movies[0].genre.description}</pre>

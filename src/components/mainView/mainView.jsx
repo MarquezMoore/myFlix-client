@@ -1,5 +1,5 @@
 // Modules
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
 
@@ -27,23 +27,14 @@ import SideBar from '../sideBar/sideBar'
 import './mainView.scss'
 
 
-class MainView extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.onLoggedin = this.onLoggedin.bind(this);
-    this.onLogOut = this.onLogOut.bind(this);
-    this.getMovies = this.getMovies.bind(this);
-  }
-
+const MainView = ({ user, movies, setUser, setMovies }) => {
 /*
 
   Login
 
 */
-  onLoggedin(authData) {
-    this.props.setUser({
+  const onLoggedin = authData => {
+    setUser({
       data: authData.user,
       token: authData.token
     }, 'login');
@@ -51,222 +42,230 @@ class MainView extends React.Component {
     localStorage.setItem('user', JSON.stringify( authData.user));
     localStorage.setItem('token', authData.token);
     
-    this.getMovies(authData.token);
+    getMovies(authData.token);
   }
 /*
 
-  Logout
+  Get user most recent data from DB
 
 */
-  onLogOut() {
-    localStorage.clear();
-    this.setState({
-      user: null,
-      token: null
-    });
-    window.open('/', '_self');
-  } 
+  const getUser = (token, user) => {
+    axios.get(`https://my-fav-flix.herokuapp.com/api/users/${user.username}`, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    .then( user => {
+      setUser({
+        data: user.data,
+        token: token
+      }, 'refresh');
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
 /*
 
-  Get all movies in db
+  Get all movies in DB
 
 */
-  getMovies(token){
+  const getMovies = token => {
     axios.get('https://my-fav-flix.herokuapp.com/api/movies', {
       headers: {Authorization: `Bearer ${token}`}
     })
     .then( result => {
-      this.props.setMovies(result.data);
+      setMovies(result.data);
     })
     .catch( err => {
       console.log(err); 
     })
   }
 
-  render() {
-    const { user, movies } = this.props;
+  useEffect(() => {
+    // Retrive the JWT from the applications localStorage
+    let token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
+    // The there is a token in the apps localStorage update the user state to the user in stored in the localStorage
+    if(token !== null) {
+      getUser(token, JSON.parse(user));
+      // Display movies
+      getMovies(token);
+    }
+  }, []);
 
-    return (
-      <Router>
-        {/* Start of Route Wrapper */}
-        <div className="d-flex flex-grow-1">
-    {/* Start of MainList Route */}
-          <Route exact path="/" render={
-            () => {
-              if( !user ) return (
-                <Container fluid className="p-0">
-                  <Col className="login-view d-flex min-vh-100 justify-content-center align-items-center m-0" >
-                    <LoginView onLoggedIn={ user => {this.onLoggedin(user)} } />
-                  </Col>
-                </Container>
-              );
-
-              return (
-                <Container fluid className="d-flex flex-column">
-                  <Row>
-                    <Col className="p-0">
-                      <NavBar />
-                    </Col>
-                  </Row>
-                  
-                  <Row className="d-flex flex-md-grow-1">
-                    <Col className="col-3 p-0">
-                      <SideBar />
-                    </Col>
-                    <Col className="m-0 col-9 d-flex flex-column p-4">
-                      <MovieList movies={movies} />
-                    </Col>
-                  </Row>
-                </Container>
-              );
-            }
-          } />
-    {/* End of MovieList route */}
-
-    {/* Start of Registration View Route */}
-          <Route path="/register" render={ () => {
-            // If user is logged in already redirect to login view 
-            if(user) return <Redirect to="/" />
-
-            return(
-              <Col className="reg-view min-vh-100 d-flex justify-content-center align-items-center m-0">
-                <RegistrationView />
-              </Col>
-            )
-          }}/>
-    {/* End of Registration View Route */}
-
-    {/* Start of Movie View route */}
-          <Route path="/movie/:movieId" render={
-            ({ match, history }) => {
-              if(!user) return <Redirect to="/" />
-
-              return (
-                <Container fluid className="d-flex flex-column">
-                  <Row>
-                    <Col className="p-0" >
-                      <NavBar onLogOut={this.onLogOut}/>
-                    </Col>
-                  </Row>
-                  
-                  <Row className="d-flex flex-md-grow-1">
-                    <Col className="col-3 p-0">
-                      <SideBar />
-                    </Col>
-                    <Col className="col-9 p-0">
-                      <MovieView 
-                        className="h-100"
-                        movie={movies.find( m => m._id === match.params.movieId )} 
-                        onBackClick={() => history.goBack()}
-                      />
-                    </Col>
-                  </Row>
-                </Container>
-              )
-            }
-          } />
-    {/* End of Movie View route */}
-          
-    {/* Start of DirectorView Route */}
-          <Route path="/director/:directorId" render={
-            ({ match, history }) => {
-              if(!user) return <Redirect to="/" />
-          
-              return (
-                <Container fluid className="d-flex flex-column">
-                  <Row>
-                    <Col className="p-0">
-                      <NavBar onLogOut={this.onLogOut}/>
-                    </Col>
-                  </Row>
-
-                  <Row className="d-flex flex-md-grow-1">
-                    <Col className="col-3 p-0">
-                      <SideBar />
-                    </Col>
-                    <Col className="col-9">
-                      <DirectorView 
-                        director={movies.find( m => m.director.name === match.params.directorId).director} 
-                        onBackClick={() => history.goBack()} 
-                      />
-                    </Col>
-                  </Row>
-                </Container>
-              )
-            }
-          } />
-    {/* End of DirectorView Route */} 
-
-    {/* Start of Genre View Route*/}
-          <Route path="/genre/:genreId" render={
-            ({ match, history }) => {
-              if(!user) return <Redirect to="/" />
-
-              return (
-                <Container fluid className="d-flex flex-column">
-                  <Row>
-                    <Col className="p-0">
-                      <NavBar onLogOut={this.onLogOut} />
-                    </Col>
-                  </Row>
-
-                  <Row className="d-flex flex-md-grow-1">
-                    <Col className="col-3 p-0">
-                      <SideBar />
-                    </Col>
-                    <Col className="col-9">
-                      <GenreView 
-                        movies={movies.filter( m => m.genre.name === match.params.genreId)} 
-                        onBackClick={() => history.goBack()} 
-                      />
-                    </Col>
-                  </Row>
-                </Container>
-              )
-            }
-          } />
-    {/* End of Genre View Route*/}
-    
-    {/* Start of Profile View */}
-        <Route path="/profile" render={
-          ({ history }) => {
-            if(!user) return <Redirect to="/" />
+  return(
+    <Router>
+      {/* Start of Route Wrapper */}
+      <div className="d-flex flex-grow-1">
+  {/* Start of MainList Route */}
+        <Route exact path="/" render={
+          () => {
+            if( user.token === '' ) return (
+              <Container fluid className="p-0">
+                <Col className="login-view d-flex min-vh-100 justify-content-center align-items-center m-0" >
+                  <LoginView onLoggedIn={ user => {onLoggedin(user)} } />
+                </Col>
+              </Container>
+            );
 
             return (
-              <Col className="p-0">
-                <NavBar onLogOut={this.onLogOut} />
-                <ProfileView 
-                  user={JSON.parse(user)} 
-                  token={localStorage.getItem('token')} 
-                  onBackClick={() => history.goBack()} 
-                  onLogOut={this.onLogOut}
-                />
-              </Col>
+              <Container fluid className="d-flex flex-column">
+                <Row>
+                  <Col className="p-0">
+                    <NavBar />
+                  </Col>
+                </Row>
+                
+                <Row className="d-flex flex-md-grow-1">
+                  <Col className="col-3 p-0">
+                    <SideBar />
+                  </Col>
+                  <Col className="m-0 col-9 d-flex flex-column p-4">
+                    <MovieList movies={movies} />
+                  </Col>
+                </Row>
+              </Container>
+            );
+          }
+        } />
+  {/* End of MovieList route */}
+
+  {/* Start of Registration View Route */}
+        <Route path="/register" render={ () => {
+          // If user is logged in already redirect to login view 
+          if( user.token !== '' ) return <Redirect to="/" />
+
+          return(
+            <Col className="reg-view min-vh-100 d-flex justify-content-center align-items-center m-0">
+              <RegistrationView />
+            </Col>
+          )
+        }}/>
+  {/* End of Registration View Route */}
+
+  {/* Start of Movie View route */}
+        <Route path="/movie/:movieId" render={
+          ({ match, history }) => {
+            if( user.token === '' ) return <Redirect to="/" />
+
+            return (
+              <Container fluid className="d-flex flex-column">
+                <Row>
+                  <Col className="p-0" >
+                    <NavBar />
+                  </Col>
+                </Row>
+                
+                <Row className="d-flex flex-md-grow-1">
+                  <Col className="col-3 p-0">
+                    <SideBar />
+                  </Col>
+                  <Col className="col-9 p-0">
+                    <MovieView 
+                      className="h-100"
+                      movie={movies.find( m => m._id === match.params.movieId )} 
+                      onBackClick={() => history.goBack()}
+                    />
+                  </Col>
+                </Row>
+              </Container>
             )
           }
         } />
-    {/* End of Start of Profile View */}
-        </div>
-        {/* End of wrapper */}
-      </Router>
-    );
-  };
+  {/* End of Movie View route */}
+        
+  {/* Start of DirectorView Route */}
+        <Route path="/director/:directorId" render={
+          ({ match, history }) => {
+            if( user.token === '' ) return <Redirect to="/" />
+        
+            return (
+              <Container fluid className="d-flex flex-column">
+                <Row>
+                  <Col className="p-0">
+                    <NavBar />
+                  </Col>
+                </Row>
 
+                <Row className="d-flex flex-md-grow-1">
+                  <Col className="col-3 p-0">
+                    <SideBar />
+                  </Col>
+                  <Col className="col-9">
+                    <DirectorView 
+                      director={movies.find( m => m.director.name === match.params.directorId).director} 
+                      onBackClick={() => history.goBack()} 
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            )
+          }
+        } />
+  {/* End of DirectorView Route */} 
 
-  componentDidMount() {
-    // Retrive the JWT from the applications localStorage
-    let accessToken = localStorage.getItem('token');
-    // The there is a token in the apps localStorage update the user state to the user in stored in the localStorage
-    if(accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      // Display movies
-      this.getMovies(accessToken);
-    }
-  }
+  {/* Start of Genre View Route*/}
+        <Route path="/genre/:genreId" render={
+          ({ match, history }) => {
+            if( user.token === '' ) return <Redirect to="/" />
+
+            return (
+              <Container fluid className="d-flex flex-column">
+                <Row>
+                  <Col className="p-0">
+                    <NavBar />
+                  </Col>
+                </Row>
+
+                <Row className="d-flex flex-md-grow-1">
+                  <Col className="col-3 p-0">
+                    <SideBar />
+                  </Col>
+                  <Col className="col-9">
+                    <GenreView 
+                      movies={movies.filter( m => m.genre.name === match.params.genreId)} 
+                      onBackClick={() => history.goBack()} 
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            )
+          }
+        } />
+  {/* End of Genre View Route*/}
+  
+  {/* Start of Profile View */}
+      <Route path="/profile" render={
+        ({ history }) => {
+          if( user.token === '' ) return <Redirect to="/" />
+
+          return (
+            <Container fluid className="d-flex flex-column">
+              <Row>
+                  <Col className="p-0">
+                    <NavBar />
+                  </Col>
+                </Row>
+              <Row className="d-flex flex-md-grow-1">
+                <Col className="col-3 p-0">
+                    <SideBar />
+                </Col>
+                <Col className="p-0">
+                  <ProfileView  
+                    token={localStorage.getItem('token')} 
+                    onBackClick={() => history.goBack()} 
+                  />
+                </Col>
+              </Row>
+            </Container>
+          )
+        }
+      } />
+  {/* End of Start of Profile View */}
+      </div>
+      {/* End of wrapper */}
+    </Router>
+  )
 }
-
 /*
   - The mapStateToProps function below specifies what data from the global state will need by the respective component as props (this function is define by the author)
   - The mapDispatcherToProps is a object that will take the actions that will be passed to the respective components as props

@@ -5,3 +5,10 @@ $gray3: #acacacff;
 $gray6: #efefefff;
 $gray7: #f2f2f2ff;
 $gray8: #fafafaff;
+
+%buttonsShared {
+  background-color: saturate($main, 50%) !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none;
+}

@@ -1,3 +1,58 @@
+@import '../../assets/styles.scss';
+
 .hero{
   height: 33vh;
+  background-image: url("../../assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.movie-container{
+  position: relative;
+  background-color: red;
+  .movie-image{
+    position: absolute;
+    top: -150px;
+    .add{
+      background-color: $main !important;
+      color: $gray8;
+      border: none;
+      transition: all 300ms !important;
+      &:focus{
+        border: none !important;
+      }
+      &:hover{
+        transform: scale(1.02);
+      }
+      &:active{
+        border: none;
+      }
+    }
+    .remove{
+      background-color: $main !important;
+      color: $gray8;
+      border: none;
+      transition: all 300ms !important;
+      &:focus{
+        border: none !important;
+      }
+      &:hover{
+        transform: scale(1.02);
+      }
+      &:active{
+        border: none;
+      }
+    }
+  }
+  .movie-details{
+    position: absolute;
+    left: 32%;
+  }
+}
+
+.movie-detail-btn{
+  background-color: $gray7;
+  color: $gray1;
+  border-radius: 1rem;
+  padding: .3rem 1.5rem .3rem 1.5rem;
+  margin: 0 1rem 0 0;
 }
