@@ -29605,9 +29605,13 @@ function ownKeys(object, enumerableOnly) {
 
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
     keys.push.apply(keys, symbols);
   }
 
@@ -33240,7 +33244,7 @@ var _actions = require("../actions/actions");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -38877,6 +38881,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ownerDocument;
 
+/**
+ * Returns the owner document of a given element.
+ * 
+ * @param node the element
+ */
 function ownerDocument(node) {
   return node && node.ownerDocument || document;
 }
@@ -38892,6 +38901,11 @@ var _ownerDocument = _interopRequireDefault(require("./ownerDocument"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Returns the owner window of a given element.
+ * 
+ * @param node the element
+ */
 function ownerWindow(node) {
   var doc = (0, _ownerDocument.default)(node);
   return doc && doc.defaultView || window;
@@ -38908,6 +38922,12 @@ var _ownerWindow = _interopRequireDefault(require("./ownerWindow"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Returns one or all computed style properties of an element.
+ * 
+ * @param node the element
+ * @param psuedoElement the style property
+ */
 function getComputedStyle(node, psuedoElement) {
   return (0, _ownerWindow.default)(node).getComputedStyle(node, psuedoElement);
 }
@@ -39747,6 +39767,11 @@ try {
 }
 /**
  * An `addEventListener` ponyfill, supports the `once` option
+ * 
+ * @param node the element
+ * @param eventName the event name
+ * @param handle the handler
+ * @param options event options
  */
 
 
@@ -39781,6 +39806,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+/**
+ * A `removeEventListener` ponyfill
+ * 
+ * @param node the element
+ * @param eventName the event name
+ * @param handle the handler
+ * @param options event options
+ */
 function removeEventListener(node, eventName, handler, options) {
   var capture = options && typeof options !== 'boolean' ? options.capture : options;
   node.removeEventListener(eventName, handler, capture);
@@ -39815,7 +39848,38 @@ function listen(node, eventName, handler, options) {
 
 var _default = listen;
 exports.default = _default;
-},{"./addEventListener":"../node_modules/dom-helpers/esm/addEventListener.js","./removeEventListener":"../node_modules/dom-helpers/esm/removeEventListener.js"}],"../node_modules/dom-helpers/esm/transitionEnd.js":[function(require,module,exports) {
+},{"./addEventListener":"../node_modules/dom-helpers/esm/addEventListener.js","./removeEventListener":"../node_modules/dom-helpers/esm/removeEventListener.js"}],"../node_modules/dom-helpers/esm/triggerEvent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = triggerEvent;
+
+/**
+ * Triggers an event on a given element.
+ * 
+ * @param node the element
+ * @param eventName the event name to trigger
+ * @param bubbles whether the event should bubble up
+ * @param cancelable whether the event should be cancelable
+ */
+function triggerEvent(node, eventName, bubbles, cancelable) {
+  if (bubbles === void 0) {
+    bubbles = false;
+  }
+
+  if (cancelable === void 0) {
+    cancelable = true;
+  }
+
+  if (node) {
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent(eventName, bubbles, cancelable);
+    node.dispatchEvent(event);
+  }
+}
+},{}],"../node_modules/dom-helpers/esm/transitionEnd.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39827,18 +39891,14 @@ var _css = _interopRequireDefault(require("./css"));
 
 var _listen = _interopRequireDefault(require("./listen"));
 
+var _triggerEvent = _interopRequireDefault(require("./triggerEvent"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function parseDuration(node) {
   var str = (0, _css.default)(node, 'transitionDuration') || '';
   var mult = str.indexOf('ms') === -1 ? 1000 : 1;
   return parseFloat(str) * mult;
-}
-
-function triggerTransitionEnd(element) {
-  var evt = document.createEvent('HTMLEvents');
-  evt.initEvent('transitionend', true, true);
-  element.dispatchEvent(evt);
 }
 
 function emulateTransitionEnd(element, duration, padding) {
@@ -39848,7 +39908,7 @@ function emulateTransitionEnd(element, duration, padding) {
 
   var called = false;
   var handle = setTimeout(function () {
-    if (!called) triggerTransitionEnd(element);
+    if (!called) (0, _triggerEvent.default)(element, 'transitionend', true);
   }, duration + padding);
   var remove = (0, _listen.default)(element, 'transitionend', function () {
     called = true;
@@ -39870,7 +39930,7 @@ function transitionEnd(element, handler, duration, padding) {
     remove();
   };
 }
-},{"./css":"../node_modules/dom-helpers/esm/css.js","./listen":"../node_modules/dom-helpers/esm/listen.js"}],"../node_modules/react-bootstrap/esm/transitionEndListener.js":[function(require,module,exports) {
+},{"./css":"../node_modules/dom-helpers/esm/css.js","./listen":"../node_modules/dom-helpers/esm/listen.js","./triggerEvent":"../node_modules/dom-helpers/esm/triggerEvent.js"}],"../node_modules/react-bootstrap/esm/transitionEndListener.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42054,6 +42114,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = matches;
 var matchesImpl;
+/**
+ * Checks if a given element matches a selector.
+ * 
+ * @param node the element
+ * @param selector the selector
+ */
 
 function matches(node, selector) {
   if (!matchesImpl) {
@@ -42075,6 +42141,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = qsa;
 var toArray = Function.prototype.bind.call(Function.prototype.call, [].slice);
+/**
+ * Runs `querySelectorAll` on a given element.
+ * 
+ * @param element the element
+ * @param selector the selector
+ */
 
 function qsa(element, selector) {
   return toArray(element.querySelectorAll(selector));
@@ -45129,9 +45201,16 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = contains;
 
 /* eslint-disable no-bitwise, no-cond-assign */
-// HTML DOM and SVG DOM may have different support levels,
-// so we need to check on context instead of a document root element.
+
+/**
+ * Checks if an element contains another given element.
+ * 
+ * @param context the context element
+ * @param node the element to check
+ */
 function contains(context, node) {
+  // HTML DOM and SVG DOM may have different support levels,
+  // so we need to check on context instead of a document root element.
   if (context.contains) return context.contains(node);
   if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
 }
@@ -46108,8 +46187,7 @@ var DropdownItem = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) {
   var navContext = (0, _react.useContext)(_NavContext.default);
 
   var _ref2 = navContext || {},
-      activeKey = _ref2.activeKey; // TODO: Restrict eventKey to string in v5?
-
+      activeKey = _ref2.activeKey;
 
   var key = (0, _SelectableContext.makeEventKey)(eventKey, href);
   var active = propActive == null && key != null ? (0, _SelectableContext.makeEventKey)(activeKey) === key : propActive;
@@ -46242,6 +46320,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = hasClass;
 
+/**
+ * Checks if a given element has a CSS class.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
 function hasClass(element, className) {
   if (element.classList) return !!className && element.classList.contains(className);
   return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
@@ -46279,6 +46363,7 @@ function getMargins(element) {
 function usePopperMarginModifiers() {
   var overlayRef = (0, _react.useRef)(null);
   var margins = (0, _react.useRef)(null);
+  var arrowMargins = (0, _react.useRef)(null);
   var popoverClass = (0, _ThemeProvider.useBootstrapPrefix)(undefined, 'popover');
   var dropdownMenuClass = (0, _ThemeProvider.useBootstrapPrefix)(undefined, 'dropdown-menu');
   var callback = (0, _react.useCallback)(function (overlay) {
@@ -46319,7 +46404,32 @@ function usePopperMarginModifiers() {
         }
       }
     };
-  }, [margins]); // Converts popover arrow margin to arrow modifier padding
+  }, [margins]);
+  var arrow = (0, _react.useMemo)(function () {
+    return {
+      name: 'arrow',
+      options: {
+        padding: function padding() {
+          // The options here are used for Popper 2.8.4 and up.
+          // For earlier version, padding is handled in popoverArrowMargins below.
+          if (!arrowMargins.current) {
+            return 0;
+          }
+
+          var _arrowMargins$current = arrowMargins.current,
+              top = _arrowMargins$current.top,
+              right = _arrowMargins$current.right;
+          var padding = top || right;
+          return {
+            top: padding,
+            left: padding,
+            right: padding,
+            bottom: padding
+          };
+        }
+      }
+    };
+  }, [arrowMargins]); // Converts popover arrow margin to arrow modifier padding
 
   var popoverArrowMargins = (0, _react.useMemo)(function () {
     return {
@@ -46330,21 +46440,30 @@ function usePopperMarginModifiers() {
       effect: function effect(_ref2) {
         var state = _ref2.state;
 
-        if (!overlayRef.current || !state.elements.arrow || !(0, _hasClass.default)(overlayRef.current, popoverClass) || !state.modifiersData['arrow#persistent']) {
+        if (!overlayRef.current || !state.elements.arrow || !(0, _hasClass.default)(overlayRef.current, popoverClass)) {
           return undefined;
         }
 
-        var _getMargins = getMargins(state.elements.arrow),
-            top = _getMargins.top,
-            right = _getMargins.right;
+        if (state.modifiersData['arrow#persistent']) {
+          // @popperjs/core <= 2.8.3 uses arrow#persistent to pass padding to arrow modifier.
+          var _getMargins = getMargins(state.elements.arrow),
+              top = _getMargins.top,
+              right = _getMargins.right;
 
-        var padding = top || right;
-        state.modifiersData['arrow#persistent'].padding = {
-          top: padding,
-          left: padding,
-          right: padding,
-          bottom: padding
-        };
+          var padding = top || right;
+          state.modifiersData['arrow#persistent'].padding = {
+            top: padding,
+            left: padding,
+            right: padding,
+            bottom: padding
+          };
+        } else {
+          // @popperjs/core >= 2.8.4 gets the padding from the arrow modifier options,
+          // so we'll get the margins here, and let the arrow modifier above pass
+          // it to popper.
+          arrowMargins.current = getMargins(state.elements.arrow);
+        }
+
         state.elements.arrow.style.margin = '0';
         return function () {
           if (state.elements.arrow) state.elements.arrow.style.margin = '';
@@ -46352,7 +46471,7 @@ function usePopperMarginModifiers() {
       }
     };
   }, [popoverClass]);
-  return [callback, [offset, popoverArrowMargins]];
+  return [callback, [offset, arrow, popoverArrowMargins]];
 }
 },{"react":"../node_modules/react/index.js","dom-helpers/hasClass":"../node_modules/dom-helpers/esm/hasClass.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js"}],"../node_modules/react-bootstrap/esm/DropdownMenu.js":[function(require,module,exports) {
 "use strict";
@@ -48365,8 +48484,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _AbstractNavItem = _interopRequireDefault(require("./AbstractNavItem"));
 
-var _SelectableContext = require("./SelectableContext");
-
 var _ThemeProvider = require("./ThemeProvider");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -48389,9 +48506,8 @@ var ListGroupItem = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) 
       variant = _ref.variant,
       action = _ref.action,
       as = _ref.as,
-      eventKey = _ref.eventKey,
       onClick = _ref.onClick,
-      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "active", "disabled", "className", "variant", "action", "as", "eventKey", "onClick"]);
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["bsPrefix", "active", "disabled", "className", "variant", "action", "as", "onClick"]);
   bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(bsPrefix, 'list-group-item');
   var handleClick = (0, _react.useCallback)(function (event) {
     if (disabled) {
@@ -48411,9 +48527,7 @@ var ListGroupItem = /*#__PURE__*/_react.default.forwardRef(function (_ref, ref) 
   return /*#__PURE__*/_react.default.createElement(_AbstractNavItem.default, (0, _extends2.default)({
     ref: ref
   }, props, {
-    // TODO: Restrict eventKey to string in v5?
-    eventKey: (0, _SelectableContext.makeEventKey)(eventKey, props.href) // eslint-disable-next-line no-nested-ternary
-    ,
+    // eslint-disable-next-line no-nested-ternary
     as: as || (action ? props.href ? 'a' : 'button' : 'div'),
     onClick: handleClick,
     className: (0, _classnames.default)(className, bsPrefix, active && 'active', disabled && 'disabled', variant && bsPrefix + "-" + variant, action && bsPrefix + "-action")
@@ -48424,7 +48538,7 @@ ListGroupItem.defaultProps = defaultProps;
 ListGroupItem.displayName = 'ListGroupItem';
 var _default = ListGroupItem;
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./AbstractNavItem":"../node_modules/react-bootstrap/esm/AbstractNavItem.js","./SelectableContext":"../node_modules/react-bootstrap/esm/SelectableContext.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js"}],"../node_modules/react-bootstrap/esm/ListGroup.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./AbstractNavItem":"../node_modules/react-bootstrap/esm/AbstractNavItem.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js"}],"../node_modules/react-bootstrap/esm/ListGroup.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -48578,9 +48692,9 @@ var _ownerDocument = _interopRequireDefault(require("./ownerDocument"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * Return the actively focused element safely.
+ * Returns the actively focused element safely.
  *
- * @param doc the document to checl
+ * @param doc the document to check
  */
 function activeElement(doc) {
   if (doc === void 0) {
@@ -48612,6 +48726,12 @@ var _hasClass = _interopRequireDefault(require("./hasClass"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Adds a CSS class to a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
 function addClass(element, className) {
   if (element.classList) element.classList.add(className);else if (!(0, _hasClass.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
 }
@@ -48626,12 +48746,18 @@ exports.default = removeClass;
 function replaceClassName(origClass, classToRemove) {
   return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
 }
+/**
+ * Removes a CSS class from a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
+
 
 function removeClass(element, className) {
   if (element.classList) {
     element.classList.remove(className);
   } else if (typeof element.className === 'string') {
-    ;
     element.className = replaceClassName(element.className, className);
   } else {
     element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
@@ -50205,10 +50331,11 @@ var Nav = /*#__PURE__*/_react.default.forwardRef(function (uncontrolledProps, re
       fill = _useUncontrolled.fill,
       justify = _useUncontrolled.justify,
       navbar = _useUncontrolled.navbar,
+      navbarScroll = _useUncontrolled.navbarScroll,
       className = _useUncontrolled.className,
       children = _useUncontrolled.children,
       activeKey = _useUncontrolled.activeKey,
-      props = (0, _objectWithoutPropertiesLoose2.default)(_useUncontrolled, ["as", "bsPrefix", "variant", "fill", "justify", "navbar", "className", "children", "activeKey"]);
+      props = (0, _objectWithoutPropertiesLoose2.default)(_useUncontrolled, ["as", "bsPrefix", "variant", "fill", "justify", "navbar", "navbarScroll", "className", "children", "activeKey"]);
 
   var bsPrefix = (0, _ThemeProvider.useBootstrapPrefix)(initialBsPrefix, 'nav');
   var navbarBsPrefix;
@@ -50228,7 +50355,7 @@ var Nav = /*#__PURE__*/_react.default.forwardRef(function (uncontrolledProps, re
     as: as,
     ref: ref,
     activeKey: activeKey,
-    className: (0, _classnames.default)(className, (_classNames = {}, _classNames[bsPrefix] = !isNavbar, _classNames[navbarBsPrefix + "-nav"] = isNavbar, _classNames[cardHeaderBsPrefix + "-" + variant] = !!cardHeaderBsPrefix, _classNames[bsPrefix + "-" + variant] = !!variant, _classNames[bsPrefix + "-fill"] = fill, _classNames[bsPrefix + "-justified"] = justify, _classNames))
+    className: (0, _classnames.default)(className, (_classNames = {}, _classNames[bsPrefix] = !isNavbar, _classNames[navbarBsPrefix + "-nav"] = isNavbar, _classNames[navbarBsPrefix + "-nav-scroll"] = isNavbar && navbarScroll, _classNames[cardHeaderBsPrefix + "-" + variant] = !!cardHeaderBsPrefix, _classNames[bsPrefix + "-" + variant] = !!variant, _classNames[bsPrefix + "-fill"] = fill, _classNames[bsPrefix + "-justified"] = justify, _classNames))
   }, props), children);
 });
 
@@ -53670,7 +53797,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -53850,7 +53977,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -54015,7 +54142,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -54389,7 +54516,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -54489,7 +54616,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -55089,7 +55216,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64766" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50129" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
