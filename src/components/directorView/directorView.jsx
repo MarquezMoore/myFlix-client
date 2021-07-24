@@ -2,16 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // React-bootstrap components 
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 
-function DirectorView({ director, onBackClick }) {
+import { MovieCard } from '../movieCard/movieCard'
+
+function DirectorView({ movies, director, onBackClick }) {
   return (
     <>
-      <div>{director.name}</div>
-      <div>{director.bio}</div>
-      <div>{director.birthday}</div>
-      <div>{director.deathday}</div>
-      <Button onClick={onBackClick}>Back</Button>
+      <Container fluid className="hero d-flex flex-column align-items-end p-4" >
+        <Button onClick={onBackClick} className="back-btn action"> &#x2190; Back</Button>
+        <div className="d-flex flex-column text-light justify-content-center align-items-start w-100 h-100 pb-5">
+          <div className="d-flex flex-column">
+            <div>
+              <span className="fs-1">{director.name}</span>
+            </div>
+            <div className="d-flex text-light pb-2">
+              <span className="pe-4"><strong>Birthday:</strong> {director.birthday}</span>
+              <span><strong>{director.deathday ? 'Death: ': ''}</strong> {director.deathday}</span>
+            </div>
+          </div>
+          <span>{director.bio}</span>
+        </div>
+      </Container>
+      <Container>
+        <Row className="m-2">
+          {
+            movies.map( (m, i) => (
+              <Col xs={4} lg={3} key={i} className="p-2">
+                <MovieCard key={m._id} movie={m}/>
+              </Col>
+            ))
+          }
+        </Row>
+      </Container>
     </>
   )
 }

@@ -68,10 +68,10 @@ const MovieView = ({ setUser, user, movie, onBackClick }) => {
   }
 
   return ( 
-    <div className="wrapper w-100">
+    <div className="w-100">
 
-      <Container fluid className="hero" >
-        <Button onClick={onBackClick} className="add mt-3 w-100"> Back</Button>
+      <Container fluid className="hero d-flex flex-column align-items-end p-4" >
+        <Button onClick={onBackClick} className="back-btn action"> &#x2190; Back</Button>
       </Container>
 
       <Container className="movie-view p-4">

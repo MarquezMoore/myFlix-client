@@ -97,7 +97,7 @@ const MainView = ({ user, movies, setUser, setMovies, movieFilter }) => {
     <Router>
       {/* Start of Route Wrapper */}
       <div className="d-flex flex-grow-1">
-  {/* Start of MainList Route */}
+  {/* Start of MainView Route */}
         <Route exact path="/" render={
           () => {
             if( user.token === '' ) return (
@@ -191,9 +191,10 @@ const MainView = ({ user, movies, setUser, setMovies, movieFilter }) => {
                   <Col className="col-3 p-0">
                     <SideBar />
                   </Col>
-                  <Col className="col-9">
+                  <Col className="col-9 p-0">
                     <DirectorView 
                       director={movies.find( m => m.director.name === match.params.directorId).director} 
+                      movies={movies.filter( m => m.director.name === match.params.directorId)} 
                       onBackClick={() => history.goBack()} 
                     />
                   </Col>
@@ -221,7 +222,7 @@ const MainView = ({ user, movies, setUser, setMovies, movieFilter }) => {
                   <Col className="col-3 p-0">
                     <SideBar />
                   </Col>
-                  <Col className="col-9">
+                  <Col className="col-9 p-0">
                     <GenreView 
                       movies={movies.filter( m => m.genre.name === match.params.genreId)} 
                       onBackClick={() => history.goBack()} 
@@ -250,7 +251,7 @@ const MainView = ({ user, movies, setUser, setMovies, movieFilter }) => {
                 <Col className="col-3 p-0">
                     <SideBar />
                 </Col>
-                <Col className="p-0">
+                <Col className="col-9 p-0">
                   <ProfileView  
                     token={localStorage.getItem('token')} 
                     onBackClick={() => history.goBack()} 

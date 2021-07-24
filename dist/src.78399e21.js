@@ -53635,7 +53635,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/searchBar/searchBar.jsx":[function(require,module,exports) {
+},{"./../../assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg":[["denise-jans-Lq6rcifGjOU-unsplash.328541bd.jpg","assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/searchBar/searchBar.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53868,14 +53868,14 @@ var MovieView = function MovieView(_ref) {
   };
 
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "wrapper w-100"
+    className: "w-100"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     fluid: true,
-    className: "hero"
+    className: "hero d-flex flex-column align-items-end p-4"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     onClick: onBackClick,
-    className: "add mt-3 w-100"
-  }, " Back")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    className: "back-btn action"
+  }, " \u2190 Back")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     className: "movie-view p-4"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "d-flex movie-container"
@@ -53943,7 +53943,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/loginView/loginView.jsx":[function(require,module,exports) {
+},{"./../../assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg":[["denise-jans-Lq6rcifGjOU-unsplash.328541bd.jpg","assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/loginView/loginView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54108,7 +54108,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registrationView/registrationView.jsx":[function(require,module,exports) {
+},{"./../../assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg":[["denise-jans-Lq6rcifGjOU-unsplash.328541bd.jpg","assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registrationView/registrationView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54331,15 +54331,44 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactBootstrap = require("react-bootstrap");
 
+var _movieCard = require("../movieCard/movieCard");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // React-bootstrap components 
 function DirectorView(_ref) {
-  var director = _ref.director,
+  var movies = _ref.movies,
+      director = _ref.director,
       onBackClick = _ref.onBackClick;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, director.name), /*#__PURE__*/_react.default.createElement("div", null, director.bio), /*#__PURE__*/_react.default.createElement("div", null, director.birthday), /*#__PURE__*/_react.default.createElement("div", null, director.deathday), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    onClick: onBackClick
-  }, "Back"));
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    fluid: true,
+    className: "hero d-flex flex-column align-items-end p-4"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    onClick: onBackClick,
+    className: "back-btn action"
+  }, " \u2190 Back"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "d-flex flex-column text-light justify-content-center align-items-start w-100 h-100 pb-5"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "d-flex flex-column"
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("span", {
+    className: "fs-1"
+  }, director.name)), /*#__PURE__*/_react.default.createElement("div", {
+    className: "d-flex text-light pb-2"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "pe-4"
+  }, /*#__PURE__*/_react.default.createElement("strong", null, "Birthday:"), " ", director.birthday), /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement("strong", null, director.deathday ? 'Death: ' : ''), " ", director.deathday))), /*#__PURE__*/_react.default.createElement("span", null, director.bio))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "m-2"
+  }, movies.map(function (m, i) {
+    return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+      xs: 4,
+      lg: 3,
+      key: i,
+      className: "p-2"
+    }, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
+      key: m._id,
+      movie: m
+    }));
+  }))));
 }
 
 DirectorView.prototypes = {
@@ -54348,7 +54377,7 @@ DirectorView.prototypes = {
 };
 var _default = DirectorView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js"}],"components/genreView/genreView.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../movieCard/movieCard":"components/movieCard/movieCard.jsx"}],"components/genreView/genreView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54371,9 +54400,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var GenreView = function GenreView(_ref) {
   var movies = _ref.movies,
       onBackClick = _ref.onBackClick;
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    onClick: onBackClick
-  }, " Back "), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("pre", null, movies[0].genre.name), /*#__PURE__*/_react.default.createElement("pre", null, movies[0].genre.description)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, movies.map(function (m, i) {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    fluid: true,
+    className: "hero d-flex flex-column align-items-end p-4"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    onClick: onBackClick,
+    className: "back-btn action"
+  }, " \u2190 Back"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "d-flex flex-column text-light justify-content-center align-items-start w-100 h-100 pb-5"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "fs-1"
+  }, movies[0].genre.name), /*#__PURE__*/_react.default.createElement("p", null, movies[0].genre.description))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "m-2"
+  }, movies.map(function (m, i) {
     return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
       xs: 4,
       lg: 3,
@@ -54397,7 +54436,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/navBar/navBar.jsx":[function(require,module,exports) {
+},{"./../../assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg":[["denise-jans-Lq6rcifGjOU-unsplash.328541bd.jpg","assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/navBar/navBar.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54455,14 +54494,15 @@ function NavBar(_ref) {
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
     className: "navbar d-flex justify-content-between text-light px-5 py-3"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
-    className: "text-light",
+    className: "action text-light",
     href: "/"
   }, "MyFlix"), /*#__PURE__*/_react.default.createElement("div", {
     className: "d-flex align-items-center"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "../profile",
-    className: "px-4"
-  }, "My List"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    className: "action px-4 text-light"
+  }, "Favorites"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "action text-light",
     onClick: logOut
   }, "Sign Out")));
 }
@@ -54508,6 +54548,8 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -54547,18 +54589,31 @@ var ProfileView = function ProfileView(_ref) {
       setUserFavorites = _useState2[1];
 
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "wrapper d-flex flex-grow-1"
+    className: "wrapper d-flex flex-column flex-grow-1"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
-    className: "userMovies"
+    fluid: true,
+    className: "hero d-flex flex-column align-items-end p-4"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    className: "btn-light border-dark mr-2 ",
-    onClick: onBackClick
-  }, "Back"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, userFavorites.length === 0 ? /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    onClick: onBackClick,
+    className: "back-btn action"
+  }, " \u2190 Back"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "d-flex flex-column text-light justify-content-center align-items-start w-100 h-100 pb-5"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "fs-1"
+  }, "Favorites"))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    className: "userMovies"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "m-2"
+  }, userFavorites.length === 0 ? /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "text-dark"
   }, "No have no favorites... ") : userFavorites.map(function (m, i) {
-    return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-      key: "col-".concat(i)
-    }, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
+    var _React$createElement;
+
+    return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, (_React$createElement = {
+      key: "col-".concat(i),
+      xs: 4,
+      lg: 3
+    }, _defineProperty(_React$createElement, "key", i), _defineProperty(_React$createElement, "className", "p-2"), _React$createElement), /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
       key: "movie-".concat(i),
       movie: m
     }));
@@ -54580,7 +54635,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/sideBar/sideBar.jsx":[function(require,module,exports) {
+},{"./../../assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg":[["denise-jans-Lq6rcifGjOU-unsplash.328541bd.jpg","assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/sideBar/sideBar.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54704,21 +54759,22 @@ var SideBar = function SideBar(_ref) {
   };
 
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "shadow border-end side-bar flex-1 d-flex flex-column h-100 overflow-hidden p-5"
-  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "side-bar d-flex flex-column flex-1 shadow border-end h-100 p-5"
+  }, /*#__PURE__*/_react.default.createElement("section", {
     className: "d-flex flex-column"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Image, {
     fluid: true,
-    className: "profile-image align-self-center",
+    width: "150",
+    className: "profile-image align-self-center rounded-circle",
     src: "https://via.placeholder.com/1000",
     alt: "Profile Image"
   }), /*#__PURE__*/_react.default.createElement("div", {
     className: "py-4 d-flex flex-column"
   }, /*#__PURE__*/_react.default.createElement("span", {
-    className: "fs-4 user-name"
+    className: "fs-5 user-name"
   }, "".concat(user.data.firstName, " ").concat(user.data.lastName)), /*#__PURE__*/_react.default.createElement("span", {
-    className: "fs-5 user-username"
-  }, user.data.username)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+    className: "fs-6 user-username"
+  }, "@ ", user.data.username))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
     hidden: !hidden,
     className: "update-form"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
@@ -54766,13 +54822,15 @@ var SideBar = function SideBar(_ref) {
     hidden: !hidden,
     onClick: updateUser,
     className: "save-edit ms-2 align-self-center w-100 edit-profile"
-  }, "Save"))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+  }, "Save"))), /*#__PURE__*/_react.default.createElement("section", {
+    className: "mt-4"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     hidden: hidden,
     onClick: handleClick,
-    className: "align-self-center w-100 edit-profile"
+    className: "btn-sm align-self-center w-100 edit-profile"
   }, "Edit Profile"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     onClick: deleteUser,
-    className: "align-self-center w-100 edit-profile my-4"
+    className: "btn-sm align-self-center w-100 edit-profile my-4"
   }, "Delete Profile")));
 };
 
@@ -54791,7 +54849,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/mainView/mainView.jsx":[function(require,module,exports) {
+},{"./../../assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg":[["denise-jans-Lq6rcifGjOU-unsplash.328541bd.jpg","assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"assets/img/denise-jans-Lq6rcifGjOU-unsplash.jpg"],"_css_loader":"../../../../../../.nvm/versions/node/v14.16.0/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/mainView/mainView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -55005,11 +55063,14 @@ var MainView = function MainView(_ref) {
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
         className: "col-3 p-0"
       }, /*#__PURE__*/_react.default.createElement(_sideBar.default, null)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-        className: "col-9"
+        className: "col-9 p-0"
       }, /*#__PURE__*/_react.default.createElement(_directorView.default, {
         director: movies.find(function (m) {
           return m.director.name === match.params.directorId;
         }).director,
+        movies: movies.filter(function (m) {
+          return m.director.name === match.params.directorId;
+        }),
         onBackClick: function onBackClick() {
           return history.goBack();
         }
@@ -55033,7 +55094,7 @@ var MainView = function MainView(_ref) {
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
         className: "col-3 p-0"
       }, /*#__PURE__*/_react.default.createElement(_sideBar.default, null)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-        className: "col-9"
+        className: "col-9 p-0"
       }, /*#__PURE__*/_react.default.createElement(_genreView.default, {
         movies: movies.filter(function (m) {
           return m.genre.name === match.params.genreId;
@@ -55060,7 +55121,7 @@ var MainView = function MainView(_ref) {
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
         className: "col-3 p-0"
       }, /*#__PURE__*/_react.default.createElement(_sideBar.default, null)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-        className: "p-0"
+        className: "col-9 p-0"
       }, /*#__PURE__*/_react.default.createElement(_profileView.default, {
         token: localStorage.getItem('token'),
         onBackClick: function onBackClick() {
@@ -55218,7 +55279,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52594" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52914" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

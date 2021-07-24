@@ -35,11 +35,11 @@ function NavBar({ user, setUser , deleteProfile }){
 
   return (
     <Navbar className="navbar d-flex justify-content-between text-light px-5 py-3" >
-      <Navbar.Brand className="text-light" href="/">MyFlix</Navbar.Brand>
+      <Navbar.Brand className="action text-light" href="/">MyFlix</Navbar.Brand>
 
       <div className="d-flex align-items-center">
-        <Link to="../profile" className="px-4">My List</Link>
-        <Button onClick={logOut}>Sign Out</Button>
+        <Link to="../profile" className="action px-4 text-light">Favorites</Link>
+        <span className="action text-light" onClick={logOut}>Sign Out</span>
       </div>
     </Navbar>
  

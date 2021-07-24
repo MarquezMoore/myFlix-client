@@ -68,14 +68,14 @@ const SideBar = ({ setUser, user }) => {
 
 
   return (
-    <div className="shadow border-end side-bar flex-1 d-flex flex-column h-100 overflow-hidden p-5">
-      <div className="d-flex flex-column">
-        <Image fluid className="profile-image align-self-center" src="https://via.placeholder.com/1000" alt="Profile Image"/>
-        <div className="py-4 d-flex flex-column">
-          <span className="fs-4 user-name">{`${user.data.firstName} ${user.data.lastName}`}</span>
-          <span className="fs-5 user-username">{user.data.username}</span>
-        </div>
-
+    <div className="side-bar d-flex flex-column flex-1 shadow border-end h-100 p-5">
+        <section className="d-flex flex-column">
+          <Image fluid width="150" className="profile-image align-self-center rounded-circle" src="https://via.placeholder.com/1000" alt="Profile Image"/>
+          <div className="py-4 d-flex flex-column">
+            <span className="fs-5 user-name">{`${user.data.firstName} ${user.data.lastName}`}</span>
+            <span className="fs-6 user-username">@ {user.data.username}</span>
+          </div>
+        </section>
         <Form hidden={!hidden} className="update-form" >
             <Form.Group>
               <Form.Control 
@@ -117,10 +117,10 @@ const SideBar = ({ setUser, user }) => {
               <Button hidden={!hidden} onClick={updateUser} className="save-edit ms-2 align-self-center w-100 edit-profile">Save</Button>
             </div>
         </Form>
-
-        <Button hidden={hidden} onClick={handleClick} className="align-self-center w-100 edit-profile">Edit Profile</Button>
-        <Button onClick={deleteUser} className="align-self-center w-100 edit-profile my-4">Delete Profile</Button>
-      </div>
+        <section className="mt-4">
+          <Button hidden={hidden} onClick={handleClick} className="btn-sm align-self-center w-100 edit-profile">Edit Profile</Button>
+          <Button onClick={deleteUser} className="btn-sm align-self-center w-100 edit-profile my-4">Delete Profile</Button>
+        </section>
     </div>
   );
 }
