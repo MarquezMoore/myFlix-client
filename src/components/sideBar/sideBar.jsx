@@ -39,7 +39,7 @@ const SideBar = ({ setUser, user }) => {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     })
     .then( user => {
-      // console.log(user)
+      console.log(user)
       setUser(user.data);
       hidden === '' ? setHidden('hidden') : setHidden('');
     })
@@ -79,35 +79,35 @@ const SideBar = ({ setUser, user }) => {
             <Form.Group>
               <Form.Control 
               type="text" 
-              placeholder={user.data.firstName} 
+              placeholder={user.data.firstName ? user.data.firstName : 'First Name'} 
               value={ firstName } 
               onChange={  e => setFirstName(e.target.value) }/>
             </Form.Group>
             <Form.Group>
               <Form.Control 
               type="text" 
-              placeholder={user.data.lastName} 
+              placeholder={user.data.lastName ? user.data.lastName : 'Last Name'} 
               value={ lastName }
               onChange={  e => setLastName(e.target.value) }/>
             </Form.Group>
             <Form.Group>
               <Form.Control 
               type="text" 
-              placeholder={user.data.username} 
+              placeholder={user.data.username ? user.data.username : 'Username'} 
               value={ username }
               onChange={  e => setUsername(e.target.value) }/>
             </Form.Group>
             <Form.Group>
               <Form.Control 
               type="email" 
-              placeholder={user.data.email} 
+              placeholder={user.data.email ? user.data.email : 'Email'} 
               value={ email }
               onChange={  e => setEmail(e.target.value) }/>
             </Form.Group>
             <Form.Group>
               <Form.Control 
               type="text" 
-              placeholder={user.data.birthday} 
+              placeholder={user.data.birthday ? user.data.birthday : 'Birthday'} 
               value={ birthday }
               onChange={  e => setBirthday(e.target.value) }/>
             </Form.Group>

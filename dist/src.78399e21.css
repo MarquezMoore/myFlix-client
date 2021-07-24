@@ -4,7 +4,6 @@
 }
 .action:hover {
   transform: scale(1.05);
-  opacity: 75%;
   text-decoration: none !important;
   cursor: pointer;
 }
@@ -41,7 +40,6 @@
 }
 .action:hover {
   transform: scale(1.05);
-  opacity: 75%;
   text-decoration: none !important;
   cursor: pointer;
 }
@@ -123,7 +121,6 @@
 }
 .action:hover {
   transform: scale(1.05);
-  opacity: 75%;
   text-decoration: none !important;
   cursor: pointer;
 }
@@ -196,7 +193,6 @@
 }
 .action:hover {
   transform: scale(1.05);
-  opacity: 75%;
   text-decoration: none !important;
   cursor: pointer;
 }
@@ -274,7 +270,6 @@
 }
 .action:hover {
   transform: scale(1.05);
-  opacity: 75%;
   text-decoration: none !important;
   cursor: pointer;
 }
@@ -302,7 +297,6 @@
 }
 .action:hover {
   transform: scale(1.05);
-  opacity: 75%;
   text-decoration: none !important;
   cursor: pointer;
 }
@@ -391,7 +385,6 @@
 }
 .action:hover {
   transform: scale(1.05);
-  opacity: 75%;
   text-decoration: none !important;
   cursor: pointer;
 }

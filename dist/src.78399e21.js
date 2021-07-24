@@ -54731,7 +54731,7 @@ var SideBar = function SideBar(_ref) {
         Authorization: "Bearer ".concat(localStorage.getItem('token'))
       }
     }).then(function (user) {
-      // console.log(user)
+      console.log(user);
       setUser(user.data);
       hidden === '' ? setHidden('hidden') : setHidden('');
     }).catch(function (err) {
@@ -54777,35 +54777,35 @@ var SideBar = function SideBar(_ref) {
     className: "update-form"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    placeholder: user.data.firstName,
+    placeholder: user.data.firstName ? user.data.firstName : 'First Name',
     value: firstName,
     onChange: function onChange(e) {
       return setFirstName(e.target.value);
     }
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    placeholder: user.data.lastName,
+    placeholder: user.data.lastName ? user.data.lastName : 'Last Name',
     value: lastName,
     onChange: function onChange(e) {
       return setLastName(e.target.value);
     }
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    placeholder: user.data.username,
+    placeholder: user.data.username ? user.data.username : 'Username',
     value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     }
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "email",
-    placeholder: user.data.email,
+    placeholder: user.data.email ? user.data.email : 'Email',
     value: email,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     }
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    placeholder: user.data.birthday,
+    placeholder: user.data.birthday ? user.data.birthday : 'Birthday',
     value: birthday,
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
@@ -55277,7 +55277,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57299" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65265" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
