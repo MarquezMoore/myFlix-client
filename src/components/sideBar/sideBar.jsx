@@ -87,14 +87,14 @@ const SideBar = ({ setUser, user }) => {
             <Form.Group>
               <Form.Control 
               type="text" 
-              placeholder={`${user.data.lastName}`} 
+              placeholder={user.data.lastName} 
               value={ lastName }
               onChange={  e => setLastName(e.target.value) }/>
             </Form.Group>
             <Form.Group>
               <Form.Control 
               type="text" 
-              placeholder={`Username ${user}`} 
+              placeholder={user.data.username} 
               value={ username }
               onChange={  e => setUsername(e.target.value) }/>
             </Form.Group>
