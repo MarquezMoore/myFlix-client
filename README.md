@@ -9,7 +9,9 @@
 - [Features](#Features)
 - [Technical-Specks](#Technical-Specks)
 
-![See in action!](./assets/live-demo.gif)
+
+## Browser Demo
+![MyFlix Browser Demo!](./assets/myFlix.gif)
 
 ## Objective
 The objective of this project was to build a server-side component, API, of a “movies” web application. The web application provides clients with access to information about different movies, directors, and genres. Clients will be able to register users, update user profile information, and create a list of user's favorite movies.
