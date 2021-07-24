@@ -54356,7 +54356,7 @@ function DirectorView(_ref) {
     className: "d-flex text-light pb-2"
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "pe-4"
-  }, /*#__PURE__*/_react.default.createElement("strong", null, "Birthday:"), " ", director.birthday), /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement("strong", null, director.deathday ? 'Death: ' : ''), " ", director.deathday))), /*#__PURE__*/_react.default.createElement("span", null, director.bio))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, /*#__PURE__*/_react.default.createElement("strong", null, "Born:"), " ", director.birthday), /*#__PURE__*/_react.default.createElement("span", null, /*#__PURE__*/_react.default.createElement("strong", null, director.deathday ? 'Death: ' : ''), " ", director.deathday))), /*#__PURE__*/_react.default.createElement("span", null, director.bio))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "m-2"
   }, movies.map(function (m, i) {
     return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
@@ -54720,21 +54720,19 @@ var SideBar = function SideBar(_ref) {
 
 
   var updateUser = function updateUser() {
-    console.log(user);
-
     _axios.default.put("https://my-fav-flix.herokuapp.com/api/users/".concat(user.data.username), {
-      username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      birthday: user.birthday
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      birthday: birthday
     }, {
       headers: {
         Authorization: "Bearer ".concat(localStorage.getItem('token'))
       }
     }).then(function (user) {
-      console.log(user);
-      setUser(user);
+      // console.log(user)
+      setUser(user.data);
       hidden === '' ? setHidden('hidden') : setHidden('');
     }).catch(function (err) {
       console.log(err);
@@ -54786,14 +54784,14 @@ var SideBar = function SideBar(_ref) {
     }
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    placeholder: "".concat(user.data.lastName),
+    placeholder: user.data.lastName,
     value: lastName,
     onChange: function onChange(e) {
       return setLastName(e.target.value);
     }
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
     type: "text",
-    placeholder: "Username ".concat(user),
+    placeholder: user.data.username,
     value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
@@ -55279,7 +55277,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52914" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57299" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

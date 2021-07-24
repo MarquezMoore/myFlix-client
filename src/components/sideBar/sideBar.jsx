@@ -29,19 +29,18 @@ const SideBar = ({ setUser, user }) => {
   update user record
 */
   const updateUser = () => {
-    console.log(user);
     axios.put(`https://my-fav-flix.herokuapp.com/api/users/${user.data.username}`,{
-      username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      birthday: user.birthday
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      birthday: birthday
     }, {
       headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
     })
     .then( user => {
-      console.log(user)
-      setUser(user);
+      // console.log(user)
+      setUser(user.data);
       hidden === '' ? setHidden('hidden') : setHidden('');
     })
     .catch( err => {
