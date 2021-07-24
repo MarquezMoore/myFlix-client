@@ -4,7 +4,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 
 // Actions
-import { setUser, setMovies } from '../../actions/actions'
+import { setUser, setMovies, movieFilter} from '../../actions/actions'
 
 // React-router-DOM components
 import { BrowserRouter as Router, Route, Redirect , Link } from 'react-router-dom'; 
@@ -27,7 +27,8 @@ import SideBar from '../sideBar/sideBar'
 import './mainView.scss'
 
 
-const MainView = ({ user, movies, setUser, setMovies }) => {
+const MainView = ({ user, movies, setUser, setMovies, movieFilter }) => {
+
 /*
 
   Login
@@ -281,6 +282,6 @@ let mapStateToProps = state => {
   
 }
 
-export default connect(mapStateToProps, { setUser, setMovies })(MainView);
+export default connect(mapStateToProps, { setUser, setMovies, movieFilter })(MainView);
 
 
