@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -17,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/MarquezMoore/myFlix-client/issues"
   },
-  "homepage": "https://github.com/MarquezMoore/myFlix-client#readme",
+  "homepage": "https://github.com/MarquezMoore/myFlix-client",
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
