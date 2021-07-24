@@ -23,7 +23,8 @@ The objective of this project was to build a Single Page Application application
 - React
 - Redux
 - jsdoc 
-- 
+- Parcel
+- Netfilty
 
 ## Features
 - Fetches list of all movies and their related details from database and display to users.
