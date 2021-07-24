@@ -17,7 +17,7 @@ function DirectorView({ movies, director, onBackClick }) {
               <span className="fs-1">{director.name}</span>
             </div>
             <div className="d-flex text-light pb-2">
-              <span className="pe-4"><strong>Birthday:</strong> {director.birthday}</span>
+              <span className="pe-4"><strong>Born:</strong> {director.birthday}</span>
               <span><strong>{director.deathday ? 'Death: ': ''}</strong> {director.deathday}</span>
             </div>
           </div>
