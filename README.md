@@ -1,7 +1,9 @@
 # myFlix-client
 
+<div align="center">
+  <a href="https://myflix-project.netlify.app/" alt="View in browser">View in Broswer</a>
+</div>
 
-[View in Broswer](https://marquezmoore.github.io/Pokemon_API_APP/)
 
 ## Table of Contents
 - [Objective](#Objective)
@@ -14,35 +16,30 @@
 ![MyFlix Browser Demo!](./src/assets/myFlix.gif)
 
 ## Objective
-The objective of this project was to build a server-side component, API, of a “movies” web application. The web application provides clients with access to information about different movies, directors, and genres. Clients will be able to register users, update user profile information, and create a list of user's favorite movies.
+The objective of this project was to build a Single Page Application application that communicates with my <a href="https://github.com/MarquezMoore/myFlix-server">myFlix-server</a> RESTfull-API. 
 
 ## Technologies
 - Node.js
-- Express
-- MongoDB
-- Mongoose
+- React
+- Redux
 - jsdoc 
 
 ## Features
-- Returns a list of ALL movies to the user
-- Returns data (description, genre, director, image URL, whether it’s featured or not) about a
-single movie by title to the user
-- Returns data about a genre by name
-- Returns data about a director by name
-- Allows new users to register
-- Allows users to update their user info (username, password, email, date of birth)
-- Allows users to add a movie to their list of favorites
-- Allows users to remove a movie from their list of favorites
-- Allows existing users to deregister
+- Fetches list of all movies and their related details from database and display to users.
+- Allows users to filter movies via search bar.
+- Allows users select a movie to view details relating to the selected movie.
+- Allows registration and login.
+- Fetches data about a genre, with a name and description.
+- Fetches data about a director of listed movies.
+- Allows users to update their user info.
+- Allows existing users to delete their account.
+- Allows users add of remove movies from their favorites.
 ## Technical-Specks
-- The API is build with Node.js and Express.
-- The API uses REST architecture, with URL endpoints corresponding to the data
-operations listed above.
-- The API uses at middleware modules, such as the body-parser package for
-reading data from requests and morgan for logging.
-- The database is built using MongoDB.
-- The business logic is modeled with Mongoose.
-- The API was tested via Postman.
-- The API uses passport JWT based for authorization and authentication and the express validator for input validation.
-- Document with jsdoc
-- The API is deployed to Heroku.
+- Application is a Single Page Application (SPA)
+- Application uses state router to navigate between views.
+- Application uses parcel ass its build tool.
+- Application was writtern using the React librarby
+- Application uses Redux for state management following flux pattern.
+- Application was styled with bootstrap and react-bootstrap.
+- Application contains a mix of class and functional components.
+- Application is host on Netlify
